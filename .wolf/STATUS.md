@@ -27,4 +27,5 @@ _Updated 2026-10-27_
 
 - The two original B&G PDFs were reviewed: schematic title block V1.2; layout PDF filename V1.2 but **silkscreen says V1.1**. Preserve this source revision difference rather than assuming installed board identity.
 
+- **2026-10-27 user confirmation:** internal MS relay-box circuitry is stock/original; CB2 was not deliberately removed or bypassed. Original B&G BOM allows RXE105 **or** RXE110, despite schematic CB2 label RXE105; fitted marking remains unknown.
 - Potential mechanism only: B&G source schematic ECU feed passes CB2 RXE105. If installed output to shared ECU/H-bridge screw actually traverses CB2, PWM load could cause voltage loss/PTC thermal trip; this is not established and must be distinguished from shared return impedance or other failures. Do not bypass protective components.
