@@ -1,0 +1,59 @@
+# As-built inspection and electrical measurement worksheet
+
+**Vehicle:** Volvo 940 Turbo / EpicEFI Mega144H7  
+**Purpose:** close F6 (physical inventory) and support F7 (quantitative requirements). Record raw observations. Empty fields mean **not measured**, not zero.
+
+## Session identification
+
+| Field | Record |
+|---|---|
+| Date/time/time zone | TBD |
+| Technician / observer | TBD |
+| Vehicle condition (cold/heat-soaked) | TBD |
+| Ambient / board / relay temperature (method) | TBD |
+| Battery resting voltage and condition | TBD |
+| Engine RPM, CLT, fan, pump and other load states | TBD |
+| Charging voltage at specified reference | TBD |
+| Instrument model, range, calibration / resolution | TBD |
+| Test reference point and physical probe location | TBD |
+| Photos, logs and meter-readout identifiers | TBD |
+
+## Physical trace sheet — repeat per branch
+
+| ID | Source terminal | Destination terminal | Connector cavity | Conductor marking / measured size | Fuse position and installed marking | Relay markings/contact terminals | Ground return path | Evidence photo/continuity/date |
+|---|---|---|---|---|---|---|---|---|
+| E01–E20 | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
+
+Label wire markings as **observed** until conductor cross-section is confirmed. Record uncertain or modified splices separately, including whether they are crimped, soldered or terminal-block connections.
+
+## Loaded voltage-drop session — one row per segment per load state
+
+Measure directly across the two ends of the segment when feasible, and note polarity. If using a shared negative reference for two separately measured absolute voltages, take readings promptly under the same stable load and record their difference; never combine readings across separate sessions.
+
+| Timestamp | Segment (e.g. battery+→box input) | Probe A physical point | Probe B physical point | Load/RPM state | Voltage A-to-B (mV) | Current (A, independently measured) | Temperature | Instrument/method | Evidence |
+|---|---|---|---|---|---|---|---|---|---|
+| TBD | TBD | TBD | TBD | TBD | Not measured | Not measured | TBD | TBD | TBD |
+
+**Required segment set (where physically confirmed):** source positive→box inlet; fuse inlet→outlet; main relay contact inlet→outlet; any *actually installed* polyfuse inlet→outlet; box outlet→ECU terminal; ECU power-ground→battery-negative/engine-star ground; H-bridge feed and return individually. Repeat in appropriate load states rather than assuming one total result covers all conditions.
+
+## Dynamic observations / fault-state record
+
+| Test/state | Expected safe behavior (to verify) | Observation | Evidence |
+|---|---|---|---|
+| Key OFF | Fuel pump OFF, no unintended retained engine loads | Not tested | TBD |
+| Key ON, engine stopped after any allowed prime | Fuel pump OFF outside any explicitly documented prime window | Not tested | TBD |
+| Engine running normally | Stable ECU supply and correct fuel-pump behavior | Not tested | TBD |
+| Engine stall / ECU command loss | Pump shuts down through the defined hardware/ECU control logic | Not tested | TBD |
+| DC idle H-bridge PWM change | No unacceptable ECU supply/ground disturbance | Not tested | TBD |
+| Hot relays / fan or pump startup | No thermal anomaly or supply brownout | Not tested | TBD |
+
+These are **observation targets**, not instructions to disable fuel, unplug the running ECU or provoke dangerous faults on the road. Failure injection and high-current tests require a separately planned safe bench procedure and suitable instruments.
+
+## Measurement safety and acceptance boundaries
+
+- Do not bridge fuse or relay contacts, bypass protection, probe high-current conductors with an unfused meter-current input, or disturb ECU sensor ground.
+- Check meter lead placement and fuse rating before changing voltage/current modes. Current must be measured with a suitable, rated clamp or other appropriate non-destructive method; do not place a handheld ammeter across the battery.
+- Use engine-off photos and terminal identification first. Disconnect battery negative only according to an appropriate vehicle-service procedure, protecting ECU and other electronics.
+- Keep probes clear of belts, fan, hot manifold and moving linkages. For live tests use appropriately secured probes and an assistant where needed.
+- Never treat heat felt through plastic as a temperature measurement. Record instrument, surface and ambient conditions if thermal comparison is needed.
+- No fuse, cable, relay, TVS or PCB rating is finalized until measured currents, wiring and thermal/fault requirements are reviewed.
