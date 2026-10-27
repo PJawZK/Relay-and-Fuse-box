@@ -33,6 +33,12 @@ The H-bridge currently shares the aftermarket ECU's own positive and power-groun
 
 The **2/23 vs 2/13** distinction must be settled from the exact original Volvo variant schematic or by unambiguous installed relay/socket identification, rather than inferring from a generic component index. Historical February 2026 conversation also listed the above candidate positions; any claim then that `2/23 must remain` is **superseded** by the user's October 2026 explicit no-OEM-EFI-reuse correction.
 
+## Preferred first diagnostic — use the unused LH2.4 ECU plug
+
+The user proposes measuring the retained original **LH2.4 35-position ECU harness connector** first. This may avoid accessing/cutting the cramped fuse-board wiring altogether. A 940 LH2.4 pin-function source identifies **20 → fuel-pump relay low-side coil control (86/2)**, **21 → main injection relay low-side control (86/1)**, **35 → terminal-15 ignition-switched +12V input**, **4 → terminal-30 constant +12V**, **9 → switched output from original main EFI relay**. Their pin numbers and relay cavity connections require verification on the 1997 B230FK wiring. With LH ECU removed, **pins 20/21 will not actively command the relay**; a positive reading through a connected coil is *not* a valid trigger.
+
+Use the read-only voltage and isolated-continuity checklist in [`LH24_CONNECTOR_RELAY_VERIFICATION.md`](LH24_CONNECTOR_RELAY_VERIFICATION.md) before considering any harness cutting, new coil drive, or fuse/relay selection. A terminal-15 signal at pin 35 is a possible low-current control reference, **not motor supply**. Keep ECU, live aftermarket pump supply and sensor grounds out of the proposed actuator feed.
+
 ## Selection and test gates for DC idle H-bridge relocation
 
 1. **Identify candidate's actual relay/socket location, contacts and feed net**, from an applicable diagram and/or user text inspection. A documented relay symbol or an empty socket does not guarantee wired terminals. Avoid requesting inaccessible photographs when text identification is sufficient.
