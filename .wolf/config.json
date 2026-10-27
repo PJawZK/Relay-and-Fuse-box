@@ -48,7 +48,6 @@
         "googletest",
         "luaaa",
         "gcov_working_area",
-        "hardware",
         "cmake-build-remote-debug",
         "DOCSOUT",
         "_original"
@@ -63,7 +62,7 @@
       "chars_per_token_prose": 4
     },
     "cron": {
-      "enabled": true,
+      "enabled": false,
       "max_retry_attempts": 3,
       "dead_letter_enabled": true,
       "heartbeat_interval_minutes": 30,
@@ -83,12 +82,12 @@
       "log_level": "info"
     },
     "dashboard": {
-      "enabled": true,
+      "enabled": false,
       "port": 18791,
       "host": "127.0.0.1"
     },
     "designqc": {
-      "enabled": true,
+      "enabled": false,
       "viewports": [
         {
           "name": "desktop",
