@@ -1,0 +1,4 @@
+# Local-only, optional cloud tooling
+.local/
+__pycache__/
+.pytest_cache/
