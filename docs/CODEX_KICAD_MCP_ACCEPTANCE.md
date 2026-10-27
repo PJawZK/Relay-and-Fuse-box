@@ -55,30 +55,21 @@ not permission to substitute a manually scripted `ClientSession` call.
 
 Reference: https://learn.chatgpt.com/docs/extend/mcp
 
-## Proposed live Codex acceptance report
+## Live native Codex acceptance — 2026-10-27 (passed)
 
-A genuine Codex session is still required. In the actual environment, first
-show `codex --version`, `codex mcp list`, MCP server state and the exact
-project commit. Do not count a direct Python `ClientSession` call as Codex
-MCP discovery; that portion was already proven in GitHub Actions.
+Evidence was supplied by the user as Codex CLI session JSONL records and reviewed locally. The raw log contains user/session metadata and is intentionally **not committed**. Extracted, non-sensitive evidence:
 
-**Safety prerequisite:** use only the fixture-only façade. The full upstream MCP server is not authorized for Codex. Only enable the project's disabled config locally after the allowlist CI passes. The façade's tool has no file-path input, so agents cannot point it at the real electrical designs. A prompt
-that says 'do not edit' is not a tool-level read-only restriction. Do not
-activate in a workspace holding sensitive or real KiCad design files until a
-server-side allowlist or equivalent restriction has been tested.
+- Executor: existing browser Codespace `codespaces-995a05`, repository branch `infra/kicad-mcp-smoke`, Git HEAD `31281b9f9b2d04cff6e067f950a1d93cc2c1434d`.
+- Agent: **Codex CLI 0.164.0**, authenticated with ChatGPT. Prior screenshot showed `kicad_relay_readonly_test: connected (1 tool)`.
+- Native Codex tool discovery yielded exactly `mcp__kicad_relay_readonly_test__list_schematic_components` (no other tool from this server).
+- The session includes an actual `McpToolCall` event: server `kicad_relay_readonly_test`, tool `list_schematic_components`, arguments `{}`, status `completed`, `isError: false`.
+- Tool result: `R1: 10k`, `R2: 4.7k`, `C1: 100nF`, `U1: ESP32-WROOM-32`, `J1: Conn_01x04`, `R3: 0R`.
+- The agent's final response reported no modified files. Independent post-agent `git status --short` was **not supplied**. GitHub Actions separately validated unchanged fixture hashes and no tracked source mutations for the restricted service.
+- The Codex runtime invoked the actual server-provided MCP tool, not a stand-alone Python client. **Native Codespaces agent invocation gate: PASS.**
 
-An acceptance report should contain the native Codex session transcript/evidence,
-MCP registration, actual tool call and R1/R2 output, fixture hash before/after,
-worktree status, and an explicit separation of Codex Cloud versus Codespaces.
+## Acceptance boundaries and next steps
 
-## Next gate — native Codex agent (not yet executed)
-
-In a trusted **disposable** Codespace/agent workspace, use this checklist:
-
-1. Verify branch `infra/kicad-mcp-smoke`, an empty `git status --short`, and `kicad-cli version`.
-2. Run `bash scripts/setup-kicad-mcp.sh` and `.local/kicad-mcp-venv/bin/python scripts/test-kicad-mcp-allowlist.py`.
-3. Change `enabled = false` to `enabled = true` in the **local, uncommitted** `.codex/config.toml`, then start a new Codex session. This is only for the fixture-only server; never enable the full upstream server.
-4. Inspect the Codex client's *actual* MCP registration; then have **the Codex agent** invoke `list_schematic_components` without arguments, proving it returns R1/R2. Running the Python test again does not satisfy this gate.
-5. Restore `enabled = false`, check worktree and fixture SHA-256, and save a report with the Codex version, evidence, and observed limitations. **Do not claim Codex Cloud and Codespaces share one environment**.
-
-The above gate is pending until a real agent session executes it. Keep this PR in draft until that outcome is reviewed.
+- GitHub Actions run `40549945173` passed on branch commit `31281b9`. Earlier corrected allowlist smoke run `40549444779` passed.
+- This closes infrastructure proof for the **fixed-fixture, single-tool read-only façade** and Codespaces-native Codex invocation. It does **not** validate a general-purpose read-only KiCad interface, editing access, Codex Cloud runtime provisioning, automotive design, or manufacturing.
+- The user enabled the project config locally; `codex mcp add` also created persistent *user-scoped* registration. After acceptance, run `codex mcp remove kicad_relay_readonly_test` if no longer needed, and restore local `.codex/config.toml` to `enabled = false` without committing the temporary toggle. Keep the actual unrestricted upstream MCP server unavailable to Codex.
+- Further KiCad work must stay inside the agreed foundation / electrical-evidence gates. Hardware profiling and vehicle board design remain deferred.
