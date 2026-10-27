@@ -67,7 +67,7 @@ Numbers and names below follow the PDF's **`Terminal Block Definition`**, preser
 |---|---|---|---|
 | F1 | Main fuse; **20 A (ATO)** shown | Unswitched supply → net `12U`. Schematic says value depends on total load/application | Unconfirmed; do not adopt 20 A as required rating |
 | K1 | ECU Power Relay (SPDT symbol) | Controls `12 RAW` branch; downstream CB2 | Unconfirmed |
-| CB2 | RXE105 polyfuse | Series protection between K1-fed ECU path and `12 RAW` | Unconfirmed |
+| CB2 | RXE105 polyfuse in schematic; designer BOM also permits RXE110 | Series protection between K1-fed ECU path and `12 RAW` | **R (2026-10-27): original/stock internal circuitry, never intentionally modified or bypassed**. Presence is expected from source design, but exact fitted marking and live output path remain unmeasured |
 | K2 | Fuel Pump Relay (SPDT symbol) | Supplies fuel-pump branch controlled by ECU `FP1` signal; F2 in output path | Unconfirmed |
 | F2 | Fuel-pump fuse; **10 A (ATO)** shown | K2-to-fuel-pump `FPO` path | Unconfirmed |
 | K3 | Fast Idle Relay (SPDT symbol) | Fast-idle relay output; jumper J1 changes output polarity | Unconfirmed usage |
@@ -77,6 +77,19 @@ Numbers and names below follow the PDF's **`Terminal Block Definition`**, preser
 | F4 | Injector 1 fuse; **10 A (ATO)** shown | Other injector +12V fused branch | Unconfirmed |
 
 The physical board is reported to use **MINI fuses**. The PDF schematic's ATO notation therefore must not be assumed to describe the user's installed fuse package or ratings. The three relays reported warm by touch are not proven faulty from that observation alone.
+
+## Stock-board confirmation and CB2 source ratings (user report 2026-10-27)
+
+The user confirms the **MS relay box remains in its stock/internal original form**: no CB2 bypass, removal or deliberate internal power-circuit changes. This upgrades the expected presence of the original polyfuse circuit to **user-reported stock**, not **physically inspected/verified fitted part**. The board's exact manufacturing revision and currently fitted CB2 marking are still unknown.
+
+Source comparison:
+- The user-supplied B&G V1.2 schematic labels **CB2 RXE105**, in the ECU `12 RAW` feed following K1.
+- The original B&G documentation/BOM explicitly allows **`RXE105 or RXE110`** for the Polyfuse devices. Source: https://www.bgsoflex.com/mspower/mspower.html (bill of materials, `RXE105 or RXE110`). Therefore **do not assign RXE110 or RXE105 ratings to the fitted part as fact**.
+- Raychem's RXE-series manufacturer catalog gives **RXE110**, specifically, a 20°C hold rating of **1.10 A**, 20°C trip rating of **2.20 A**, initial 20°C resistance **0.15–0.25 Ω**, and hold rating **0.69 A at 60°C**. Source: https://www.silicon-ark.co.uk/datasheets/polyswitch-rxe-datasheet-raychem.pdf (Raychem RXE catalog, product data/temperature table). These figures are **illustrative reference specifications**, not an assessment of aged installed CB2.
+
+**Fault hypothesis (not a diagnosis):** If the ECU positive screw is supplied from the original board `12 RAW` net, the present DIY DC idle H-bridge—connected to that same ECU positive terminal—adds current through the CB2 path. A relatively low-current-rated PPTC could then contribute to steady voltage loss, heat-related resistance increase, or thermal trip/recovery. The shared PSU and ground screws, relay contacts, solder joints and H-bridge switching noise remain competing explanations for ECU brownouts/shutdowns. The external **30 A battery-feed fuse does not prevent local CB2 operation**.
+
+**Evidence needed to resolve:** identify ECU feed from MS box (source `12 RAW` versus another output), capture normal-operation voltage on both sides of CB2/at ECU without bypassing any protection, assess H-bridge branch and total protected current with rated tools, and relate supply/ground changes to ECU log/brownout data. Never deliberately overload CB2 or provoke shutdown during driving.
 
 ## J1 — fast-idle relay jumper (schematic page 2)
 
@@ -94,7 +107,7 @@ The source pin names above are **already extracted**; users should not be asked 
 1. **Completed at user-report level:** X1 permanent +12V through separate upstream 30 A fuse; X2 switched +12V; X3 engine ground. Confirm fuse physical value and wire gauge only if readily available.
 2. JP1 positions 1–20: current wire destination/function, if used. Blank/unknown is acceptable.
 3. JP2 positions 1–4: present injector power wiring, or any repurposed load.
-4. K1/K2/K3, F1–F4, J1: whether installed and used as the reference would suggest; record actual markings only when readily available.
+4. **Stock status confirmed by user:** no deliberate internal modifications/bypasses. Remaining: actual F1–F4 values, exact CB2 marking/revision and use of K1/K2/K3/J1 if readily known.
 5. **Completed at user-report level:** ECU and H-bridge share the ECU's own positive and negative screw terminals, fed/returned by cables originating at the MS box. The terminal location is no longer an open question; exact internal MS-box feed/return nets remain unknown.
 6. Any bypassed/repurposed connection from Speeduino to Mega144H7.
 
