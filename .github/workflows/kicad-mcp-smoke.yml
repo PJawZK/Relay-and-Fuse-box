@@ -7,6 +7,8 @@ on:
       - 'scripts/run-kicad-mcp.sh'
       - '.codex/config.toml'
       - 'scripts/test-kicad-mcp.py'
+      - 'scripts/test-kicad-mcp-allowlist.py'
+      - 'scripts/kicad-mcp-fixture-only.py'
       - 'tests/fixtures/**'
       - '.github/workflows/kicad-mcp-smoke.yml'
       - '.devcontainer/**'
@@ -30,6 +32,6 @@ jobs:
           set -euo pipefail
           docker run --rm -v "$PWD:/workspaces/Relay-and-Fuse-box" \
             -w /workspaces/Relay-and-Fuse-box relay-mcp-test \
-            bash -lc 'bash scripts/setup-kicad-mcp.sh && .local/kicad-mcp-venv/bin/python scripts/test-kicad-mcp.py'
+            bash -lc 'bash scripts/setup-kicad-mcp.sh && .local/kicad-mcp-venv/bin/python scripts/test-kicad-mcp.py && .local/kicad-mcp-venv/bin/python scripts/test-kicad-mcp-allowlist.py'
       - name: Verify no tracked source mutations
         run: git diff --exit-code && git diff --cached --exit-code
