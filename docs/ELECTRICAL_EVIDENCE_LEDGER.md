@@ -14,6 +14,8 @@
 
 Each entry must distinguish a **connection observation** from a **measured electrical quantity**. A photo or written marking may identify a relay model but not its contact resistance; a voltage drop may locate a weak segment but does not establish branch current.
 
+**Architecture correction (R, 2026-10-27):** The present Mega144H7/EpicEFI engine management uses an independent aftermarket wiring/relay/fuse system, and **none of the original Volvo EFI wiring, fuses or relays are in service for EFI**. Original factory injection relay positions can be evaluated for new uses; don't confuse factory LH relays with the currently installed *aftermarket* MS relay box. See `VOLVO_FACTORY_RELAY_REUSE_RESEARCH.md`.
+
 ## Coverage by circuit
 
 | ID | Circuit or junction | Present evidence | Still unknown | Required evidence to close |
@@ -26,7 +28,7 @@ Each entry must distinguish a **connection observation** from a **measured elect
 | E06 | ECU sensor/reference ground | R: sensor systems installed | Sensor return pins and any shared high-current connection | Signal/reference continuity map, **no current injection into sensor ground** |
 | E07 | DC idle H-bridge supply | **R installed:** H-bridge + attached to ECU positive screw fed from MS box. **P change (2026-10-27):** move to a separate fused, switched factory-relay-fed branch | Whether existing path traverses CB2; prospective factory relay branch spare capacity, current/inrush, fuse/conductor suitability, flyback/EMI | Identify independently protected switch source and **separate power-ground return**, check relay loading and safe loss-of-power behavior, then re-log |
 | E08 | DC idle H-bridge return | **R installed:** H-bridge - attached to ECU ground screw via MS-box ground cable. **P change:** move H-bridge power return away from ECU ground screw | Factory star/engine/chassis return point, conductor resistance, transient coupling | Choose appropriate dedicated actuator-current return and verify no ECU/sensor-ground sharing |
-| E09 | Fuel pump relay/branch | R: ECU PD10 command; pump installed | Coil wiring, independent failure mode, fuses, factory interaction, branch/return current | Relay state truth table + physical trace + measured current; verify stop/fault OFF |
+| E09 | Fuel pump relay/branch | R (2026-10-27): ECU PD10 command, pump installed, **fully new aftermarket EFI wiring/relay/fuse**. Original Volvo EFI fuel relay is **not part of current pump circuit** | Exact installed aftermarket coil wiring, branch/return current, stop/fault behavior | New-system relay state truth table and current/return measurement; preserve fuel-pump stop/fault OFF |
 | E10 | Injector B+ branches | R: four EV14 injectors/sequential ECU drivers | Fuse allocation, actual common feed, connector state | As-built +12V trace and protected current test |
 | E11 | Wasted-spark coil supply/return | R: VAG 032 905 106B | Fuse, positive supply and power-ground termination | Written wiring trace, available part/terminal markings, pulse-noise observation |
 | E12 | PWM 2-wire IAC | R: installed | Feed fuse, ECU low-side driver routing, diode/suppression | Wiring trace and driver-topology evidence |
@@ -64,8 +66,8 @@ Reference RXE110 from Raychem data (not installed-device proof): 1.10 A hold at 
 
 The user plans to remove H-bridge motor positive and return from the **ECU** screw terminals, using a separate **switched and fused** source from the vehicle's factory relay system. Candidate existing fuel/ECU relay feeds are *not yet approved* merely because they are switched.
 
-- **Avoid simply paralleling the fuel-pump motor feed:** adding unrelated H-bridge load could alter pump voltage and the safety-critical pump shutdown circuit. Pump relay state may also differ from desired idle actuator availability during engine-off/prime/cranking/failure.
-- The main/ECU relay could be a candidate **only if** the H-bridge obtains its *own protected branch* **before** the current ECU's CB2/polyfuse output and relay/feed capacity, wire sizing, ground routing and fail-safe behavior are verified. A new fuse downstream of CB2 would not remove H-bridge load from CB2.
+- **Distinguish abandoned OEM LH relay positions from new EpicEFI pump relay:** former Volvo 2/23 injection relay may be a candidate because none of its old EFI loads are used, but its original ECU-controlled coil may no longer energize. Never parallel the **currently operating aftermarket pump motor feed** or compromise EpicEFI fuel-pump shutdown.
+- A repurposed **original Volvo** injection/system relay can be considered after its socket feed and coil switching are identified, and the H-bridge is protected independently. It must not be confused with **K1 in the current MS aftermarket relay box**: a new fuse *after* CB2 would still leave H-bridge load on CB2.
 - Prefer an otherwise suitable ignition-switched, independently fused actuator/accessory supply and separate **actuator power return** with adequate current and automotive suppression; do not route motor return through ECU or sensor ground.
 - Record the existing factory relay identity, existing loads, conductor size, voltage under load and fuse protection before connection; the presence of a spare fuse slot or relay output does not establish spare current capacity.
 - Test loss-of-power behavior of the throttle-plate DC idle actuator before in-car service. A disconnected H-bridge must not leave throttle in an unsafe position; keep the ECU/fuel-pump engine-stop safety logic intact.
