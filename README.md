@@ -21,7 +21,7 @@ A passive, serviceable relay-and-fuse power-distribution replacement concept for
 ## Historical source schematics
 User-supplied Bowling & Grippo 'MegaSquirt Power Distribution Board' v1.2 (2002): `mspower_ShemV1.2.pdf` (2 pages) and `mspower_LayoutV1.2.pdf` (3 pages). Not yet added as binary files to this repository.
 
-The schematic's main ECU feed is F1 (20A indicated, application-dependent) → K1 relay → CB2 RXE105 resettable polyfuse → 12 RAW / ECU. CB1 RXE110 and CB3 RXE110 also appear on the board; F2 is fuel-pump fuse; F3/F4 injector fuses. This schematic is a design reference, not proof that the user's manufactured board has identical copper/components after 15–16 years.
+The PDF-derived external supply and complete 20-position JP1 terminal definition are transcribed in [`docs/ORIGINAL_RELAY_BOARD_PDF_MAP.md`](docs/ORIGINAL_RELAY_BOARD_PDF_MAP.md), including the **V1.1 layout silkscreen versus V1.2 schematic/filename discrepancy**. The schematic's main ECU feed is F1 (20A indicated, application-dependent) → K1 relay → CB2 RXE105 resettable polyfuse → 12 RAW / ECU. CB1 RXE110 and CB3 RXE110 also appear on the board; F2 is fuel-pump fuse; F3/F4 injector fuses. This schematic is a design reference, not proof that the user's manufactured board has identical copper/components after 15–16 years.
 
 ## Design gates
 1. Confirm present wiring, actual circuit load currents, wire sizes, fuses, relays, and which power/ground connections share ECU terminals.
@@ -45,4 +45,4 @@ The schematic's main ECU feed is F1 (20A indicated, application-dependent) → K
 - Do not allow automatic Gerber release or direct commits to main solely based on AI review.
 
 ## Next step
-Document actual connector/pin mapping and load paths of the existing installation; obtain circuit-by-circuit current and voltage drop measurements. Keep reference PDFs under `references/original-ms-power/` when uploaded.
+Confirm the current physical X1–X3, JP1 and JP2 connections **through the user's text responses**, using the documented source mapping instead of requiring cramped-space photographs. Then obtain targeted circuit currents and voltage-drop measurements. Keep reference PDFs under `references/original-ms-power/` when uploaded.
