@@ -2,39 +2,49 @@
 
 This is a **partial logical map**, not a verified pin-to-pin harness drawing. Do not use as a production wiring diagram. Source categories: (R) user-reported installed, (H) historical previous-generation wiring, (P) planned, (?) not confirmed.
 
-## Current positive power (known segments)
+## Current positive power (user-reported connections plus PDF reference)
+
 ```text
-Alternator B+ / Battery +  (R: charge voltage 13.9–14.0 V)
+Battery permanent +12 V
   |
-  +-- vehicle feed / protection (?) --> DIYAutoTune/MS-type relay board +12V inlet (R)
-        |
-        +-- F1 main fuse --> K1 main ECU relay --> CB2 polyfuse --> 12RAW ECU output
-        |       [REFERENCE B&G 2002 V1.2 ONLY; actual physical board needs verification]
-        |
-        +-- K2 fuel pump relay --> F2 fuel pump fuse --> pump wiring (reference only)
-        |
-        +-- F3/F4 injector branches (reference only)
-        |
-        +-- K3 'fast idle' relay (reference only; current IAC is PWM; needs trace)
-        |
-        +-- ECU main supply (R, actual terminals/voltage loss must be checked)
-        |
-        +-- DC idle H-bridge + (R: connected at the same ECU screw terminal)
+  +-- external 30 A fuse (R: close to battery; exact position/type/gauge TBD)
+       |
+       +-- MS relay-box X1 (R: unswitched battery +12 V)
+              |
+              +-- internal board power distribution
+                   [H: B&G schematic suggests F1 -> 12U -> K1 -> CB2 -> 12 RAW]
+                   [U: exact installed PCB revision, fuse rating and feed net]
+                   |
+                   +-- cable from MS box -> ECU positive screw terminal (R)
+                                           |--> ECU power (R)
+                                           +--> DIY DC idle H-bridge + (R)
+
+Switched +12 V ----> MS box X2 (R)
+Engine ground -----> MS box X3 (R)
 ```
 
-**Potentially independent branches (unconfirmed):** ignition coil +12V, dual boost solenoid +12V, Innovate LC-1 heater, fan power, pump downstream factory fuse/relay, dash/CAN power. Their physical origins must not be inferred from older ECU wiring or schematic.
+**Source distinction:** The upstream **30 A fuse** is a separate, user-reported part located closer to the battery; it is **not** the B&G drawing's onboard F1 (nominal 20 A illustrated, application-dependent). The actual F1 fuse and installed K1/CB2 status remain unverified. The reported ECU/H-bridge common junction is on the **ECU screw terminals**, not at the relay-box screw block.
 
-## Current returns (known segments)
+Other reference-only branches in the B&G PDF: K2/F2 fuel-pump relay/fuse; F3/F4 injector feeds; K3 fast-idle relay. Their current physical wiring and loading are unconfirmed. Coil +12V, dual boost solenoids, LC-1 heater, fan, dash/CAN and other auxiliary feeds must be mapped independently; do not infer their origins from earlier ECU wiring.
+
+## Current return path (user-reported junction; upstream net unresolved)
+
 ```text
-Battery - (?) ---- chassis return (?) ---- engine block / alternator case (?)
-                                          |
-                                          +-- ECU ground (?)  [pins/studs not audited]
-                                          +-- coil power grounds (?) [studs not audited]
-                                          +-- sensor ground return (?) [ECU reference]
-                                          +-- pump return (?) [location not audited]
-                                          +-- idle H-bridge power ground (R: same ECU screw terminal)
+MS relay-box ground cable (R: ground cable supplied from box)
+   |
+   +--> ECU ground screw terminal (R)
+          |--> ECU ground (R)
+          +--> DIY DC idle H-bridge power ground (R)
+
+MS box X3 <---- engine ground (R: terminal connected as original design)
+
+How ECU ground screw connects through the MS box to X3 and the
+battery-/engine/chassis network = not yet independently traced.
 ```
-Signal/sensor grounds are **not** interchangeable with motor/coil/chassis current paths. A historical battery-negative-to-engine/star-ground test measured <0.1 V under one operating condition; it does not verify every return segment under motor PWM transients.
+
+The shared supply **and** return represent possible common-impedance coupling under H-bridge PWM. If the actual ECU screw-terminal feed traverses the schematic's resettable **CB2** polyfuse, H-bridge load transients could also increase its voltage drop or lead to a thermal trip and delayed recovery. These are **two distinct hypotheses**, neither confirmed as the cause of ECU shutdown. The 30 A upstream fuse does not rule out a local protective device operating or a downstream ground disturbance.
+
+A historical battery-negative-to-engine/star-ground test measured <0.1 V in one operating condition; it does not verify every return segment during PWM transients.
 
 ## Proposed power and ground structure (P; NOT wired)
 ```text
@@ -57,7 +67,7 @@ Actual star locations, conductor cross sections, relay states and fuse ratings r
 1. Load-specific voltage-drop tests with a single explicitly documented negative reference; include both supply and return paths. Use cold and heat-soaked conditions.
 2. Measure separately: battery+ to box inlet; fuse contacts; relay contacts; polyfuse if present; box outlet to ECU; ECU ground to battery-. Document load, voltage, RPM and temperature simultaneously.
 3. Branch currents (continuous and inrush) have **not yet been measured**. Use correct DC-rated equipment and protect the circuit during tests.
-4. Inspect original installed PCB (not just reference PDF), fuses, relay model numbers, connectors, solder cracks and terminal tension before relying on component-level attribution.
+4. Start with `ORIGINAL_RELAY_BOARD_PDF_MAP.md` for source-defined terminals/components and user text to identify current hookup. Investigate the installed PCB, contact state, and fuse/relay markings only where a specific discrepancy or measured loss demands it; photographs are optional.
 5. Do not bypass a protective component in vehicle service just to reduce its voltage drop.
 
 ## Exact unknowns to resolve

@@ -7,13 +7,13 @@ Evidence labels: **reported installed** = user reported installation, not indepe
 | Circuit/component | State | Known information | Power-path / ground-path status | Action |
 |---|---|---|---|---|
 | ECU | Reported installed | EpicEFI Mega144H7 with Speeduino 0.4.3C adapter, October 2026 firmware | ECU main feed through old DIYAutoTune/MS relay system; exact real-life terminals and fusing unverified | Document exact ECU B+, ignition feed, controller and sensor grounds |
-| Relay/fuse box | Reported installed | DIYAutoTune/MegaSquirt-type relay box aged about 15–16 years, three warm relay housings recently reported; MINI fuses | Original 2002 B&G V1.2 design is reference, **not confirmed identical** to installed board | Photograph both sides; record relay markings, fuse values, terminals, harness exits |
+| Relay/fuse box | Reported installed | DIYAutoTune/MegaSquirt-type relay box aged about 15–16 years, three warm relay housings recently reported; MINI fuses; **separate 30 A upstream fuse near battery** confirmed by user report 2026-10-27 | X1 permanent +12 V through external 30 A; X2 switched +12 V; X3 engine ground, per current user text. Original B&G schematic V1.2/layout V1.1 silkscreen mapped in `ORIGINAL_RELAY_BOARD_PDF_MAP.md`; physical revision and onboard F1 remain unknown | Capture JP1/JP2 actual uses by **text**; distinguish upstream 30 A from onboard F1; record fuse/relay markings when known |
 | Alternator / charging | Reported installed | Regulator replaced, typically 13.9–14.0 V measured | Alternator/battery relay-box input routing, fusible link and ground return need tracing | Diagram charging and engine-ground links |
 | Fuel pump | Reported installed / planned upgrade | Fuel pump output at Mega144H7 PD10; existing in-tank ~110 L/h, 255 L/h replacement planned | Actual relay coil, output wiring, downstream factory circuit and grounds need verification | Current, cold/hot startup inrush, ignition-off fail-safe |
 | Injectors | Reported installed | Bosch EV14 0280158117, sequential; four channels via NCV8403A drivers. Connector swap noted pending | +12V fuse assignments and distribution point unresolved | Trace each 12V feed and driver return; verify which upgrades finished |
 | Ignition | Reported installed | VAG wasted-spark coil 032 905 106B, IGN1/IGN3 | Coil +12V branch, noise suppression and high-current ground unknown | Trace 12V and engine-ground pathway |
 | PWM IAC valve | Reported installed | Bosch 2-wire PWM; Mega144H7 and driver changes restored IAC | Steady +12V supply vs ECU low-side path to verify; older advice was to avoid switching PWM through mechanical relay | Verify source fuse and driver topology |
-| DC idle H-bridge | Reported installed DIY circuit | H-bridge power and ground **both connected at ECU supply screw terminal** as reported October 2026 | Shared high-current supply/return at ECU terminal is a suspected disturbance coupling route; not proven shutdown cause | Separate protected positive and return; define suppression and bench tests |
+| DC idle H-bridge | Reported installed DIY circuit | H-bridge positive and ground landed on **the ECU's own positive and ground screw terminals**, which also receive supply/return cables from the MS box (user confirmed 2026-10-27) | This common junction makes supply/return coupling plausible; whether both loads sit downstream of the B&G-reference CB2 polyfuse remains **unknown** | Trace exact MS-board ECU output net, measure PSU/return disturbance and branch current; design independent protected feed/return later |
 | Boost control | Reported installed | Two Pierburg-type solenoids, upper/lower open-loop tables, one bracket/wiring temporary | +12V and driver/ground wiring need tracing | Include each solenoid and flyback arrangement |
 | Fuel pressure | Reported installed / planned change | Existing 200 PSI rail sensor; custom fuel rail, regulator and replacement FP sensor pending | Sensor power/reference/ground and +12V actuator loads as applicable | Mark replacement dependency before EMAP reuse |
 | EMAP | Planned | Existing 200 PSI sensor to be reused after fuel-rail swap, analog input on Mega144H7 | Sensor reference/ground routing still planned | Reserve protected sensor wiring, **not high-current relay output** |
@@ -31,7 +31,7 @@ Evidence labels: **reported installed** = user reported installation, not indepe
 - A separate EpicECU-Beta wiring master exists for another future ECU: `EpicECU-Beta_Wiring_Assignments.md` and diagram `EpicECU-Beta_Wiring_Diagram_v0.8.drawio`. **Do not treat Beta Lxx/Sxx cavity allocations as the current Mega144H7 installation.**
 
 ## Source and measurement status
-- Historical measurements are captured in root README; the original B&G PDFs were supplied in conversation but not yet placed in the repository.
+- Historical measurements are captured in root README. The original B&G PDFs were supplied in conversation; their source-derived terminal/component details are now transcribed in `ORIGINAL_RELAY_BOARD_PDF_MAP.md`. Binary PDFs are not yet in the repository.
 - Loaded **current** of each circuit has not been measured.
 - Box input/output, relays, fuses and polyfuses have not been separately probed under the same load in a complete segment-by-segment test.
 - Any vehicle-critical fuse value, wire gauge, terminal rating, topology and ground stud remains **TBD until verified**.
@@ -42,7 +42,10 @@ Evidence labels: **reported installed** = user reported installation, not indepe
 | TBD | TBD | TBD | TBD | TBD | TBD | Not measured | Not measured | TBD | Awaiting as-built inspection |
 
 ## Next physical inspection
-1. Photos of old board, relay part numbers, fuse labels, terminal strip and rear connections.
+
+**Already established in user text (2026-10-27):** X1 permanent via separate 30 A upstream fuse; X2 switched power; X3 engine ground; ECU and H-bridge share ECU positive/ground screw terminals, with wires from MS box. These do not need to be asked or photographed again. The 30 A part is **not** the schematic's F1.
+
+1. Use the source-derived X1–X3, JP1 (20 pins), JP2 (4 pins), F1–F4 and K1–K3 mapping in `ORIGINAL_RELAY_BOARD_PDF_MAP.md`; collect **text descriptions** of present wire destinations, used/unused terminals and readily known fuse/relay details. Photographs optional, not prerequisite.
 2. Voltage measured relative to the **same ground reference** at alternator B+, board input, each fuse inlet/outlet, K1 contacts, CB2 (if fitted), board output and ECU B+ while operating.
 3. Current of each separately isolated load branch using an appropriately rated instrument and test method.
 4. Separate chassis, battery, engine, ECU, sensor, coil and H-bridge return points on a ground-tree drawing.

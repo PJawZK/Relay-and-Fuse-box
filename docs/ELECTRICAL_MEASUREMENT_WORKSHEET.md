@@ -16,15 +16,36 @@
 | Charging voltage at specified reference | TBD |
 | Instrument model, range, calibration / resolution | TBD |
 | Test reference point and physical probe location | TBD |
-| Photos, logs and meter-readout identifiers | TBD |
+| Evidence: text description, existing wiring drawing, photo (optional), log or meter record | TBD |
+
+## Current confirmed-by-user wiring (2026-10-27)
+
+| Connection | User-reported as installed | What this does not establish |
+|---|---|---|
+| External main protection | Separate **30 A** fuse close to battery on permanent + feed to MS box | Cable cross section, fuse type/location distance and onboard F1 value |
+| MS X1 | Permanent battery +12 V downstream of external 30 A fuse | Installed internal board distribution and voltage drop |
+| MS X2 | Switched +12 V | Source circuit and loaded drop |
+| MS X3 | Engine ground | Full return route and loaded drop |
+| ECU + screw | MS box positive cable; ECU and DC H-bridge positive both connected here | Whether actual feed passes K1/CB2 |
+| ECU ground screw | MS box ground cable; ECU and DC H-bridge ground both connected here | Whether PWM return causes voltage offset |
+
+These observations are retained as **user-reported installed** rather than laboratory measurements. Do not repeat photo requests for these facts.
+
+### Highest-priority measurements (when safe and accessible)
+
+1. With known, **normal** operating states, compare MS box ECU-feed output and ECU + screw voltage relative to the same documented reference; do not purposely induce shutdowns by aggressive PID tuning.
+2. Measure the DC voltage between ECU ground screw and the MS box return / engine reference while H-bridge is operating normally. For fast PWM spikes, a properly grounded oscilloscope/differential measurement may be necessary; a DMM average cannot exclude transients.
+3. Record ECU logged battery voltage, RPM and DC idle output/PWM simultaneously if available, noting timestamp, temperature and load.
+4. If accessible without live-circuit short risk, measure the voltage across installed F1, K1 and any confirmed CB2 under steady load to localize a resistive/protective device. **Do not bridge or defeat protection.**
+5. Establish external 30 A fuse protection suitability only after cable size, routing and additional downstream protections are documented.
 
 ## Physical trace sheet — repeat per branch
 
-| ID | Source terminal | Destination terminal | Connector cavity | Conductor marking / measured size | Fuse position and installed marking | Relay markings/contact terminals | Ground return path | Evidence photo/continuity/date |
+| ID | Source terminal | Destination terminal | Connector cavity | Conductor marking / measured size | Fuse position and installed marking | Relay markings/contact terminals | Ground return path | Evidence text/record/date |
 |---|---|---|---|---|---|---|---|---|
 | E01–E20 | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
 
-Label wire markings as **observed** until conductor cross-section is confirmed. Record uncertain or modified splices separately, including whether they are crimped, soldered or terminal-block connections.
+Begin with the PDF-derived X1–X3, JP1 and JP2 labels in `ORIGINAL_RELAY_BOARD_PDF_MAP.md`, then record *actual* uses in words. Photos are optional when installation is cramped. Label wire markings as **observed** until conductor cross-section is confirmed. Record uncertain or modified splices separately, including whether they are crimped, soldered or terminal-block connections.
 
 ## Loaded voltage-drop session — one row per segment per load state
 
@@ -53,7 +74,7 @@ These are **observation targets**, not instructions to disable fuel, unplug the 
 
 - Do not bridge fuse or relay contacts, bypass protection, probe high-current conductors with an unfused meter-current input, or disturb ECU sensor ground.
 - Check meter lead placement and fuse rating before changing voltage/current modes. Current must be measured with a suitable, rated clamp or other appropriate non-destructive method; do not place a handheld ammeter across the battery.
-- Use engine-off photos and terminal identification first. Disconnect battery negative only according to an appropriate vehicle-service procedure, protecting ECU and other electronics.
+- Identify terminals from the original schematic and the user's text wiring description first; do not require cramped-space photos or intrusive access. Disconnect battery negative only according to an appropriate vehicle-service procedure, protecting ECU and other electronics.
 - Keep probes clear of belts, fan, hot manifold and moving linkages. For live tests use appropriately secured probes and an assistant where needed.
 - Never treat heat felt through plastic as a temperature measurement. Record instrument, surface and ambient conditions if thermal comparison is needed.
 - No fuse, cable, relay, TVS or PCB rating is finalized until measured currents, wiring and thermal/fault requirements are reviewed.
