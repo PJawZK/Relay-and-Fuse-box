@@ -24,8 +24,8 @@ Each entry must distinguish a **connection observation** from a **measured elect
 | E04 | ECU main power | R (2026-10-27): cables from MS box terminate on ECU supply/ground screw terminals; both shared with H-bridge | Exact MS board output net/protection feeding ECU screw, conductor size, ECU current and terminal voltage | Determine actual relay-board output path; measure loaded voltage at ECU screw |
 | E05 | ECU power return | R (2026-10-27): ECU and H-bridge share ECU ground screw, return cable originates at MS box | Internal MS box/X3 routing, cable gauge, loaded and dynamic return drop | Text mapping of box return plus ground-drop measurement |
 | E06 | ECU sensor/reference ground | R: sensor systems installed | Sensor return pins and any shared high-current connection | Signal/reference continuity map, **no current injection into sensor ground** |
-| E07 | DC idle H-bridge supply | R (2026-10-27): H-bridge + attached to ECU positive screw fed from MS box | Whether downstream of CB2 as historical PDF suggests; current/inrush, suppression, conductor gauge | Determine feed/net, measure H-bridge current and ECU supply disturbance under PWM |
-| E08 | DC idle H-bridge return | R (2026-10-27): H-bridge - attached to ECU ground screw, supplied with MS-box ground cable | Return routing and common impedance; dynamic ground offset | Determine return path and measure loaded return drop/PWM disturbance |
+| E07 | DC idle H-bridge supply | **R installed:** H-bridge + attached to ECU positive screw fed from MS box. **P change (2026-10-27):** move to a separate fused, switched factory-relay-fed branch | Whether existing path traverses CB2; prospective factory relay branch spare capacity, current/inrush, fuse/conductor suitability, flyback/EMI | Identify independently protected switch source and **separate power-ground return**, check relay loading and safe loss-of-power behavior, then re-log |
+| E08 | DC idle H-bridge return | **R installed:** H-bridge - attached to ECU ground screw via MS-box ground cable. **P change:** move H-bridge power return away from ECU ground screw | Factory star/engine/chassis return point, conductor resistance, transient coupling | Choose appropriate dedicated actuator-current return and verify no ECU/sensor-ground sharing |
 | E09 | Fuel pump relay/branch | R: ECU PD10 command; pump installed | Coil wiring, independent failure mode, fuses, factory interaction, branch/return current | Relay state truth table + physical trace + measured current; verify stop/fault OFF |
 | E10 | Injector B+ branches | R: four EV14 injectors/sequential ECU drivers | Fuse allocation, actual common feed, connector state | As-built +12V trace and protected current test |
 | E11 | Wasted-spark coil supply/return | R: VAG 032 905 106B | Fuse, positive supply and power-ground termination | Written wiring trace, available part/terminal markings, pulse-noise observation |
@@ -44,6 +44,32 @@ Each entry must distinguish a **connection observation** from a **measured elect
 User reports **no internal modifications** to the MS box, including no bypass or removal of CB2. Because the original design uses CB2 in the ECU `12 RAW` line, it is now **reasonable to prioritize** this path for measurement; actual fitted part/revision remains uninspected. The B&G bill of materials names RXE105 *or* RXE110, so rating must not be assumed from schematic label alone.
 
 Reference RXE110 from Raychem data (not installed-device proof): 1.10 A hold at 20°C, 0.69 A hold at 60°C, 2.20 A trip at 20°C, 0.15–0.25 Ω initial at 20°C. At 1 A this corresponds to 0.15–0.25 V *illustrative room-temperature device drop* before contact/wire losses; do not use this as the car's measured drop. Links and qualifications: `ORIGINAL_RELAY_BOARD_PDF_MAP.md`.
+
+## Prior log-based supply evidence — October 26, 2026
+
+**Provenance:** The following timings were extracted in the earlier ECU idle-control log analysis and are preserved as **prior analysis**, not newly recalculated in this repository. The most recent library upload appears as `2026-10-26_20.51.28.mlg.zip`; its raw bytes could not be rematerialized in the current project runtime on 2026-10-27, so no new independent raw-log validation is claimed.
+
+| Recorded interval (log seconds) | Prior extracted observation | Interpretation boundary |
+|---|---|---|
+| 590–605 | Calm DC control; ECU VBatt minimum ~13.41 V; peak absolute H-bridge command ~49.6; about 0 direction reversals/s | Reference interval, not a whole-session baseline |
+| 650–660 | Aggressive DC loop; ECU VBatt minimum ~10.67 V, peak absolute H-bridge command ~140, ~41 command reversals/s; outer D abs P95 42.4 and inner D abs P95 45.3 (versus 1.3/2.3 calm) | Association of high actuator activity with depressed logged supply; does not isolate CB2, ground return, supply relay or ADC artifacts |
+| 657.85–662.75 | Reported VBatt <12 V at 657.85 s, <10 V at 660.78 s; logged IGN activity loss ~661.20 s while RPM ~952; RPM zero ~662.75 s | Voltage decline **preceded** shutdown; logged voltage is ECU-referenced measurement, not simultaneous battery-post voltage |
+| ~714.79–716.39 | Second logged IGN loss ~714.79 s, engine zero RPM ~716.39 s | Same general ignition-before-stop sequence; local pre-event voltage pattern needs raw-log verification |
+| ~1724.35–1725.8 | Final logged IGN loss and engine stop; prior analysis found outer D near zero during 1710–1724 s | High outer D cannot be claimed as the universal cause of every shutdown |
+| Restart attempts | Failed crank/restart intervals ~676.53–680.07 s and ~726.85–730.35 s, later successful starts | Recovery delay may be consistent with several thermal, supply, connection or control issues; no PPTC trip has been proven |
+
+**Measurement interpretation:** The ECU's `VBatt` channel measures the ECU's electrical environment through its input/scaling chain, and cannot tell where the voltage was lost. A drop under H-bridge PWM while RPM remains nonzero supports prioritizing shared PSU/return/CB2 investigation, but does not prove the battery, alternator, board polyfuse, wiring joint or H-bridge individually failed. Check for input calibration/reference distortion and log sampling limitations.
+
+### Planned H-bridge supply relocation (not yet implemented)
+
+The user plans to remove H-bridge motor positive and return from the **ECU** screw terminals, using a separate **switched and fused** source from the vehicle's factory relay system. Candidate existing fuel/ECU relay feeds are *not yet approved* merely because they are switched.
+
+- **Avoid simply paralleling the fuel-pump motor feed:** adding unrelated H-bridge load could alter pump voltage and the safety-critical pump shutdown circuit. Pump relay state may also differ from desired idle actuator availability during engine-off/prime/cranking/failure.
+- The main/ECU relay could be a candidate **only if** the H-bridge obtains its *own protected branch* **before** the current ECU's CB2/polyfuse output and relay/feed capacity, wire sizing, ground routing and fail-safe behavior are verified. A new fuse downstream of CB2 would not remove H-bridge load from CB2.
+- Prefer an otherwise suitable ignition-switched, independently fused actuator/accessory supply and separate **actuator power return** with adequate current and automotive suppression; do not route motor return through ECU or sensor ground.
+- Record the existing factory relay identity, existing loads, conductor size, voltage under load and fuse protection before connection; the presence of a spare fuse slot or relay output does not establish spare current capacity.
+- Test loss-of-power behavior of the throttle-plate DC idle actuator before in-car service. A disconnected H-bridge must not leave throttle in an unsafe position; keep the ECU/fuel-pump engine-stop safety logic intact.
+- Capture **same-channel, same-calibration** ECU VBatt and idle/PID data before and after relocation during similar normal load, temperature and RPM conditions; do not intentionally recreate dangerous shutdowns.
 
 ## Historical voltage observations (do not merge different test sessions)
 
