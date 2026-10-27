@@ -57,7 +57,7 @@ Actual star locations, conductor cross sections, relay states and fuse ratings r
 1. Load-specific voltage-drop tests with a single explicitly documented negative reference; include both supply and return paths. Use cold and heat-soaked conditions.
 2. Measure separately: battery+ to box inlet; fuse contacts; relay contacts; polyfuse if present; box outlet to ECU; ECU ground to battery-. Document load, voltage, RPM and temperature simultaneously.
 3. Branch currents (continuous and inrush) have **not yet been measured**. Use correct DC-rated equipment and protect the circuit during tests.
-4. Inspect original installed PCB (not just reference PDF), fuses, relay model numbers, connectors, solder cracks and terminal tension before relying on component-level attribution.
+4. Start with `ORIGINAL_RELAY_BOARD_PDF_MAP.md` for source-defined terminals/components and user text to identify current hookup. Investigate the installed PCB, contact state, and fuse/relay markings only where a specific discrepancy or measured loss demands it; photographs are optional.
 5. Do not bypass a protective component in vehicle service just to reduce its voltage drop.
 
 ## Exact unknowns to resolve
