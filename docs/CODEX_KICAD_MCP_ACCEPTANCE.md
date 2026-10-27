@@ -1,9 +1,7 @@
 # KiCad MCP: actual Codex agent acceptance (F5)
 
 This gate is distinct from the standalone Python MCP test. Both GitHub Actions
-and a genuine Codex agent must see the same MCP capabilities. The upstream
-server can advertise **mutating** tools: do not interpret its overall registration
-as read-only. No vehicle-board edit is authorized.
+and a genuine Codex agent must see the same MCP capabilities. The upstream server advertises **mutating** tools, so Codex's project launcher now deliberately starts a **separate fixture-only façade** exposing exactly one read-only method. The unrestricted upstream server is used only in isolated CI. No vehicle-board edit is authorized.
 
 ## Proven
 - Candidate `Seeed-Studio/kicad-mcp-server@0b445be8668c00b0d71315e74fa2f180bca686c2`.
@@ -25,9 +23,9 @@ Codespace has KiCad 9.0.2 and pcbnew 9.0.2, but MCP venv is separate.
    `codex mcp list` or use the IDE MCP servers panel. Confirm the exact server
    appears with no errors. Codex Cloud may not honor that local config.
 4. Ask the agent to list tools from `kicad_relay_readonly_test` and invoke
-   **only** `list_schematic_components` on a temporary copy of
-   `tests/fixtures/mcp-upstream-example.kicad_sch`. It must return R1 and R2.
-   Never allow mutating tools or use actual project electrical files.
+   **only** `list_schematic_components` **without arguments**. The façade reads the fixed committed
+   `tests/fixtures/mcp-upstream-example.kicad_sch` and should return R1 and R2.
+   The agent must confirm that **no editing tools are registered**. Do not use actual project electrical files.
 5. Check `git diff --exit-code`, untracked file inventory, and SHA-256 of
    committed fixture against baseline. Report exact agent/runtime evidence.
 
@@ -42,7 +40,9 @@ its execution mode. Absence of a Codex-provided MCP tool is a test failure,
 not permission to substitute a manually scripted `ClientSession` call.
 
 ## Security / provenance
-- Launcher is STDIO only and requires a local venv, without opening a port.
+- Launcher is STDIO only and requires a local venv, without opening a port. The launcher starts `scripts/kicad-mcp-fixture-only.py`, **not** the unrestricted upstream server.
+- The façade imports the upstream schematic parser but registers **only** one fixture-bound, no-argument read tool. MCP editing methods are not registered or callable.
+- CI exercises a hostile `create_project` call and requires rejection; it also confirms unchanged fixture bytes.
 - Upstream server is third-party code; its tools include capabilities beyond
   read-only inspection. Disable server when not performing the controlled test.
 - Project-scoped `.codex/config.toml` only applies to trusted projects, per
@@ -62,10 +62,7 @@ show `codex --version`, `codex mcp list`, MCP server state and the exact
 project commit. Do not count a direct Python `ClientSession` call as Codex
 MCP discovery; that portion was already proven in GitHub Actions.
 
-**Safety prerequisite:** upstream MCP registers editing operations as well as
-read-only methods. Since the project config currently enables or disables the
-**entire** server, enabling it is only acceptable in an isolated disposable
-agent workspace with **no writable real project electrical designs**. A prompt
+**Safety prerequisite:** use only the fixture-only façade. The full upstream MCP server is not authorized for Codex. Only enable the project's disabled config locally after the allowlist CI passes. The façade's tool has no file-path input, so agents cannot point it at the real electrical designs. A prompt
 that says 'do not edit' is not a tool-level read-only restriction. Do not
 activate in a workspace holding sensitive or real KiCad design files until a
 server-side allowlist or equivalent restriction has been tested.
