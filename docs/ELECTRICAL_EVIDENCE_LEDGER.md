@@ -20,7 +20,7 @@ Each entry must distinguish a **connection observation** from a **measured elect
 |---|---|---|---|---|
 | E01 | Alternator B+, battery+, charge feed | R (2026-10-27): separate 30 A fuse near battery on permanent feed into MS box X1; historic charging 13.9–14.0 V | Upstream fuse package, cable size, physical route/protection and loaded drop | Confirm wire gauge, fuse location as needed, voltage under load; do not adopt 30 A as new design rating |
 | E02 | Relay-box power inlet | R (2026-10-27): X1 unswitched +12V (through external 30 A), X2 switched +12V, X3 engine ground; aligns with PDF labels | Physical input cable sizes/terminal condition, onboard F1 installed rating, loaded drop | Input functions confirmed by user; measure/characterize remaining unknowns |
-| E03 | F1, K1, CB2 ECU branch | H: B&G 2002 V1.2 reference | Whether same devices actually fitted; relay/contact/polyfuse drop | Compare installed usage to `ORIGINAL_RELAY_BOARD_PDF_MAP.md`; only investigate physical board where revision/component behavior matters; segment drops |
+| E03 | F1, K1, CB2 ECU branch | **R 2026-10-27:** MS box internal power circuit unmodified/stock, with no CB2 bypass or removal reported. **H:** B&G V1.2 schematic routes K1→CB2→12 RAW; B&G BOM permits RXE105 **or** RXE110 | Actual fitted CB2 identity, whether current ECU feed uses 12 RAW, relay/contact/polyfuse drop | Confirm ECU feed source and measure protected path under normal load; retain fitted part number as unknown |
 | E04 | ECU main power | R (2026-10-27): cables from MS box terminate on ECU supply/ground screw terminals; both shared with H-bridge | Exact MS board output net/protection feeding ECU screw, conductor size, ECU current and terminal voltage | Determine actual relay-board output path; measure loaded voltage at ECU screw |
 | E05 | ECU power return | R (2026-10-27): ECU and H-bridge share ECU ground screw, return cable originates at MS box | Internal MS box/X3 routing, cable gauge, loaded and dynamic return drop | Text mapping of box return plus ground-drop measurement |
 | E06 | ECU sensor/reference ground | R: sensor systems installed | Sensor return pins and any shared high-current connection | Signal/reference continuity map, **no current injection into sensor ground** |
@@ -38,6 +38,12 @@ Each entry must distinguish a **connection observation** from a **measured elect
 | E18 | Dash/CAN/auxiliary loads | P/partial | Current source, future allocations | Keep separate from critical supply until physically verified |
 | E19 | Battery negative/chassis/engine strap network | H: one test under 0.1 V at a particular condition | Full topology; cold/hot loaded drop | Reported/verified connection routes, separate return-segment measurement |
 | E20 | Actual box fuses, three relay housings | R: 30 A **external upstream** fuse installed; MINI fuses and three warm relay housings previously reported | F1–F4 onboard values, relay models, contact/PCB condition and thermal behavior | Keep 30 A external distinct from onboard F1; obtain readily known markings and loaded contact drops |
+
+## Stock relay-board update — 2026-10-27
+
+User reports **no internal modifications** to the MS box, including no bypass or removal of CB2. Because the original design uses CB2 in the ECU `12 RAW` line, it is now **reasonable to prioritize** this path for measurement; actual fitted part/revision remains uninspected. The B&G bill of materials names RXE105 *or* RXE110, so rating must not be assumed from schematic label alone.
+
+Reference RXE110 from Raychem data (not installed-device proof): 1.10 A hold at 20°C, 0.69 A hold at 60°C, 2.20 A trip at 20°C, 0.15–0.25 Ω initial at 20°C. At 1 A this corresponds to 0.15–0.25 V *illustrative room-temperature device drop* before contact/wire losses; do not use this as the car's measured drop. Links and qualifications: `ORIGINAL_RELAY_BOARD_PDF_MAP.md`.
 
 ## Historical voltage observations (do not merge different test sessions)
 
