@@ -25,3 +25,11 @@
 - Report: `docs/validation/CODEX_CLOUD_EPICWOLF_RUN.md`.
 - No automatic EpicWolf hook execution was observed. This does not block explicit, read-only project memory access but remains a separate enhancement.
 - Remaining acceptance: fresh Codespaces read-only test at matching revision, and review of inherited Claude-only hooks before enabling them.
+
+## Codespaces browser runtime comparison (user-supplied evidence, 2026-10-27)
+- Existing browser Codespace `codespaces-995a05` checked out `integration/epicwolf-vendored` revision `17dbc56` and ran `bash scripts/agent-context.sh` successfully.
+- Reported guard: `wolf_guard: clean`; one valid bug record in one shard, five cerebrum sections.
+- Node native runner: **31 tests passed, 0 failed** (total approximately 4.36 seconds).
+- Read-only EpicWolf context and reported project status matched the Codex Cloud acceptance. Test fixture log output about absorbed entries is from the test harness, not proof of mutation of committed project files.
+- User provided an initial empty `git status --short` before checkout, but no post-test `git status --short`; therefore Codespaces no-mutation is not independently confirmed.
+- CI and Codex Cloud previously passed separate clean-worktree integrity checks. Cross-environment **explicit read/context** is validated. Automatic Codex lifecycle hooks remain unverified.
