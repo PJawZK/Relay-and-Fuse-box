@@ -32,6 +32,9 @@ jobs:
           git add .wolf .claude EPICWOLF-LICENSE EPICWOLF-UPSTREAM.txt
           git commit -m "chore: vendor pinned EpicWolf framework"
           git push origin "$BRANCH"
-          gh pr create --base main --head "$BRANCH" \
+          if ! gh pr create --base main --head "$BRANCH" \
             --title "Install pinned EpicWolf project memory" \
-            --body "Imports ggurov/epicwolf at pinned revision with upstream license. Review agent hooks and workflow permissions before merging. Node guard and tests run in Actions. No KiCad circuit has been changed."
+            --body "Imports ggurov/epicwolf at pinned revision with upstream license. Review agent hooks and workflow permissions before merging. Node guard and tests run in Actions. No KiCad circuit has been changed."; then
+            echo "::warning::Import pushed and tests passed, but automatic PR creation was blocked by GitHub repository policy."
+            echo "::notice::Open https://github.com/PJawZK/Relay-and-Fuse-box/compare/main...$BRANCH to create/review the PR manually."
+          fi
