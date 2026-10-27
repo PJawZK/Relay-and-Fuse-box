@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # MCP STDIO launcher; intentionally never installs dependencies or exposes ports.
 set -euo pipefail
-ROOT="$(git rev-parse --show-toplevel)"
+ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P)"
 VENV="${KICAD_MCP_VENV:-$ROOT/.local/kicad-mcp-venv}"
 PY="$VENV/bin/python"
 if [[ ! -x "$PY" ]]; then
