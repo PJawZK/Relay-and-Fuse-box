@@ -5,6 +5,7 @@ on:
     paths:
       - 'scripts/setup-kicad-mcp.sh'
       - 'scripts/test-kicad-mcp.py'
+      - 'tests/fixtures/**'
       - '.github/workflows/kicad-mcp-smoke.yml'
       - '.devcontainer/**'
 permissions:
