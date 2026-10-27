@@ -68,3 +68,7 @@ Actual star locations, conductor cross sections, relay states and fuse ratings r
 - Whether original CB2/CB1/CB3 resettable polyfuses remain fitted.
 - Fan/fuel-pump/LC-1 heater and solenoid power sources.
 - Any current dependence on factory Volvo fuse/relay board.
+
+## Trace and measurement register
+
+Individual positive and return segments, especially the **shared ECU/H-bridge terminal** and the fuel pump relay shutdown path, are tracked as E01–E09 and E19–E20 in [the electrical evidence ledger](ELECTRICAL_EVIDENCE_LEDGER.md). Use [the measurement worksheet](ELECTRICAL_MEASUREMENT_WORKSHEET.md) for actual probe locations, load states, current and temperature. These documents do not assert that the proposed return-tree topology is installed.
