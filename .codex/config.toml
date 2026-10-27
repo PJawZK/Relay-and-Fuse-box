@@ -1,0 +1,8 @@
+# Project-scoped Codex MCP candidate. Disabled until installed and verified
+# within the EXACT Codex runtime; a successful GitHub Actions run is not enough.
+# Codex only reads project-scoped config for trusted projects.
+[mcp_servers.kicad_relay_readonly_test]
+command = "bash"
+args = ["scripts/run-kicad-mcp.sh"]
+enabled = false
+startup_timeout_sec = 30
