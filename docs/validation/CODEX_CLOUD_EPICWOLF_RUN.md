@@ -115,3 +115,7 @@ The observed committed memory agrees that this is the foundation phase; electric
 F1 read-only context, guard, 31 vendored tests and no-mutation checks passed in the live agent. Native automatic capture is unverified. KiCad, MCP and vehicle outputs were not used.
 
 The browser-accessible PR criterion is not yet satisfied at report creation. Existing HTTPS Git authentication successfully fetched the baseline, but `gh api repos/PJawZK/Relay-and-Fuse-box` failed with `Forbidden` (exit 1), including outside the filesystem sandbox. CLI authentication also reported the provided GH_TOKEN unusable. No token values were read or printed. Report commit/push and PR creation are separate delivery operations; a comparison link is not evidence of a created PR.
+
+Delivery evidence: the report was committed and `git push -u origin task/codex-cloud-epicwolf-acceptance` exited 0. `git diff --stat c90e98956d07c017a95d86dbd69b634e473b31c8 HEAD` showed only this report (one added file); the post-commit working tree was clean. The subsequent explicit `gh pr create --base integration/epicwolf-vendored --head task/codex-cloud-epicwolf-acceptance ...` exited 1 with `Post "https://api.github.com/graphql": Forbidden`. No PR was created by this agent. The branch is published; an authorized browser user can open the following comparison and create a PR into the integration baseline:
+
+https://github.com/PJawZK/Relay-and-Fuse-box/compare/integration/epicwolf-vendored...task/codex-cloud-epicwolf-acceptance?expand=1
