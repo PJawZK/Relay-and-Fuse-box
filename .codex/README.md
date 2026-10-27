@@ -1,14 +1,23 @@
 # Codex and KiCad MCP
 
-This directory intentionally does not enable a KiCad MCP server yet.
+This project contains an opt-in, **disabled** Codex MCP candidate in
+`.codex/config.toml`. It points to `scripts/run-kicad-mcp.sh`, which launches
+the pinned server from a local Python virtual environment. It **never**
+installs packages, starts a network listener, or accesses vehicle hardware.
 
-KiCad MCP requires a **real installed server**, compatible KiCad/Python
-dependencies and successful smoke tests; an untested `config.toml` that silently
-fails would make tools appear available when they are not.
+## Verified
+- A Linux container installed the pinned MCP candidate and completed a
+  genuine STDIO handshake and tool list.
+- A follow-up isolated test invoked `list_schematic_components` on an
+  upstream example and confirmed R1/R2 and unchanged fixture bytes.
+- GitHub Actions runs: 40543131535 and 40543925876.
 
-Once the selected MCP server is pinned and installed in the devcontainer and
-Codex Cloud setup, add a project-scoped `config.toml` pointing to that exact
-entrypoint, and test `codex mcp list` plus a read-only sample-board query.
+## Still unverified
+- A live Codex agent launching MCP from a trusted project and selecting the
+  actual tool. Neither Python tests nor a present config file prove that.
+- A separate Codex Cloud executor provisioning and using the server.
+- Restricting **all** mutating upstream KiCad tools. Keep the server disabled
+  by default, and grant no access to real electrical designs.
 
-Repo guidance for every agent lives in `AGENTS.md`; electrical state remains
-in `docs/`; cross-agent memory is EpicWolf once merged.
+Read `docs/CODEX_KICAD_MCP_ACCEPTANCE.md` for the controlled opt-in test,
+and `docs/KICAD_MCP_EVALUATION.md` for the candidate's pin and provenance.
