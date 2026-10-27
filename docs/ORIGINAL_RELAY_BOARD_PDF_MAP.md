@@ -11,11 +11,19 @@ These PDFs were supplied to the project conversation; the original binary PDFs a
 
 | Identifier | Source label | Source-documented function | Current Volvo hookup |
 |---|---|---|---|
-| X1 | `+12 Battery (Unswitched)` | Battery +12V unswitched input; passes through F1 to board net `12U` | Unconfirmed |
-| X2 | `+12 Battery (Switched)` | Switched +12V input / `12S` | Unconfirmed |
-| X3 | `Engine Ground` | Ground input | Unconfirmed |
+| X1 | `+12 Battery (Unswitched)` | Battery +12V unswitched input; passes through F1 to board net `12U` | **R (2026-10-27):** permanent battery feed via a separate **30 A fuse located nearer the battery**, upstream of the MS box |
+| X2 | `+12 Battery (Switched)` | Switched +12V input / `12S` | **R (2026-10-27):** wired as switched +12V |
+| X3 | `Engine Ground` | Ground input | **R (2026-10-27):** wired as engine ground |
 
 X1/X2/X3 are the schematic's named power/ground inputs and should not be conflated with the twenty `JP1` signal/connector positions below.
+
+**External 30 A fuse ≠ board F1.** The user confirms a separate 30 A fuse on the permanent feed near the battery, before X1. The B&G PDF specifies an application-dependent main F1 and illustrates 20 A (ATO); the *actual* F1 fuse value/type, cable gauge and suitability of the external 30 A protection are still unknown. Do not claim the 30 A fuse proves adequate conductor protection or avoids downstream voltage drops.
+
+## ECU screw-terminal junction as installed (user-reported 2026-10-27)
+
+The **DIY DC idle H-bridge positive and ground leads land on the respective power/ground screw terminals on the ECU itself**, not on a screw terminal on the relay board. The supply and ground wires originate from the MS relay box and reach those ECU screw terminals; **both ECU and H-bridge therefore share the same terminals and incoming feed/return cables at that junction**.
+
+This resolves the junction location but **does not prove which internal relay-board net or protective element** powers the ECU screw positive terminal, nor the complete ground path within the box. The reference schematic's `K1 → CB2 → 12 RAW` path is a hypothesis to confirm against the actual ECU feed before attributing drop/trip behavior to CB2. Keep the H-bridge common-impedance and possible polyfuse thermal-trip mechanisms as testable hypotheses rather than established engine shutdown causes.
 
 ## JP1 — 20-terminal screw block (schematic page 1)
 
@@ -83,11 +91,11 @@ This is historical *fast-idle relay* functionality, and does not establish wirin
 
 The source pin names above are **already extracted**; users should not be asked to re-photograph or redraw them. For the real vehicle, ask for simple text answers, accepting `connected`, `unused`, `unknown`, or a destination name:
 
-1. X1, X2, X3: actual supply/ground source.
+1. **Completed at user-report level:** X1 permanent +12V through separate upstream 30 A fuse; X2 switched +12V; X3 engine ground. Confirm fuse physical value and wire gauge only if readily available.
 2. JP1 positions 1–20: current wire destination/function, if used. Blank/unknown is acceptable.
 3. JP2 positions 1–4: present injector power wiring, or any repurposed load.
 4. K1/K2/K3, F1–F4, J1: whether installed and used as the reference would suggest; record actual markings only when readily available.
-5. ECU main + and ground, and DIY H-bridge + and ground: clarify *which physical screw terminals* are shared and whether these are located on the relay box or near the ECU.
+5. **Completed at user-report level:** ECU and H-bridge share the ECU's own positive and negative screw terminals, fed/returned by cables originating at the MS box. The terminal location is no longer an open question; exact internal MS-box feed/return nets remain unknown.
 6. Any bypassed/repurposed connection from Speeduino to Mega144H7.
 
 No cramped-space photographs are required as a blanket condition. A text description can establish a **user-reported installed** wiring map; verified measurements or an existing reliable harness drawing may later raise confidence for a particular fact. Avoid demanding PCB-side physical probing solely to repeat information already established in the PDF.
