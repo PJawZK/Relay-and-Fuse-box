@@ -8,7 +8,7 @@ and a genuine Codex agent must see the same MCP capabilities. The upstream serve
 - GitHub Actions run `40543131535` passed isolated STDIO initialization/tools-list.
 - GitHub Actions run `40543925876` passed isolated STDIO, `list_schematic_components`
   on a disposable upstream fixture (R1 and R2), and unchanged file checks.
-- GitHub Actions run `40544532382` passed installation, real MCP fixture query, checked disabled TOML registration, Bash launcher syntax, and tracked-file integrity.\n- These do **not** prove Codex recognizes the MCP registration.
+- GitHub Actions run `40544532382` passed installation, real MCP fixture query, checked disabled TOML registration, Bash launcher syntax, and tracked-file integrity.\n- GitHub Actions run `40549444779` **passed** on commit `719b7ad`: launcher resolves path independent of Git ownership, fixture-only tool is registered and callable, unregistered edit operation is rejected, fixture remains unchanged, and no tracked files changed.\n- These do **not** prove Codex recognizes the MCP registration.
 
 ## Codespaces agent test (opt-in)
 
@@ -70,3 +70,15 @@ server-side allowlist or equivalent restriction has been tested.
 An acceptance report should contain the native Codex session transcript/evidence,
 MCP registration, actual tool call and R1/R2 output, fixture hash before/after,
 worktree status, and an explicit separation of Codex Cloud versus Codespaces.
+
+## Next gate — native Codex agent (not yet executed)
+
+In a trusted **disposable** Codespace/agent workspace, use this checklist:
+
+1. Verify branch `infra/kicad-mcp-smoke`, an empty `git status --short`, and `kicad-cli version`.
+2. Run `bash scripts/setup-kicad-mcp.sh` and `.local/kicad-mcp-venv/bin/python scripts/test-kicad-mcp-allowlist.py`.
+3. Change `enabled = false` to `enabled = true` in the **local, uncommitted** `.codex/config.toml`, then start a new Codex session. This is only for the fixture-only server; never enable the full upstream server.
+4. Inspect the Codex client's *actual* MCP registration; then have **the Codex agent** invoke `list_schematic_components` without arguments, proving it returns R1/R2. Running the Python test again does not satisfy this gate.
+5. Restore `enabled = false`, check worktree and fixture SHA-256, and save a report with the Codex version, evidence, and observed limitations. **Do not claim Codex Cloud and Codespaces share one environment**.
+
+The above gate is pending until a real agent session executes it. Keep this PR in draft until that outcome is reviewed.
