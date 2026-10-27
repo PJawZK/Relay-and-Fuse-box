@@ -18,14 +18,14 @@ Each entry must distinguish a **connection observation** from a **measured elect
 
 | ID | Circuit or junction | Present evidence | Still unknown | Required evidence to close |
 |---|---|---|---|---|
-| E01 | Alternator B+, battery+, charge feed | R: charging voltage 13.9–14.0 V historically | Battery-to-box current path, protection, junction and source-voltage conditions | User text or trace of route + loaded measurements with named reference point |
-| E02 | Relay-box power inlet | R: existing box | Pin/terminal, feed wire size, contact state, upstream protection | PDF terminal mapping + text confirmation of physical hookup, gauge when known, voltage under load |
+| E01 | Alternator B+, battery+, charge feed | R (2026-10-27): separate 30 A fuse near battery on permanent feed into MS box X1; historic charging 13.9–14.0 V | Upstream fuse package, cable size, physical route/protection and loaded drop | Confirm wire gauge, fuse location as needed, voltage under load; do not adopt 30 A as new design rating |
+| E02 | Relay-box power inlet | R (2026-10-27): X1 unswitched +12V (through external 30 A), X2 switched +12V, X3 engine ground; aligns with PDF labels | Physical input cable sizes/terminal condition, onboard F1 installed rating, loaded drop | Input functions confirmed by user; measure/characterize remaining unknowns |
 | E03 | F1, K1, CB2 ECU branch | H: B&G 2002 V1.2 reference | Whether same devices actually fitted; relay/contact/polyfuse drop | Compare installed usage to `ORIGINAL_RELAY_BOARD_PDF_MAP.md`; only investigate physical board where revision/component behavior matters; segment drops |
-| E04 | ECU main power | R: Mega144H7 on 0.4.3C adapter | Actual terminal/pin, feed and grounding layout, current | As-built pin/terminal trace, loaded ECU terminal voltage |
-| E05 | ECU power return | U: pin/stud mapping | Return conductors, current-sharing and drop to battery negative | Physical route, connections, return voltage drop |
+| E04 | ECU main power | R (2026-10-27): cables from MS box terminate on ECU supply/ground screw terminals; both shared with H-bridge | Exact MS board output net/protection feeding ECU screw, conductor size, ECU current and terminal voltage | Determine actual relay-board output path; measure loaded voltage at ECU screw |
+| E05 | ECU power return | R (2026-10-27): ECU and H-bridge share ECU ground screw, return cable originates at MS box | Internal MS box/X3 routing, cable gauge, loaded and dynamic return drop | Text mapping of box return plus ground-drop measurement |
 | E06 | ECU sensor/reference ground | R: sensor systems installed | Sensor return pins and any shared high-current connection | Signal/reference continuity map, **no current injection into sensor ground** |
-| E07 | DC idle H-bridge supply | R: shares ECU screw-terminal supply | Protection, switching/inrush, cable gauge, filtering | Text description of shared terminal, supply trace, isolated-load current and PWM disturbance evidence |
-| E08 | DC idle H-bridge return | R: shares ECU screw-terminal ground | Return conductor, transient coupling and voltage drop | Text description of shared terminal, trace, loaded return-drop test |
+| E07 | DC idle H-bridge supply | R (2026-10-27): H-bridge + attached to ECU positive screw fed from MS box | Whether downstream of CB2 as historical PDF suggests; current/inrush, suppression, conductor gauge | Determine feed/net, measure H-bridge current and ECU supply disturbance under PWM |
+| E08 | DC idle H-bridge return | R (2026-10-27): H-bridge - attached to ECU ground screw, supplied with MS-box ground cable | Return routing and common impedance; dynamic ground offset | Determine return path and measure loaded return drop/PWM disturbance |
 | E09 | Fuel pump relay/branch | R: ECU PD10 command; pump installed | Coil wiring, independent failure mode, fuses, factory interaction, branch/return current | Relay state truth table + physical trace + measured current; verify stop/fault OFF |
 | E10 | Injector B+ branches | R: four EV14 injectors/sequential ECU drivers | Fuse allocation, actual common feed, connector state | As-built +12V trace and protected current test |
 | E11 | Wasted-spark coil supply/return | R: VAG 032 905 106B | Fuse, positive supply and power-ground termination | Written wiring trace, available part/terminal markings, pulse-noise observation |
@@ -37,7 +37,7 @@ Each entry must distinguish a **connection observation** from a **measured elect
 | E17 | Fuel-pressure and future EMAP | R/P: current 200 PSI sensor; EMAP reuse later | Present 5V/reference; timing of rail change | Sensor trace, distinguish present and planned |
 | E18 | Dash/CAN/auxiliary loads | P/partial | Current source, future allocations | Keep separate from critical supply until physically verified |
 | E19 | Battery negative/chassis/engine strap network | H: one test under 0.1 V at a particular condition | Full topology; cold/hot loaded drop | Reported/verified connection routes, separate return-segment measurement |
-| E20 | Actual box fuses, three relay housings | R: three relays warm to touch, MINI fuses | In-use values, relay models, heat origin, terminal resistance | Readily available markings + thermal observation with ambient/load and contact drop |
+| E20 | Actual box fuses, three relay housings | R: 30 A **external upstream** fuse installed; MINI fuses and three warm relay housings previously reported | F1–F4 onboard values, relay models, contact/PCB condition and thermal behavior | Keep 30 A external distinct from onboard F1; obtain readily known markings and loaded contact drops |
 
 ## Historical voltage observations (do not merge different test sessions)
 
@@ -64,6 +64,8 @@ A circuit is **closed for inventory** only when source node, destination node, c
 5. Reconcile dated results and use them to define quantitative requirements and fault matrix. Only then reassess authorization to begin schematic design.
 
 ## Open findings
+
+- **New conditional fault hypothesis:** The user reports H-bridge power/ground directly on ECU screw terminals fed from the MS relay box. The historical B&G drawing routes `12 RAW` through `CB2 RXE105`. **If** that physical ECU terminal is on this protected output and the CB2 component is actually installed, H-bridge PWM current could elevate drop or heat/trip the PTC; recovery after cooling could resemble the reported restart delay. Equally, common supply/ground impedance, wiring joints or H-bridge electrical noise remain plausible. Confirm actual protection/net before ranking causes. Do not bypass CB2 or the 30 A fuse as a diagnostic shortcut.
 
 - Sharing the ECU supply/return screw terminal with a PWM H-bridge is a **plausible** common-impedance coupling mechanism. It is **not proven** to have caused the reported engine shutdowns.
 - Three relay housings being warm does **not**, by itself, prove failing relays or excessive contact resistance.
