@@ -16,15 +16,15 @@
 | Charging voltage at specified reference | TBD |
 | Instrument model, range, calibration / resolution | TBD |
 | Test reference point and physical probe location | TBD |
-| Photos, logs and meter-readout identifiers | TBD |
+| Evidence: text description, existing wiring drawing, photo (optional), log or meter record | TBD |
 
 ## Physical trace sheet — repeat per branch
 
-| ID | Source terminal | Destination terminal | Connector cavity | Conductor marking / measured size | Fuse position and installed marking | Relay markings/contact terminals | Ground return path | Evidence photo/continuity/date |
+| ID | Source terminal | Destination terminal | Connector cavity | Conductor marking / measured size | Fuse position and installed marking | Relay markings/contact terminals | Ground return path | Evidence text/record/date |
 |---|---|---|---|---|---|---|---|---|
 | E01–E20 | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
 
-Label wire markings as **observed** until conductor cross-section is confirmed. Record uncertain or modified splices separately, including whether they are crimped, soldered or terminal-block connections.
+Begin with the PDF-derived X1–X3, JP1 and JP2 labels in `ORIGINAL_RELAY_BOARD_PDF_MAP.md`, then record *actual* uses in words. Photos are optional when installation is cramped. Label wire markings as **observed** until conductor cross-section is confirmed. Record uncertain or modified splices separately, including whether they are crimped, soldered or terminal-block connections.
 
 ## Loaded voltage-drop session — one row per segment per load state
 
@@ -53,7 +53,7 @@ These are **observation targets**, not instructions to disable fuel, unplug the 
 
 - Do not bridge fuse or relay contacts, bypass protection, probe high-current conductors with an unfused meter-current input, or disturb ECU sensor ground.
 - Check meter lead placement and fuse rating before changing voltage/current modes. Current must be measured with a suitable, rated clamp or other appropriate non-destructive method; do not place a handheld ammeter across the battery.
-- Use engine-off photos and terminal identification first. Disconnect battery negative only according to an appropriate vehicle-service procedure, protecting ECU and other electronics.
+- Identify terminals from the original schematic and the user's text wiring description first; do not require cramped-space photos or intrusive access. Disconnect battery negative only according to an appropriate vehicle-service procedure, protecting ECU and other electronics.
 - Keep probes clear of belts, fan, hot manifold and moving linkages. For live tests use appropriately secured probes and an assistant where needed.
 - Never treat heat felt through plastic as a temperature measurement. Record instrument, surface and ambient conditions if thermal comparison is needed.
 - No fuse, cable, relay, TVS or PCB rating is finalized until measured currents, wiring and thermal/fault requirements are reviewed.
