@@ -18,11 +18,10 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-24.04
-    container: ghcr.io/kicad/kicad:9.0
     steps:
       - uses: actions/checkout@v4
-      - name: Confirm KiCad version
-        run: kicad-cli version
+      - name: Confirm KiCad CLI container
+        run: docker run --rm ghcr.io/kicad/kicad:9.0 kicad-cli version
       - name: Validate committed KiCad projects
         shell: bash
         run: |
@@ -31,15 +30,17 @@ jobs:
           mapfile -d '' BOARDS < <(find hardware -type f -name '*.kicad_pcb' -print0 2>/dev/null || true)
           mkdir -p reports
           if (( ${#SCHEMATICS[@]} == 0 && ${#BOARDS[@]} == 0 )); then
-            echo "::notice::No design files: KiCad tool startup check only; NOT ERC/DRC validation."
+            echo "::notice::No KiCad files: CLI startup check only; not a design ERC/DRC pass."
           fi
           for f in "${SCHEMATICS[@]}"; do
             name="$(basename "$f" .kicad_sch)"
-            kicad-cli sch erc "$f" -o "reports/${name}-erc.txt"
+            docker run --rm -v "$PWD:/work" -w /work ghcr.io/kicad/kicad:9.0 \
+              kicad-cli sch erc "$f" -o "reports/${name}-erc.txt"
           done
           for f in "${BOARDS[@]}"; do
             name="$(basename "$f" .kicad_pcb)"
-            kicad-cli pcb drc "$f" -o "reports/${name}-drc.txt"
+            docker run --rm -v "$PWD:/work" -w /work ghcr.io/kicad/kicad:9.0 \
+              kicad-cli pcb drc "$f" -o "reports/${name}-drc.txt"
           done
       - uses: actions/upload-artifact@v4
         if: always()
@@ -47,4 +48,4 @@ jobs:
           name: kicad-review-reports
           path: reports/
           if-no-files-found: ignore
-# Move to immutable image digest and action SHAs after smoke tests.
+# Container launched as an isolated tool; checkout actions execute on host.
