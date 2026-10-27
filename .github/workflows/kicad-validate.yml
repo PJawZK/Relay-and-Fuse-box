@@ -3,10 +3,14 @@ on:
   push:
     paths:
       - 'hardware/**'
+      - '.devcontainer/**'
+      - 'scripts/verify-environment.sh'
       - '.github/workflows/kicad-validate.yml'
   pull_request:
     paths:
       - 'hardware/**'
+      - '.devcontainer/**'
+      - 'scripts/verify-environment.sh'
       - '.github/workflows/kicad-validate.yml'
   workflow_dispatch:
 permissions:
@@ -14,22 +18,21 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-24.04
-    container: ghcr.io/kicad/kicad:10.0
+    container: ghcr.io/kicad/kicad:9.0
     steps:
       - uses: actions/checkout@v4
-      - name: Print tool version
+      - name: Confirm KiCad version
         run: kicad-cli version
-      - name: Find and validate KiCad files
+      - name: Validate committed KiCad projects
         shell: bash
         run: |
           set -euo pipefail
           mapfile -d '' SCHEMATICS < <(find hardware -type f -name '*.kicad_sch' -print0 2>/dev/null || true)
           mapfile -d '' BOARDS < <(find hardware -type f -name '*.kicad_pcb' -print0 2>/dev/null || true)
-          if (( ${#SCHEMATICS[@]} == 0 && ${#BOARDS[@]} == 0 )); then
-            echo "::notice::No KiCad design files yet; this is setup verification, NOT ERC/DRC validation."
-            exit 0
-          fi
           mkdir -p reports
+          if (( ${#SCHEMATICS[@]} == 0 && ${#BOARDS[@]} == 0 )); then
+            echo "::notice::No design files: KiCad tool startup check only; NOT ERC/DRC validation."
+          fi
           for f in "${SCHEMATICS[@]}"; do
             name="$(basename "$f" .kicad_sch)"
             kicad-cli sch erc "$f" -o "reports/${name}-erc.txt"
@@ -44,4 +47,4 @@ jobs:
           name: kicad-review-reports
           path: reports/
           if-no-files-found: ignore
-# Pin images and actions by immutable digest/SHA following first successful validation.
+# Move to immutable image digest and action SHAs after smoke tests.
