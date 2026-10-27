@@ -1,0 +1,28 @@
+name: KiCad MCP isolated smoke
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/setup-kicad-mcp.sh'
+      - 'scripts/test-kicad-mcp.py'
+      - '.github/workflows/kicad-mcp-smoke.yml'
+      - '.devcontainer/**'
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build KiCad CLI environment
+        run: docker build -f .devcontainer/Dockerfile -t relay-mcp-test .devcontainer
+      - name: Install candidate and test actual STDIO MCP handshake
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker run --rm -v "$PWD:/workspaces/Relay-and-Fuse-box" \
+            -w /workspaces/Relay-and-Fuse-box relay-mcp-test \
+            bash -lc 'bash scripts/setup-kicad-mcp.sh && .local/kicad-mcp-venv/bin/python scripts/test-kicad-mcp.py'
+      - name: Verify no tracked source mutations
+        run: git diff --exit-code && git diff --cached --exit-code
