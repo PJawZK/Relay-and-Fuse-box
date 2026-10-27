@@ -4,7 +4,7 @@ _Updated 2026-10-27_
 
 ## 🚀 Next quest
 
-- Use `docs/ORIGINAL_RELAY_BOARD_PDF_MAP.md` (transcribed from the actual two supplied PDFs) and request **text confirmation** of current X1–X3, JP1/JP2 uses and ECU/H-bridge shared power/ground terminals. Photos are not a prerequisite in the cramped installation. Then plan targeted voltage/current tests; F6/F7 remain open, no schematic/PCB yet.
+- **X1/X2/X3 and ECU/H-bridge common junction have now been confirmed by user text (2026-10-27):** X1 permanent through external upstream 30 A fuse near battery, X2 switched, X3 engine ground; MS box cables feed ECU +/ground screw terminals, shared by H-bridge. Next confirm JP1/JP2 actual uses, onboard F1 value and exact ECU output net/CB2 presence. Plan targeted voltage/current tests; F6/F7 remain open; no schematic/PCB yet.
 
 ## Context
 
@@ -26,3 +26,5 @@ _Updated 2026-10-27_
 - Priority electrical uncertainty: ECU and DC idle H-bridge feed/return share a screw terminal by user report. This is a coupling hypothesis, not an established shutdown cause.
 
 - The two original B&G PDFs were reviewed: schematic title block V1.2; layout PDF filename V1.2 but **silkscreen says V1.1**. Preserve this source revision difference rather than assuming installed board identity.
+
+- Potential mechanism only: B&G source schematic ECU feed passes CB2 RXE105. If installed output to shared ECU/H-bridge screw actually traverses CB2, PWM load could cause voltage loss/PTC thermal trip; this is not established and must be distinguished from shared return impedance or other failures. Do not bypass protective components.
