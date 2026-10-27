@@ -57,6 +57,22 @@ Measure directly across the two ends of the segment when feasible, and note pola
 
 **Required segment set (where physically confirmed):** source positive→box inlet; fuse inlet→outlet; main relay contact inlet→outlet; any *actually installed* polyfuse inlet→outlet; box outlet→ECU terminal; ECU power-ground→battery-negative/engine-star ground; H-bridge feed and return individually. Repeat in appropriate load states rather than assuming one total result covers all conditions.
 
+## Before / after H-bridge supply relocation
+
+**Status:** planned only (2026-10-27), not yet fitted.
+
+| Check | Before (existing shared ECU terminals) | After independent switched/fused feed | Important caveat |
+|---|---|---|---|
+| Supply source, fuse, relay and harness | MS box -> ECU screw terminal -> H-bridge | TBD | A fuse **after** MS `CB2` does not remove H-bridge load from CB2 |
+| Power ground | ECU ground screw shared with H-bridge | TBD dedicated actuator-current return | Never use sensor ground as motor return |
+| ECU VBatt, idle normal-control interval | Prior log 590–605 s: minimum ~13.41 V (separate analysis) | Not measured | Compare matched conditions/ECU calibration |
+| ECU VBatt, aggressive PWM interval | Prior log 650–660 s: minimum ~10.67 V; <10 V by 660.78 s | Not measured | Do not deliberately recreate shutdown; note other factors |
+| H-bridge command reversals | Prior high-D period ~41 reversals/s | Not measured | Command signal, not necessarily power-current measurement |
+| Ignition/run/stop behavior | Prior first stop 662.75 s after logged supply decline | Not measured | Log alone cannot determine CB2 versus ground versus H-bridge/relay fault |
+| Cranking, RUN, OFF transitions | Not characterized for candidate OEM relay | Not tested | Confirm relay output state and throttle default position; retain fuel-pump fail-safe |
+
+The archived numbers above are from earlier log interpretation, **not a fresh raw-file parse** in the relay-box project. The file `2026-10-26_20.51.28.mlg.zip` was located in saved Library files but was unavailable for raw-byte rematerialization here. Re-read raw log before declaring quantitative acceptance or causation.
+
 ## Dynamic observations / fault-state record
 
 | Test/state | Expected safe behavior (to verify) | Observation | Evidence |

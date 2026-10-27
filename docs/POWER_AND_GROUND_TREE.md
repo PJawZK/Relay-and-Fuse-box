@@ -46,6 +46,14 @@ The shared supply **and** return represent possible common-impedance coupling un
 
 A historical battery-negative-to-engine/star-ground test measured <0.1 V in one operating condition; it does not verify every return segment during PWM transients.
 
+## Near-term H-bridge relocation plan — **not installed**
+
+As of 2026-10-27 the user intends to remove H-bridge motor positive and power ground from the ECU's screw terminals and connect the actuator to a **separate switched and fused circuit** from the Volvo's original relay/fuse system. This is a practical isolation experiment and may eliminate both shared ECU screw-terminal impedance and H-bridge load on the MS-board `CB2` branch **if** the new positive takeoff is truly upstream/independent of `12 RAW`. The existing configuration remains as drawn above until the user confirms physical completion.
+
+Candidate existing fuel-pump and engine-system relay outputs must be screened, not treated as free capacity. The original Volvo 940 distribution includes fuel-injection/system relay functions (1995 Volvo 940 turbo factory-style diagram overview: https://charm.li/Volvo/1995/940%20L4-2320cc%202.3L%20SOHC%20Turbo%20VIN%2086%20B230FT/Repair%20and%20Diagnosis/Diagrams/Electrical%20Diagrams/Power%20and%20Ground%20Distribution/System%20Diagram/). The exact 1997 B230FK as-retrofitted relay usage and control state must be confirmed; an LH-era relay may be unused, partly repurposed, or still feed ignition/other loads.
+
+**Selection checks:** switched ON in both RUN and START if the throttle actuator requires it; off when key off; current capacity/relay/contact condition; fuse and conductor coordination; no dependency on fuel pump run/prime command; no disturbance to actual pump voltage or shutdown; a dedicated H-bridge motor-current ground return; appropriate H-bridge electrical suppression; acceptable throttle-plate failsafe position on relay/fuse loss. Do not tap a motor directly into ECU sensor ground, `12 RAW`, or a fuel-pump motor output simply because it has a convenient terminal.
+
 ## Proposed power and ground structure (P; NOT wired)
 ```text
 Battery/source + -- protected main feed -- rated bus (proper mechanical terminals)
