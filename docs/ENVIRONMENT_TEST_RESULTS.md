@@ -8,7 +8,7 @@
 - Earlier CI runs 40518278591 and 40523355743: FAILED during `actions/checkout` inside the KiCad job container; corrected by invoking the container from the Ubuntu host runner.
 
 ## Pending manual or agent-cloud smoke tests
-- Create fresh 2-core Codespace from `infra/browser-first-foundation`; verify VS Code browser, Node 22, Python, `kicad-cli version`, persistent git changes.
+- **Codespaces terminal smoke VERIFIED by user 2026-10-27** on `infra/browser-first-foundation`: git 2.47.3; Python 3.13.5; Node 22.23.4; KiCad CLI 9.0.2; Python `pcbnew` 9.0.2; script exited successfully. User opened Codespaces browser session. **Git persistence across environment recreation not yet tested.**
 - Configure Codex Cloud environment using `scripts/setup-codex-cloud.sh`, verify Node >=20 and KiCad version, run repository checks and push test branch.
 - Run reviewed EpicWolf integration workflow, complete license/protocol and hook compatibility checks and merge separately.
 - Confirm candidate KiCad MCP server startup, tool listing and read-only query on dummy schematic; do not expose remote public port.
