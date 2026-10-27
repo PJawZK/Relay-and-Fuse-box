@@ -10,7 +10,7 @@ as read-only. No vehicle-board edit is authorized.
 - GitHub Actions run `40543131535` passed isolated STDIO initialization/tools-list.
 - GitHub Actions run `40543925876` passed isolated STDIO, `list_schematic_components`
   on a disposable upstream fixture (R1 and R2), and unchanged file checks.
-- These do **not** prove Codex recognizes the MCP registration.
+- GitHub Actions run `40544532382` passed installation, real MCP fixture query, checked disabled TOML registration, Bash launcher syntax, and tracked-file integrity.\n- These do **not** prove Codex recognizes the MCP registration.
 
 ## Codespaces agent test (opt-in)
 
@@ -54,3 +54,22 @@ not permission to substitute a manually scripted `ClientSession` call.
   `docs/POWER_AND_GROUND_TREE.md`; no design work yet.
 
 Reference: https://learn.chatgpt.com/docs/extend/mcp
+
+## Proposed live Codex acceptance report
+
+A genuine Codex session is still required. In the actual environment, first
+show `codex --version`, `codex mcp list`, MCP server state and the exact
+project commit. Do not count a direct Python `ClientSession` call as Codex
+MCP discovery; that portion was already proven in GitHub Actions.
+
+**Safety prerequisite:** upstream MCP registers editing operations as well as
+read-only methods. Since the project config currently enables or disables the
+**entire** server, enabling it is only acceptable in an isolated disposable
+agent workspace with **no writable real project electrical designs**. A prompt
+that says 'do not edit' is not a tool-level read-only restriction. Do not
+activate in a workspace holding sensitive or real KiCad design files until a
+server-side allowlist or equivalent restriction has been tested.
+
+An acceptance report should contain the native Codex session transcript/evidence,
+MCP registration, actual tool call and R1/R2 output, fixture hash before/after,
+worktree status, and an explicit separation of Codex Cloud versus Codespaces.
