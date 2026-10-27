@@ -4,7 +4,8 @@ _Updated 2026-10-27_
 
 ## 🚀 Next quest
 
-- **X1/X2/X3 and ECU/H-bridge common junction have now been confirmed by user text (2026-10-27):** X1 permanent through external upstream 30 A fuse near battery, X2 switched, X3 engine ground; MS box cables feed ECU +/ground screw terminals, shared by H-bridge. Next confirm JP1/JP2 actual uses, onboard F1 value and exact ECU output net/CB2 presence. Plan targeted voltage/current tests; F6/F7 remain open; no schematic/PCB yet.
+- **2026-10-27 planned immediate change (NOT yet installed):** move DC idle H-bridge motor supply and return away from the ECU's shared screw terminals to a separate switched/fused Volvo factory-relay branch. User considering original fuel/main-system relay feeds, but actual spare load capacity/command, cranking behavior and retained consumers are unverified. Do not attach actuator to fuel-pump motor output or ECU `12 RAW` branch. Verify motor safe throttle-plate behavior on loss of power.
+- **X1/X2/X3 and existing ECU/H-bridge junction confirmed by user text:** X1 permanent through external upstream 30 A fuse, X2 switched, X3 engine ground; MS box cables feed ECU +/ground screw terminals currently shared by H-bridge. Next map the candidate OEM relay and re-log supply under matched normal operating conditions. F6/F7 remain open; no schematic/PCB.
 
 ## Context
 
@@ -29,3 +30,5 @@ _Updated 2026-10-27_
 
 - **2026-10-27 user confirmation:** internal MS relay-box circuitry is stock/original; CB2 was not deliberately removed or bypassed. Original B&G BOM allows RXE105 **or** RXE110, despite schematic CB2 label RXE105; fitted marking remains unknown.
 - Potential mechanism only: B&G source schematic ECU feed passes CB2 RXE105. If installed output to shared ECU/H-bridge screw actually traverses CB2, PWM load could cause voltage loss/PTC thermal trip; this is not established and must be distinguished from shared return impedance or other failures. Do not bypass protective components.
+
+- Previous October 26 idle-log analysis (archived evidence; raw ZIP not rematerializable here) found ECU VBatt minimum ~13.41 V during calm 590–605 s, ~10.67 V during aggressive DC PWM 650–660 s; <10 V by 660.78 s, logged IGN loss 661.20 s and RPM zero 662.75 s. Later stops 716.39 s and 1725.8 s; final stop had near-zero outer D, so H-bridge D activity is not established as universal cause. Full detail in `docs/ELECTRICAL_EVIDENCE_LEDGER.md`.
