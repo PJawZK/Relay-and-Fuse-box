@@ -47,3 +47,7 @@ Evidence labels: **reported installed** = user reported installation, not indepe
 3. Current of each separately isolated load branch using an appropriately rated instrument and test method.
 4. Separate chassis, battery, engine, ECU, sensor, coil and H-bridge return points on a ground-tree drawing.
 5. Update every 'reported installed' claim to 'verified installed' only with measurements, physical tracing or current schematic evidence.
+
+## Traceability and capture (2026-10-27)
+
+Use [the evidence/coverage ledger](ELECTRICAL_EVIDENCE_LEDGER.md) for circuit IDs E01–E20 and current proof gaps. Record new vehicle observations in [the physical inspection and measurement worksheet](ELECTRICAL_MEASUREMENT_WORKSHEET.md) before upgrading any entry from **reported installed** to **verified installed**. Keep each measurement session separate; do not blend September 2025 and May 2026 observations into a single simultaneous drop budget.

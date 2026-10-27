@@ -4,7 +4,7 @@ _Updated 2026-10-27_
 
 ## 🚀 Next quest
 
-- Continue evidence-led electrical inventory and verify remaining power/ground and branch-current uncertainties before authorizing schematic/PCB design. KiCad MCP fixed-fixture native Codex acceptance has been completed, but unrestricted/editing MCP and Codex Cloud provisioning remain outside validated scope.
+- Obtain dated as-built photos, terminal/relay/fuse markings and source/return trace for E01–E09 and E19–E20 in `docs/ELECTRICAL_EVIDENCE_LEDGER.md`. Then perform controlled segment voltage-drop/current capture with `docs/ELECTRICAL_MEASUREMENT_WORKSHEET.md`. F6/F7 remain open; no board schematic/PCB yet.
 
 ## Context
 
@@ -17,3 +17,10 @@ _Updated 2026-10-27_
 - Codex Cloud F1 executed successfully on 2026-10-27: Node 22.23.4, context and guard clean, 31/31 tests, no source/memory mutations. Evidence: docs/validation/CODEX_CLOUD_EPICWOLF_RUN.md (PR #3 merged into integration branch). Automatic hooks were not observed.
 - Browser Codespaces F1 executed successfully on 2026-10-27 at integration revision 17dbc56: context and guard clean, 1 valid bug record and 31/31 tests. User supplied actual terminal output; final user-confirmed `git status --short` after tests was empty.
 - EpicWolf hooks in .claude/settings.json are Claude Code-specific; Codex receives repo instructions via AGENTS.md and must explicitly run the repo's status/guard commands until native hook compatibility has been proven.
+
+## Electrical closure evidence
+
+- Circuit coverage ledger: `docs/ELECTRICAL_EVIDENCE_LEDGER.md` (E01–E20). All physical paths and branch currents remain open unless directly verified.
+- Repeatable measurement fields and safe load-state checklist: `docs/ELECTRICAL_MEASUREMENT_WORKSHEET.md`.
+- Foundation gates were reconciled to verified CI/Codespaces evidence in `docs/FOUNDATION_GATES.md`: F1/F5 limited passes, F2–F4 partial/limited, F6–F8 still open.
+- Priority electrical uncertainty: ECU and DC idle H-bridge feed/return share a screw terminal by user report. This is a coupling hypothesis, not an established shutdown cause.
