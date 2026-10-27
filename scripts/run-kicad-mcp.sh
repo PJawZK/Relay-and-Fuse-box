@@ -9,4 +9,4 @@ if [[ ! -x "$PY" ]]; then
   exit 2
 fi
 cd "$ROOT"
-exec "$PY" -m kicad_mcp_server
+exec "$PY" "$ROOT/scripts/kicad-mcp-fixture-only.py"
