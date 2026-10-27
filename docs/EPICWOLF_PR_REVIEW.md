@@ -18,3 +18,10 @@
 - No KiCad schematic, PCB, or automotive electrical validation is created by this PR.
 - A smoke test inside a real Codex Cloud task and a fresh Codespace remains necessary to demonstrate cross-agent use.
 - Recommend keeping PR in draft until compatibility smoke test and hook source review are complete. No automatic merge.
+
+## Live Codex Cloud F1 verified
+- On 2026-10-27, Codex Cloud ran read-only context, wolf_guard and 31/31 vendor tests successfully, with Node 22.23.4 and no pre-existing source/memory mutations.
+- PR #3 delivered the report and was squash-merged into the EpicWolf integration branch only, not main.
+- Report: `docs/validation/CODEX_CLOUD_EPICWOLF_RUN.md`.
+- No automatic EpicWolf hook execution was observed. This does not block explicit, read-only project memory access but remains a separate enhancement.
+- Remaining acceptance: fresh Codespaces read-only test at matching revision, and review of inherited Claude-only hooks before enabling them.
