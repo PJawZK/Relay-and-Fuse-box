@@ -4,7 +4,7 @@ _Updated 2026-10-27_
 
 ## 🚀 Next quest
 
-- Obtain dated as-built photos, terminal/relay/fuse markings and source/return trace for E01–E09 and E19–E20 in `docs/ELECTRICAL_EVIDENCE_LEDGER.md`. Then perform controlled segment voltage-drop/current capture with `docs/ELECTRICAL_MEASUREMENT_WORKSHEET.md`. F6/F7 remain open; no board schematic/PCB yet.
+- Use `docs/ORIGINAL_RELAY_BOARD_PDF_MAP.md` (transcribed from the actual two supplied PDFs) and request **text confirmation** of current X1–X3, JP1/JP2 uses and ECU/H-bridge shared power/ground terminals. Photos are not a prerequisite in the cramped installation. Then plan targeted voltage/current tests; F6/F7 remain open, no schematic/PCB yet.
 
 ## Context
 
@@ -24,3 +24,5 @@ _Updated 2026-10-27_
 - Repeatable measurement fields and safe load-state checklist: `docs/ELECTRICAL_MEASUREMENT_WORKSHEET.md`.
 - Foundation gates were reconciled to verified CI/Codespaces evidence in `docs/FOUNDATION_GATES.md`: F1/F5 limited passes, F2–F4 partial/limited, F6–F8 still open.
 - Priority electrical uncertainty: ECU and DC idle H-bridge feed/return share a screw terminal by user report. This is a coupling hypothesis, not an established shutdown cause.
+
+- The two original B&G PDFs were reviewed: schematic title block V1.2; layout PDF filename V1.2 but **silkscreen says V1.1**. Preserve this source revision difference rather than assuming installed board identity.
