@@ -1,0 +1,47 @@
+name: KiCad validate
+on:
+  push:
+    paths:
+      - 'hardware/**'
+      - '.github/workflows/kicad-validate.yml'
+  pull_request:
+    paths:
+      - 'hardware/**'
+      - '.github/workflows/kicad-validate.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    container: ghcr.io/kicad/kicad:10.0
+    steps:
+      - uses: actions/checkout@v4
+      - name: Print tool version
+        run: kicad-cli version
+      - name: Find and validate KiCad files
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -d '' SCHEMATICS < <(find hardware -type f -name '*.kicad_sch' -print0 2>/dev/null || true)
+          mapfile -d '' BOARDS < <(find hardware -type f -name '*.kicad_pcb' -print0 2>/dev/null || true)
+          if (( ${#SCHEMATICS[@]} == 0 && ${#BOARDS[@]} == 0 )); then
+            echo "::notice::No KiCad design files yet; this is setup verification, NOT ERC/DRC validation."
+            exit 0
+          fi
+          mkdir -p reports
+          for f in "${SCHEMATICS[@]}"; do
+            name="$(basename "$f" .kicad_sch)"
+            kicad-cli sch erc "$f" -o "reports/${name}-erc.txt"
+          done
+          for f in "${BOARDS[@]}"; do
+            name="$(basename "$f" .kicad_pcb)"
+            kicad-cli pcb drc "$f" -o "reports/${name}-drc.txt"
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kicad-review-reports
+          path: reports/
+          if-no-files-found: ignore
+# Pin images and actions by immutable digest/SHA following first successful validation.
