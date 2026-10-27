@@ -6,3 +6,5 @@
 - 2026-10-27 — Prefer standard serviceable Micro ISO relays and conventional fuses; prioritize low-loss reliable power paths, accessible wiring, and separate H-bridge motor return from ECU/sensor grounds.
 - 2026-10-27 — Initial cloud runtime verified KiCad CLI and pcbnew 9.0.2, not KiCad 10. Use version-aware migration later; don't assume matching CAD versions across runners.
 - 2026-10-27 — Claude hooks do not automatically transfer to Codex or ChatGPT. Initially use an explicit cross-agent read-only context entrypoint and validation checks.
+
+- 2026-10-27 — User clarified **entire current EpicEFI EFI electrical system** is separately wired and fused with new aftermarket relays; **no original Volvo factory EFI wiring, fuses or relays are reused**. The aged aftermarket MS relay box is distinct from the Volvo factory LH EFI relay system. Original LH injection relay positions (including 2/23 turbo, conditional 2/13) may be repurposed only after actual socket feed/coil/control validation. Prior statements that OEM 2/23 must remain for EpicEFI are superseded.

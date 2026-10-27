@@ -2,6 +2,10 @@
 
 This is a **partial logical map**, not a verified pin-to-pin harness drawing. Do not use as a production wiring diagram. Source categories: (R) user-reported installed, (H) historical previous-generation wiring, (P) planned, (?) not confirmed.
 
+## Important separation: aftermarket EFI vs original Volvo harness
+
+**Authoritative user clarification (2026-10-27):** No wiring, fuse or relay from the original Volvo/LH-Jetronic EFI system is used for the current EpicEFI engine management. The MS relay/fuse box shown below is a separately installed **aftermarket** component, despite its age and unmodified internal design. The Volvo's old LH fuel/EFI relays are therefore **potential spare/reuse hardware**, but their present electrical state, available feed and remaining non-ECU branches must still be proven. See `VOLVO_FACTORY_RELAY_REUSE_RESEARCH.md`.
+
 ## Current positive power (user-reported connections plus PDF reference)
 
 ```text
@@ -50,7 +54,7 @@ A historical battery-negative-to-engine/star-ground test measured <0.1 V in one 
 
 As of 2026-10-27 the user intends to remove H-bridge motor positive and power ground from the ECU's screw terminals and connect the actuator to a **separate switched and fused circuit** from the Volvo's original relay/fuse system. This is a practical isolation experiment and may eliminate both shared ECU screw-terminal impedance and H-bridge load on the MS-board `CB2` branch **if** the new positive takeoff is truly upstream/independent of `12 RAW`. The existing configuration remains as drawn above until the user confirms physical completion.
 
-Candidate existing fuel-pump and engine-system relay outputs must be screened, not treated as free capacity. The original Volvo 940 distribution includes fuel-injection/system relay functions (1995 Volvo 940 turbo factory-style diagram overview: https://charm.li/Volvo/1995/940%20L4-2320cc%202.3L%20SOHC%20Turbo%20VIN%2086%20B230FT/Repair%20and%20Diagnosis/Diagrams/Electrical%20Diagrams/Power%20and%20Ground%20Distribution/System%20Diagram/). The exact 1997 B230FK as-retrofitted relay usage and control state must be confirmed; an LH-era relay may be unused, partly repurposed, or still feed ignition/other loads.
+The current EpicEFI fuel-pump system uses its **own** relay, fuse and wiring; the factory Volvo fuel-injection relays are not part of the current pump/ECU safety circuit. Abandoned OEM fuel-injection relay positions (especially reference 2/23, conditionally 2/13) are thus meaningful **reuse candidates**, but their coils may no longer energize when the LH ECU is gone, and no socket capacity or remaining load is established. The original Volvo 940 distribution includes fuel-injection/system relay functions (1995 Volvo 940 turbo factory-style diagram overview: https://charm.li/Volvo/1995/940%20L4-2320cc%202.3L%20SOHC%20Turbo%20VIN%2086%20B230FT/Repair%20and%20Diagnosis/Diagrams/Electrical%20Diagrams/Power%20and%20Ground%20Distribution/System%20Diagram/). The exact 1997 B230FK as-retrofitted relay usage and control state must be confirmed; an LH-era relay may be unused, partly repurposed, or still feed ignition/other loads.
 
 **Selection checks:** switched ON in both RUN and START if the throttle actuator requires it; off when key off; current capacity/relay/contact condition; fuse and conductor coordination; no dependency on fuel pump run/prime command; no disturbance to actual pump voltage or shutdown; a dedicated H-bridge motor-current ground return; appropriate H-bridge electrical suppression; acceptable throttle-plate failsafe position on relay/fuse loss. Do not tap a motor directly into ECU sensor ground, `12 RAW`, or a fuel-pump motor output simply because it has a convenient terminal.
 
@@ -85,7 +89,7 @@ Actual star locations, conductor cross sections, relay states and fuse ratings r
 - H-bridge motor supply/return cable sizes, filter/TVS and measured current.
 - Whether original CB2/CB1/CB3 resettable polyfuses remain fitted.
 - Fan/fuel-pump/LC-1 heater and solenoid power sources.
-- Any current dependence on factory Volvo fuse/relay board.
+- Current EpicEFI **does not depend on original Volvo EFI fuse/relay board** (user-confirmed); remaining unknown is whether original factory relay/socket hardware provides an appropriate separate ignition-switched feed for the proposed H-bridge.
 
 ## Trace and measurement register
 
