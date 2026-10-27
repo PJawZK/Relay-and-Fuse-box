@@ -4,7 +4,8 @@ _Updated 2026-10-27_
 
 ## 🚀 Next quest
 
-- **2026-10-27 planned immediate change (NOT yet installed):** move DC idle H-bridge motor supply and return away from the ECU's shared screw terminals to a separate switched/fused Volvo factory-relay branch. User considering original fuel/main-system relay feeds, but actual spare load capacity/command, cranking behavior and retained consumers are unverified. Do not attach actuator to fuel-pump motor output or ECU `12 RAW` branch. Verify motor safe throttle-plate behavior on loss of power.
+- **2026-10-27 architecture correction:** No *original Volvo factory EFI* wires, relays or fuses are used by current EpicEFI. All EFI wiring, relays and fuses were separately installed (including aged aftermarket MS relay board). Original LH injection relay/socket positions can be assessed for reuse. Do **not** imply factory Volvo injection relay remains required for new EFI/fuel pump. See `docs/VOLVO_FACTORY_RELAY_REUSE_RESEARCH.md`.
+- **Planned, not installed:** move DC idle H-bridge off shared ECU supply/ground screws to separately fused, switched factory relay branch. Reused OEM 2/23 turbo injection relay is a candidate; its abandoned LH-controlled coil may not switch automatically. Confirm run/start state, feed, existing remaining loads, conductor/fuse capacity and safe actuator loss-of-power behavior. Do not tap the *currently active new* pump output or ECU `12 RAW` branch.
 - **X1/X2/X3 and existing ECU/H-bridge junction confirmed by user text:** X1 permanent through external upstream 30 A fuse, X2 switched, X3 engine ground; MS box cables feed ECU +/ground screw terminals currently shared by H-bridge. Next map the candidate OEM relay and re-log supply under matched normal operating conditions. F6/F7 remain open; no schematic/PCB.
 
 ## Context
@@ -32,3 +33,5 @@ _Updated 2026-10-27_
 - Potential mechanism only: B&G source schematic ECU feed passes CB2 RXE105. If installed output to shared ECU/H-bridge screw actually traverses CB2, PWM load could cause voltage loss/PTC thermal trip; this is not established and must be distinguished from shared return impedance or other failures. Do not bypass protective components.
 
 - Previous October 26 idle-log analysis (archived evidence; raw ZIP not rematerializable here) found ECU VBatt minimum ~13.41 V during calm 590–605 s, ~10.67 V during aggressive DC PWM 650–660 s; <10 V by 660.78 s, logged IGN loss 661.20 s and RPM zero 662.75 s. Later stops 716.39 s and 1725.8 s; final stop had near-zero outer D, so H-bridge D activity is not established as universal cause. Full detail in `docs/ELECTRICAL_EVIDENCE_LEDGER.md`.
+
+- Old chats 2025-09-14 and 2026-02-06 discuss user-uploaded `Volvo 940 (1995) Wiring Diagrams - Copy.pdf` and factory relay candidates. Exact original PDF bytes not accessible in this Project on 2026-10-27; matching public TP 3908032/TP 3908202 document index found, but don't claim byte identity or full 1997 model equivalence. The old advice that OEM 2/23 **must remain** has been superseded by user clarification.
