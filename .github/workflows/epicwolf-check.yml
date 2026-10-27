@@ -1,0 +1,43 @@
+name: EpicWolf memory checks
+on:
+  pull_request:
+    paths:
+      - '.wolf/**'
+      - 'AGENTS.md'
+      - 'scripts/agent-context.sh'
+      - 'docs/EPICWOLF_AGENT_COMPATIBILITY.md'
+      - 'docs/CODEX_CLOUD_VALIDATION.md'
+      - '.github/workflows/epicwolf-check.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify clean-checkout, agent-neutral context access
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f AGENTS.md
+          test -f .wolf/STATUS.md
+          test -f .wolf/SHARDS.md
+          bash scripts/agent-context.sh > /tmp/agent-context-result.txt
+          grep -F 'Relay-and-Fuse-box' /tmp/agent-context-result.txt
+          grep -F 'bugs + ' /tmp/agent-context-result.txt
+          git diff --exit-code
+          git diff --cached --exit-code
+          test -z "$(git ls-files --others --exclude-standard)"
+      - name: Vendored EpicWolf tests
+        run: node --test .wolf/tools/wolf_bug.test.js .wolf/hooks/*.test.js
+      - name: Check committed tree after tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --exit-code
+          git diff --cached --exit-code
+          test -z "$(git ls-files --others --exclude-standard)"
