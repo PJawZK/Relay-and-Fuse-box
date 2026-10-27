@@ -12,32 +12,32 @@
 | P | Planned/proposed | No |
 | U | Unknown/unmeasured | No |
 
-Each entry must distinguish a **connection observation** from a **measured electrical quantity**. A photograph may verify a relay model but not its contact resistance; a voltage drop may locate a weak segment but does not establish branch current.
+Each entry must distinguish a **connection observation** from a **measured electrical quantity**. A photo or written marking may identify a relay model but not its contact resistance; a voltage drop may locate a weak segment but does not establish branch current.
 
 ## Coverage by circuit
 
 | ID | Circuit or junction | Present evidence | Still unknown | Required evidence to close |
 |---|---|---|---|---|
-| E01 | Alternator B+, battery+, charge feed | R: charging voltage 13.9–14.0 V historically | Battery-to-box current path, protection, junction and source-voltage conditions | Dated wire-route photo + loaded measurements with named reference point |
-| E02 | Relay-box power inlet | R: existing box | Pin/terminal, feed wire size, contact state, upstream protection | Terminal marking/photo, gauge confirmation, voltage under load |
-| E03 | F1, K1, CB2 ECU branch | H: B&G 2002 V1.2 reference | Whether same devices actually fitted; relay/contact/polyfuse drop | Two-sided PCB inspection, part markings, continuity trace, segment drops |
+| E01 | Alternator B+, battery+, charge feed | R: charging voltage 13.9–14.0 V historically | Battery-to-box current path, protection, junction and source-voltage conditions | User text or trace of route + loaded measurements with named reference point |
+| E02 | Relay-box power inlet | R: existing box | Pin/terminal, feed wire size, contact state, upstream protection | PDF terminal mapping + text confirmation of physical hookup, gauge when known, voltage under load |
+| E03 | F1, K1, CB2 ECU branch | H: B&G 2002 V1.2 reference | Whether same devices actually fitted; relay/contact/polyfuse drop | Compare installed usage to `ORIGINAL_RELAY_BOARD_PDF_MAP.md`; only investigate physical board where revision/component behavior matters; segment drops |
 | E04 | ECU main power | R: Mega144H7 on 0.4.3C adapter | Actual terminal/pin, feed and grounding layout, current | As-built pin/terminal trace, loaded ECU terminal voltage |
 | E05 | ECU power return | U: pin/stud mapping | Return conductors, current-sharing and drop to battery negative | Physical route, connections, return voltage drop |
 | E06 | ECU sensor/reference ground | R: sensor systems installed | Sensor return pins and any shared high-current connection | Signal/reference continuity map, **no current injection into sensor ground** |
-| E07 | DC idle H-bridge supply | R: shares ECU screw-terminal supply | Protection, switching/inrush, cable gauge, filtering | Photos, supply trace, isolated-load current and PWM disturbance evidence |
-| E08 | DC idle H-bridge return | R: shares ECU screw-terminal ground | Return conductor, transient coupling and voltage drop | Photos, trace, loaded return-drop test |
+| E07 | DC idle H-bridge supply | R: shares ECU screw-terminal supply | Protection, switching/inrush, cable gauge, filtering | Text description of shared terminal, supply trace, isolated-load current and PWM disturbance evidence |
+| E08 | DC idle H-bridge return | R: shares ECU screw-terminal ground | Return conductor, transient coupling and voltage drop | Text description of shared terminal, trace, loaded return-drop test |
 | E09 | Fuel pump relay/branch | R: ECU PD10 command; pump installed | Coil wiring, independent failure mode, fuses, factory interaction, branch/return current | Relay state truth table + physical trace + measured current; verify stop/fault OFF |
 | E10 | Injector B+ branches | R: four EV14 injectors/sequential ECU drivers | Fuse allocation, actual common feed, connector state | As-built +12V trace and protected current test |
-| E11 | Wasted-spark coil supply/return | R: VAG 032 905 106B | Fuse, positive supply and power-ground termination | Wiring trace, part/terminal markings, pulse-noise observation |
+| E11 | Wasted-spark coil supply/return | R: VAG 032 905 106B | Fuse, positive supply and power-ground termination | Written wiring trace, available part/terminal markings, pulse-noise observation |
 | E12 | PWM 2-wire IAC | R: installed | Feed fuse, ECU low-side driver routing, diode/suppression | Wiring trace and driver-topology evidence |
-| E13 | Upper/lower boost solenoids | R: installed; some temporary wiring | B+ branching, two driver returns, suppression and bracket | Trace both circuits independently, photographs |
+| E13 | Upper/lower boost solenoids | R: installed; some temporary wiring | B+ branching, two driver returns, suppression and bracket | Trace both circuits independently by text/connection evidence |
 | E14 | LC-1 heater and analog return | R: LC-1 installed | Heater feed/ground vs analog return | Pin-to-pin trace and supply/ground documentation |
 | E15 | Fan branch | U: actual relay/power topology | Whether vehicle factory system or custom board supplies power | Trace relay, fuses, motors, control return |
 | E16 | VSS, TPS, CLT, IAT, crank/cam | R: installed sensors | Connector/reference mapping | Pin-to-pin signal/ground inventory only |
 | E17 | Fuel-pressure and future EMAP | R/P: current 200 PSI sensor; EMAP reuse later | Present 5V/reference; timing of rail change | Sensor trace, distinguish present and planned |
 | E18 | Dash/CAN/auxiliary loads | P/partial | Current source, future allocations | Keep separate from critical supply until physically verified |
-| E19 | Battery negative/chassis/engine strap network | H: one test under 0.1 V at a particular condition | Full topology; cold/hot loaded drop | Connection photos, separate return-segment measurement |
-| E20 | Actual box fuses, three relay housings | R: three relays warm to touch, MINI fuses | In-use values, relay models, heat origin, terminal resistance | Markings + thermal observation with ambient/load and contact drop |
+| E19 | Battery negative/chassis/engine strap network | H: one test under 0.1 V at a particular condition | Full topology; cold/hot loaded drop | Reported/verified connection routes, separate return-segment measurement |
+| E20 | Actual box fuses, three relay housings | R: three relays warm to touch, MINI fuses | In-use values, relay models, heat origin, terminal resistance | Readily available markings + thermal observation with ambient/load and contact drop |
 
 ## Historical voltage observations (do not merge different test sessions)
 
@@ -57,7 +57,7 @@ A circuit is **closed for inventory** only when source node, destination node, c
 
 ## Work order
 
-1. Safe, power-off inspection: photograph board faces, relay and fuse markings, external connectors, cable exits and ECU/H-bridge screw terminals. Avoid disturbing uncertain circuits before labeling.
+1. Start with the **two original relay-board PDFs**, transcribed in `ORIGINAL_RELAY_BOARD_PDF_MAP.md`. Collect user-provided **text** mapping of actual X1–X3, JP1, JP2, fuse/relay usage and shared ECU/H-bridge screw terminals. Photos and access to PCB backsides are optional; avoid disturbing uncertain circuits.
 2. As-built trace: E01–E09 and E19 first, particularly common ECU/H-bridge paths and fuel-pump shutdown logic.
 3. Loaded supply and return measurements using `docs/ELECTRICAL_MEASUREMENT_WORKSHEET.md`.
 4. Complete remaining actuator branches E10–E18, thermal/fault behavior and trace evidence.
