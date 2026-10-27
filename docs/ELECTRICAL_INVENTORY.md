@@ -7,7 +7,7 @@ Evidence labels: **reported installed** = user reported installation, not indepe
 | Circuit/component | State | Known information | Power-path / ground-path status | Action |
 |---|---|---|---|---|
 | ECU | Reported installed | EpicEFI Mega144H7 with Speeduino 0.4.3C adapter, October 2026 firmware | ECU main feed through old DIYAutoTune/MS relay system; exact real-life terminals and fusing unverified | Document exact ECU B+, ignition feed, controller and sensor grounds |
-| Relay/fuse box | Reported installed | DIYAutoTune/MegaSquirt-type relay box aged about 15–16 years, three warm relay housings recently reported; MINI fuses | Original 2002 B&G V1.2 design is reference, **not confirmed identical** to installed board | Photograph both sides; record relay markings, fuse values, terminals, harness exits |
+| Relay/fuse box | Reported installed | DIYAutoTune/MegaSquirt-type relay box aged about 15–16 years, three warm relay housings recently reported; MINI fuses | Original B&G schematic V1.2 and layout PDF (V1.1 silkscreen despite V1.2 filename) now mapped in `ORIGINAL_RELAY_BOARD_PDF_MAP.md`; physical revision still unconfirmed | Confirm actual X1–X3, JP1/JP2 hookup by **text**, and installed fuse/relay markings when accessible |
 | Alternator / charging | Reported installed | Regulator replaced, typically 13.9–14.0 V measured | Alternator/battery relay-box input routing, fusible link and ground return need tracing | Diagram charging and engine-ground links |
 | Fuel pump | Reported installed / planned upgrade | Fuel pump output at Mega144H7 PD10; existing in-tank ~110 L/h, 255 L/h replacement planned | Actual relay coil, output wiring, downstream factory circuit and grounds need verification | Current, cold/hot startup inrush, ignition-off fail-safe |
 | Injectors | Reported installed | Bosch EV14 0280158117, sequential; four channels via NCV8403A drivers. Connector swap noted pending | +12V fuse assignments and distribution point unresolved | Trace each 12V feed and driver return; verify which upgrades finished |
@@ -31,7 +31,7 @@ Evidence labels: **reported installed** = user reported installation, not indepe
 - A separate EpicECU-Beta wiring master exists for another future ECU: `EpicECU-Beta_Wiring_Assignments.md` and diagram `EpicECU-Beta_Wiring_Diagram_v0.8.drawio`. **Do not treat Beta Lxx/Sxx cavity allocations as the current Mega144H7 installation.**
 
 ## Source and measurement status
-- Historical measurements are captured in root README; the original B&G PDFs were supplied in conversation but not yet placed in the repository.
+- Historical measurements are captured in root README. The original B&G PDFs were supplied in conversation; their source-derived terminal/component details are now transcribed in `ORIGINAL_RELAY_BOARD_PDF_MAP.md`. Binary PDFs are not yet in the repository.
 - Loaded **current** of each circuit has not been measured.
 - Box input/output, relays, fuses and polyfuses have not been separately probed under the same load in a complete segment-by-segment test.
 - Any vehicle-critical fuse value, wire gauge, terminal rating, topology and ground stud remains **TBD until verified**.
@@ -42,7 +42,7 @@ Evidence labels: **reported installed** = user reported installation, not indepe
 | TBD | TBD | TBD | TBD | TBD | TBD | Not measured | Not measured | TBD | Awaiting as-built inspection |
 
 ## Next physical inspection
-1. Photos of old board, relay part numbers, fuse labels, terminal strip and rear connections.
+1. Use the source-derived X1–X3, JP1 (20 pins), JP2 (4 pins), F1–F4 and K1–K3 mapping in `ORIGINAL_RELAY_BOARD_PDF_MAP.md`; collect **text descriptions** of present wire destinations, used/unused terminals and readily known fuse/relay details. Photographs optional, not prerequisite.
 2. Voltage measured relative to the **same ground reference** at alternator B+, board input, each fuse inlet/outlet, K1 contacts, CB2 (if fitted), board output and ECU B+ while operating.
 3. Current of each separately isolated load branch using an appropriately rated instrument and test method.
 4. Separate chassis, battery, engine, ECU, sensor, coil and H-bridge return points on a ground-tree drawing.
