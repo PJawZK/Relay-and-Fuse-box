@@ -18,6 +18,27 @@
 | Test reference point and physical probe location | TBD |
 | Evidence: text description, existing wiring drawing, photo (optional), log or meter record | TBD |
 
+## Current confirmed-by-user wiring (2026-10-27)
+
+| Connection | User-reported as installed | What this does not establish |
+|---|---|---|
+| External main protection | Separate **30 A** fuse close to battery on permanent + feed to MS box | Cable cross section, fuse type/location distance and onboard F1 value |
+| MS X1 | Permanent battery +12 V downstream of external 30 A fuse | Installed internal board distribution and voltage drop |
+| MS X2 | Switched +12 V | Source circuit and loaded drop |
+| MS X3 | Engine ground | Full return route and loaded drop |
+| ECU + screw | MS box positive cable; ECU and DC H-bridge positive both connected here | Whether actual feed passes K1/CB2 |
+| ECU ground screw | MS box ground cable; ECU and DC H-bridge ground both connected here | Whether PWM return causes voltage offset |
+
+These observations are retained as **user-reported installed** rather than laboratory measurements. Do not repeat photo requests for these facts.
+
+### Highest-priority measurements (when safe and accessible)
+
+1. With known, **normal** operating states, compare MS box ECU-feed output and ECU + screw voltage relative to the same documented reference; do not purposely induce shutdowns by aggressive PID tuning.
+2. Measure the DC voltage between ECU ground screw and the MS box return / engine reference while H-bridge is operating normally. For fast PWM spikes, a properly grounded oscilloscope/differential measurement may be necessary; a DMM average cannot exclude transients.
+3. Record ECU logged battery voltage, RPM and DC idle output/PWM simultaneously if available, noting timestamp, temperature and load.
+4. If accessible without live-circuit short risk, measure the voltage across installed F1, K1 and any confirmed CB2 under steady load to localize a resistive/protective device. **Do not bridge or defeat protection.**
+5. Establish external 30 A fuse protection suitability only after cable size, routing and additional downstream protections are documented.
+
 ## Physical trace sheet — repeat per branch
 
 | ID | Source terminal | Destination terminal | Connector cavity | Conductor marking / measured size | Fuse position and installed marking | Relay markings/contact terminals | Ground return path | Evidence text/record/date |
