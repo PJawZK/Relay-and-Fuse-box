@@ -1,0 +1,25 @@
+name: Devcontainer build smoke
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.devcontainer/**'
+      - '.github/workflows/devcontainer-build.yml'
+      - 'scripts/verify-environment.sh'
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build environment image
+        run: docker build --file .devcontainer/Dockerfile --tag relay-fuse-dev:check .devcontainer
+      - name: Check KiCad and Python in image
+        run: |
+          docker run --rm -v "$PWD:/workspaces/Relay-and-Fuse-box" \
+            -w /workspaces/Relay-and-Fuse-box \
+            relay-fuse-dev:check \
+            bash -lc 'kicad-cli version && python3 --version'
+      - name: Note Node feature boundary
+        run: echo "Node 22 is supplied by the devcontainer feature during Codespaces create; Dockerfile-only smoke cannot verify that feature."
