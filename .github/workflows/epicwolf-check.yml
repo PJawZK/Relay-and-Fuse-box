@@ -1,0 +1,24 @@
+name: EpicWolf memory checks
+on:
+  pull_request:
+    paths:
+      - '.wolf/**'
+      - 'AGENTS.md'
+      - 'scripts/agent-context.sh'
+      - 'docs/EPICWOLF_AGENT_COMPATIBILITY.md'
+      - '.github/workflows/epicwolf-check.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Memory status and integrity
+        run: bash scripts/agent-context.sh
+      - name: Vendored EpicWolf tests
+        run: node --test .wolf/tools/wolf_bug.test.js .wolf/hooks/*.test.js
