@@ -27,7 +27,14 @@ jobs:
           git switch -c "$BRANCH"
           bash scripts/vendor-epicwolf.sh
           node --version
-          # Fresh EpicWolf templates have no shards; record the actual first integration defect\n          # using EpicWolf itself, rather than fabricating a legacy migration.\n          node .wolf/tools/wolf_bug.js append \\\n            --file .github/workflows/epicwolf-import.yml \\\n            --error "Fresh EpicWolf project fails wolf_guard: no buglog JSONL shard" \\\n            --root-cause "Upstream template ships only a .gitkeep in an otherwise empty buglog directory" \\\n            --fix "Initialize the first shard using the supported wolf_bug append command before guard" \\\n            --tags epicwolf,bootstrap,ci\n          node .wolf/tools/wolf_guard.js
+          # Initialize a fresh shard with a real documented bootstrap defect.
+          node .wolf/tools/wolf_bug.js append \
+            --file .github/workflows/epicwolf-import.yml \
+            --error "Fresh EpicWolf template had no initial JSONL bug shard" \
+            --root-cause "Upstream template includes an empty buglog directory" \
+            --fix "Create the first valid shard before the integrity check" \
+            --tags epicwolf,bootstrap,ci
+          node .wolf/tools/wolf_guard.js
           node --test .wolf/tools/wolf_bug.test.js .wolf/hooks/*.test.js
           git add .wolf .claude EPICWOLF-LICENSE EPICWOLF-UPSTREAM.txt
           git commit -m "chore: vendor pinned EpicWolf framework"
