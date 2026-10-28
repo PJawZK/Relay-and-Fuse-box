@@ -70,6 +70,27 @@ Source: Volvo factory TP 3908202 940 1995 wiring diagram, page 9 (relay layout) 
 
 **Verification before selecting one:** (1) locate physically installed relay/socket from the letter; (2) determine whether all needed **coil/contact terminals are present**; (3) check source fused supply with ignition OFF/RUN/START and the return path; (4) compare actual battery+ to relay contact-feed voltage under realistic independent load to see if shared factory rail has the same drop; (5) fit only a relay with **verified matching contact function, polarity, suppression and ratings**; (6) isolate abandoned original outputs and add proper branch fuse, separate H-bridge motor return and safe power-off behavior. Prefer a **new dedicated automotive relay with a known good battery-fed fused power line** over a superficially free but unpopulated OEM location. A suitable OEM position could be used as mounting/wiring convenience, but that is not proven to be a pre-wired free supply.
 
+## User-observed physical population — 2026-10-28
+
+The user visually reports original electrical-distribution-unit relay positions **A, C, E, F, G, J, K, L, M, N as populated**. Positions **B, D, H, I** and apparently **O/P/R/S** are **not populated**. This is **visual occupancy**, not yet proof that each position contains the factory-documented module, a fully wired socket, functional contacts, suitable fused input, or spare output.
+
+| Visually populated | 1995 TP3908202 factory-position label | Practical classification |
+|---|---|---|
+| A | 7/75 lamp failure warning | Preserve (user previously described large round unit) |
+| C | 2/4 front intermittent wiper | Preserve |
+| **E** | **2/13 fuel-injection MFI** | **Identify actual relay part number, color, body/pin layout; candidate unused old EFI wiring** |
+| **F** | **2/2 front foglights** | Conditional only if factory front foglights are absent/unneeded; may be active safety/lighting equipment |
+| G | 2/36 headlight flasher | Preserve |
+| J | 2/6 bypass 15I, power windows/heated seats | Preserve for planned stock power-window installation, even if presently unused |
+| K | 2/37 headlights | Preserve |
+| L | 2/7 central locking | Preserve |
+| **M** | **2/23 fuel-injection** | **Identify actual relay; possible distinct relay or variant alternate; do not assume second EFI module** |
+| N | 2/50 high-beam bypass | Preserve |
+
+**Refined original shortlist:** positions I (OD, M90 unused) and D (estate tailgate wiper, sedan unused) are physically empty: do not prioritize them as ready-to-use original wired relays. Focus first on **E and M** as actually present, then F if unused. The Volvo 1995 manual *lists both E and M as injection-related positions* but the 1994–95 wiring configurations can use either a **two-section traditional LH injection relay in E** or **a later separate single pump relay in M**, depending on engine/market; thus both being physically populated on this converted 1997 B230FK needs in-car confirmation, not model-general inference. Volvo service/reference materials: https://forum.vccn.no/dokumentasjon/Volvo%20koblingsskjemaer/900-x90/tp3908202_940_1995_wiring_diagrams_section_3_39.pdf and https://www.volvoclub.org.uk/faq/ElectricalCircuitsRelays.html ; Swedish owner discussion https://www.jagrullar.se/forum/viewtopic.php?t=88651
+
+**Non-invasive discriminators:** first record **E and M relay-case printed Volvo/Bosch/Hella part numbers, body colors, terminal count and terminal numbers**, without moving the relay modules between sockets. Determine which physical relay clicks upon the **already-established LH21 low-side command** only if its original outputs are known safe; do not deliberately energize LH20/old pump feed before isolating the old pink tank conductor from the newly wired MS fuel pump. With car OFF/battery isolated for socket inspection, verify actual relay socket terminal population and continuity rather than assuming the generic 1995 variant's pinout. A relabeled replacement or pre-existing wiring change may explain divergent locations. Both may still share original common fusebox feed and the measured LH4 0.87–1.25V loss.
+
 ## Selection and test gates for DC idle H-bridge relocation
 
 1. **Identify candidate's actual relay/socket location, contacts and feed net**, from an applicable diagram and/or user text inspection. A documented relay symbol or an empty socket does not guarantee wired terminals. Avoid requesting inaccessible photographs when text identification is sufficient.
