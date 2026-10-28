@@ -4,6 +4,9 @@ _Updated 2026-10-27_
 
 ## 🚀 Next quest
 
+- **Latest M socket measurement (2026-10-28):** With blue HELLA 4RD 003520-52 **removed** and meter in DC volts mode, **only terminal 87 shows battery-level voltage**; 30,85,86,87a reported at 0 V (key position for this check unconfirmed). **Do not assume 30 is the input**. SPDT contact can use 87 as live feed, 30 as switched output; 87a purpose still unknown. Earlier 87 diode/continuity `-225` cannot be interpreted as resistance if socket live. Next safely measure 86/87 in OFF/RUN without energizing, and de-energized trace 30/87a and old pump isolation. Diode polarizes coil 85 ground / 86 positive. See `docs/VOLVO_FACTORY_RELAY_REUSE_RESEARCH.md`.
+
+
 - **2026-10-28 relay photos confirmed:** **E** is white Volvo **3523608 / 898151**, user identifies this as original dual-controlled LH2.4 relay (LH21 main, LH20 pump); **M** is physically separate blue HELLA **4RD 003 520-52**, OE equivalent **9130270**. M exists as a second relay but **its actual socket function/output/fuse feed are not yet proven**. This blue part is reused on multiple 940 systems/variants; references describe a suppression diode across coil, so verify actual printed polarity before any control test. Next: with battery disconnected inspect M 85/86/30/87/87a terminal population, trace output and old pump lead, and test M feed independently before considering H-bridge. Distinct physical relay does not guarantee it avoids previous 0.87–1.25 V factory feed loss. See `docs/VOLVO_FACTORY_RELAY_REUSE_RESEARCH.md`.
 
 
