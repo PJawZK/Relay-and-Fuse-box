@@ -58,6 +58,29 @@ Sources:
 | TBD power isolated | LH 20 ↔ old relay 86/2 | Not measured | Relay removed | Low-side control wire continuity |
 | TBD power isolated | LH 21 ↔ old relay 86/1 | Not measured | Relay removed | Low-side control wire continuity |
 
+## Latest in-car measurements — 2026-10-28
+
+**User-reported test, vehicle 1997 B230FK with disconnected original LH ECU:**
+
+- Battery: **12.38 V**.
+- LH harness pin **21 to chassis ground**: **12.38 V** with control apparently *released* (the user reports manually applying ground to operate the main relay; capture exact key/jumper state in future readings).
+- Grounding LH pin **21** made the old factory main fuel-system relay **audibly click** and power appear on LH pin **9**.
+- LH pin **9 to chassis ground**, main relay manually activated: **11.17–11.25 V**, fluctuating ~0.08 V; ignition position during this last test and any connected legacy load not yet recorded.
+- The apparent battery-to-pin-9 gap is **1.13–1.21 V**, but battery and pin9 are not yet verified as *simultaneous* under the same load/reference. This is an **apparent system-level difference**, **not** a measured drop across relay contacts.
+
+**Interpretation:** The successful click and energized pin 9 strongly support continuity of LH pin 21's low-side coil-control path and operation of the relay's main section. Released pin 21 being at battery potential can arise through the relay coil and is not itself a power-feed current-capacity measurement. Volvo LH 2.4 service data expects battery voltage at pin 9 when pin 21 is grounded; the observed ~11.2 V deserves further investigation rather than treating the original OEM switched output as ready to carry the H-bridge.
+
+**Next noninvasive checks (no fuse or harness changes):**
+
+1. With relay ground-control jumper *removed*, recheck pin 9 is off; record ignition state, battery voltage and measurement reference.
+2. While the main relay is briefly energized normally via the already-established current-limited, fused low-side test, use the **same reference ground** for battery, LH **pin 4** (terminal 30 reference) and LH **pin 9** (main relay output), recording key position, and whether any original load remains connected. Compare within the same stable state.
+3. If pin 4 stays near 12.38 V but pin 9 is ~11.2 V, isolate a loss **between the relay feed/contacts/output wiring and pin 9**, or a remaining connected load; don't conclude bad contacts from the connector voltages alone.
+4. If pin 4 also drops toward ~11.2 V under the same relay-on state, check the **upstream original LH feed/fuses/connection route** before blaming relay contacts. The proper relay contact feed must eventually be checked independently, since pin 4 may not share precisely the same path.
+5. If still unexplained and access allows safely, use the *correctly identified* relay socket/terminal data to measure separately **contact 30→87/1** under its normal load and **87/1→LH pin 9**. A relay click proves coil operation, not low-resistance contacts. Do **not** probe crowded live terminals with uninsulated tips or bypass contacts.
+6. Treat voltage under current draw as a design prerequisite: a high-impedance meter alone cannot verify motor-current capacity. Do not attach the H-bridge or add a larger fuse to "fix" a 1 V discrepancy.
+
+Distinguish this factory wiring measurement from the **independent aftermarket MS/EpicEFI relay-board and CB2 supply-drop investigation**; they are two different circuits.
+
 ## Decision boundary
 
 - **If key 15 is still available at LH pin 35,** that is a useful **control signal candidate** for a *properly fused/engineered coil driver*, but does not establish the pin 35 harness is able to source the DC idle motor current.
