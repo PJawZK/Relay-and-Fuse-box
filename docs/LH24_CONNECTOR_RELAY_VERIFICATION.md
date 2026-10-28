@@ -95,6 +95,29 @@ Under relay-on conditions, the battery-versus-LH-pin-4 comparison differs by **~
 
 **Most discriminating next safe measurement:** With appropriate protected access to LH pin 4, key OFF and original main relay briefly activated by its already-confirmed pin 21 control, measure **DC volts directly across battery positive (red probe) and LH pin 4 (black probe)**. A ~1.09 V reading implies an appreciable positive-feed drop to pin 4; ~0 V implies a chassis/reference offset or measurement artifact instead. Do not place an ammeter across these points. If feasible also measure **chassis-ground reference point to battery negative** under the same conditions; do not probe inaccessible live cavities or leave an unattended ground jumper. Keep H-bridge disconnected from the original circuit pending investigation.
 
+## Dynamic direct positive-feed voltage loss and relay comparison — 2026-10-28
+
+**New user measurement:** with original LH main relay manually energized via ground command at disconnected LH ECU **pin 21**, meter leads **red on battery positive, black on LH pin 4**, observed **1.25 V initially**, falling gradually toward **0.87 V**, then increasing again slowly. Value did not settle. Engine/key OFF as previously reported; current draw and exact run duration are not measured. Previous battery off/on readings were 12.38/12.34 V respectively.
+
+This is a **direct positive-path voltage difference** between battery positive and the original LH pin 4, not an artifact of the chassis-ground reference used previously. The slowly varying gap is consistent with some combination of changing current and resistance in the original supply path; **neither defective relay contacts nor hot/cold solder joints is proved**. LH pin 4 is a permanent battery feed **not fed through the original main-relay switched contacts**, so a relay contact alone does not directly create the pin-4 drop. However the main relay may energize old connected loads, or a relay-related fault may cause abnormal load, revealing a weak common battery/fuse/connector feed.
+
+### Reference-backed relay deterioration (context, not a vehicle diagnosis)
+
+Volvo Owners' Club 700/900 electrical FAQ records cracked relay internal solder joints, high-resistance relay contacts and overheated/marginal female socket crimps as common failures, plus replacement-relay configuration differences in 1994+ 940s. Reference: https://www.volvoclub.org.uk/faq/ElectricalCircuitsRelays.html . The turbo fuel-injection relay's common **two-section** design uses low-side coil controls 86/1 via LH21 (main) and 86/2 via LH20 (pump); using LH20 is **not** a truly independent relay comparison, and may unexpectedly power old pump wiring. Sources: https://www.davebarton.com/pdf/Harness_LH-2.4-940EZKPinFunctions2024.pdf ; https://lemon-manuals.org.ua/Volvo/1993/940%20L4-2320cc%202.3L%20SOHC%20VIN%2083%20B230FD/Repair%20and%20Diagnosis/Relays%20and%20Modules/Relays%20and%20Modules%20-%20Powertrain%20Management/Relays%20and%20Modules%20-%20Fuel%20Delivery%20and%20Air%20Induction/Main%20Relay%20%28Computer%2FFuel%20System%29/Testing%20and%20Inspection/Bosch/ .
+
+### Comparison plan — before H-bridge reuse
+
+| Comparison | What to measure | What it establishes / does not |
+|---|---|---|
+| A. Existing original main relay | Direct battery+ to LH4, relay OFF then ON; battery voltage and LH9 to same ground, key and duration noted | Reconfirm time-varying 0.87–1.25 V positive feed difference and switched output |
+| B. **Known-good exact electrical/part-number replacement** fuel relay in the same original socket | Repeat A under same conditions | Strong evidence for or against *relay module* contribution. Must match physical and electrical form, not just colour or shape; 1994+ Hella blue and older white relay variants may not be interchangeable |
+| C. **Genuinely independent** factory relay source (different existing original relay circuit) | Identify its powered input and switched output; measure direct battery+ to that circuit's feed/output when energized, along with battery voltage | Helps determine whether issue is local to old injection wiring or is shared factory feed, but must use suitable genuinely available relay/socket and known loads |
+| D. Same old relay, feed section isolation when accessible | Direct voltage drop across fuse and fuse holder, contact feed 30, across main contact 30→87/1, and from relay output to LH9 | Can localize fault if topology verified; avoid blind live probing in cramped panel |
+
+**Avoid** replacing a still-used relay from another vehicle system, trying LH20 to trigger the pump section, inserting a visually similar but electrically different relay, bridging fuse/relay contacts, increasing fuse ratings, or attaching the H-bridge before the stock feed has been characterized. A genuinely independent spare OEM relay (e.g., a no-longer-used old overdrive position in an M90 vehicle) is only a **conditional candidate**: the socket/terminals may not be populated or switched, and other original vehicle systems still operate from the factory board. OEM relay 2/12 suppression may also be downstream of the old main-injection feed and so would not be independent.
+
+**High-value next result:** exact part number/type of the currently installed factory fuel-injection relay and a matched battery+→LH4 comparison with an exact replacement, if one is available. This avoids needing to cut wiring under the fuse panel or prematurely blame the relay.
+
 ## Decision boundary
 
 - **If key 15 is still available at LH pin 35,** that is a useful **control signal candidate** for a *properly fused/engineered coil driver*, but does not establish the pin 35 harness is able to source the DC idle motor current.
