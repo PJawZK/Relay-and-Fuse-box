@@ -4,6 +4,9 @@ _Updated 2026-10-27_
 
 ## 🚀 Next quest
 
+- **2026-10-28 relay photos confirmed:** **E** is white Volvo **3523608 / 898151**, user identifies this as original dual-controlled LH2.4 relay (LH21 main, LH20 pump); **M** is physically separate blue HELLA **4RD 003 520-52**, OE equivalent **9130270**. M exists as a second relay but **its actual socket function/output/fuse feed are not yet proven**. This blue part is reused on multiple 940 systems/variants; references describe a suppression diode across coil, so verify actual printed polarity before any control test. Next: with battery disconnected inspect M 85/86/30/87/87a terminal population, trace output and old pump lead, and test M feed independently before considering H-bridge. Distinct physical relay does not guarantee it avoids previous 0.87–1.25 V factory feed loss. See `docs/VOLVO_FACTORY_RELAY_REUSE_RESEARCH.md`.
+
+
 - **Actual 1997 B230FK factory relay panel visually checked by user (2026-10-28):** populated **A,C,E,F,G,J,K,L,M,N**; empty **B,D,H,I** and apparently O/P/R/S. Thus the earlier favorite empty OD I and wagon rear-wiper D positions are not installed ready-wired relays. **E and M both physically populated**, though factory 1995 diagram labels E=2/13 MFI and M=2/23 injection as variant-dependent; do not assume they are two separate usable EFI power relays. Next obtain actual relay case part numbers, pin layouts/colors and identify which responds to existing LH21 command (only when downstream old pump circuit safe); F foglights conditional, J reserve future windows. Full evidence in `docs/VOLVO_FACTORY_RELAY_REUSE_RESEARCH.md`.
 
 
