@@ -4,6 +4,9 @@ _Updated 2026-10-27_
 
 ## 🚀 Next quest
 
+- **2026-10-28 newest direct test:** battery+ (red) to original LH pin4 (black) measured **1.25 V**, gradually ~**0.87 V**, then rose slowly again while original LH21 main relay commanded ON; not stable. This verifies a positive feed path voltage difference, **not necessarily a bad relay contact**, because LH4 is a permanent feed rather than 87/1 switched output. Volvo 700/900 original fuel relays are known to suffer cracked solder, bad contacts and socket crimps, so first compare a confirmed **identical** known-good replacement relay with matched OFF/ON battery+→LH4 readings; pin20 pump-section test is NOT another independent relay. If testing a separate OEM relay circuit, first verify it has a truly independent feed and a safe free socket (old M90-unused overdrive is only a conditional candidate). No H-bridge hookup pending supply diagnosis; see `docs/LH24_CONNECTOR_RELAY_VERIFICATION.md`.
+
+
 - **Latest measured battery baseline (2026-10-28):** OEM LH relay OFF battery 12.38 V; relay ON battery 12.34 V. In same activated test LH pin 4 ~11.25 V and LH pin 9 11.17–11.25 V relative to chassis, a ~1.09 V *apparent* pin4/battery difference while battery drops only 0.04 V. Next test direct DC differential battery+ to pin4 with relay on (and ground reference offset), not a relay-contact failure assumption. H-bridge relocation still uninstalled; avoid connecting it to old feed before source health is measured.
 
 
