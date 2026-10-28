@@ -39,6 +39,14 @@ The user proposes measuring the retained original **LH2.4 35-position ECU harnes
 
 Use the read-only voltage and isolated-continuity checklist in [`LH24_CONNECTOR_RELAY_VERIFICATION.md`](LH24_CONNECTOR_RELAY_VERIFICATION.md) before considering any harness cutting, new coil drive, or fuse/relay selection. A terminal-15 signal at pin 35 is a possible low-current control reference, **not motor supply**. Keep ECU, live aftermarket pump supply and sensor grounds out of the proposed actuator feed.
 
+## Original pump section — stop before energizing unknown tank conductors
+
+The combined Volvo LH2.4 fuel-injection relay is **not pump-only as an assembly**. Main LH21/86/1/87/1 feeds the old engine management and LH20/86/2/87/2 controls the original pump branch; exact heater/fuse feeds are variant dependent. **Do not try LH20 as an independent substitute for the suspicious LH21 relay.** The user explicitly flagged the possibility of unconnected old harness wires near the fuel tank posing a spark/short risk.
+
+A 1995 factory reference locates the original fuel-tank pump/sender connector **C93 (4-way) near the left rear wheel housing in the luggage area**, with a pink wire as one original pump feed. The 1995 wiring index also shows fuse 1 supplying fuel functions and fuse 11 identifying the original LH in-tank pump branch. **Don't presume these colors/connector positions are identical on 1997 B230FK.**
+
+**Prioritize no-power trace and safe isolation of any abandoned old tank pump conductor** before energizing the factory pump section. See [`OEM_FUEL_PUMP_RELAY_AND_TANK_WIRE_ISOLATION.md`](OEM_FUEL_PUMP_RELAY_AND_TANK_WIRE_ISOLATION.md) for the documented safety gates. Cutting beneath the original fuse panel and live electrical testing near the tank are not prerequisites.
+
 ## Selection and test gates for DC idle H-bridge relocation
 
 1. **Identify candidate's actual relay/socket location, contacts and feed net**, from an applicable diagram and/or user text inspection. A documented relay symbol or an empty socket does not guarantee wired terminals. Avoid requesting inaccessible photographs when text identification is sufficient.
