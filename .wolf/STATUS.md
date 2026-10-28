@@ -4,6 +4,9 @@ _Updated 2026-10-27_
 
 ## 🚀 Next quest
 
+- **2026-10-28 independent OEM relay candidates:** original factory LH pin20 and pin21 actuate two sections in ONE fuel-injection relay housing; not independent comparison. 1995 factory relay layout priorities for actual 1997 Scandinavian M90 sedan inspection: **I / 2/8 overdrive** (M90 needs none), **D / 2/16 estate rear wiper** (sedan needs none), **F / 2/2 front foglight** only if absent, **H / 2/15 Japan EGT** probably unpopulated, **2/12 suppressor** conditional original LH underhood, **2/11 fan relay** only if factory fan power path proven unused. O/P/R/S unassigned but probably not prewired; preserve **J / 2/6** overload for planned power-window retrofit. Specialized overdrive/wiper delay modules are *not* ordinary automotive power relays. A different relay may share same factory fusebox supply loss as the original EFI; verify feed under load. See `docs/VOLVO_FACTORY_RELAY_REUSE_RESEARCH.md`.
+
+
 - **2026-10-28 immediate safety gate:** User proposes testing original LH20 fuel-pump relay stage but flags possible abandoned pump conductors near tank. **DO NOT energize LH20/86/2 or bridge 30→87/2 until original tank feed(s) are identified, de-energized, isolated from the tank/pump connector and secured.** The original LH relay is combined, not pump-only: LH21 main section and LH20 pump section in same module. 1995 OEM reference identifies C93 4-pin left rear wheel housing luggage area; original pink pump conductor (verify 1997 actual). See `docs/OEM_FUEL_PUMP_RELAY_AND_TANK_WIRE_ISOLATION.md`. H-bridge remains unrelocated; factory relay feed still shows prior 0.87–1.25V battery+ to LH4 drop.
 
 

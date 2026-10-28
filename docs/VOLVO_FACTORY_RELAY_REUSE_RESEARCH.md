@@ -47,6 +47,29 @@ A 1995 factory reference locates the original fuel-tank pump/sender connector **
 
 **Prioritize no-power trace and safe isolation of any abandoned old tank pump conductor** before energizing the factory pump section. See [`OEM_FUEL_PUMP_RELAY_AND_TANK_WIRE_ISOLATION.md`](OEM_FUEL_PUMP_RELAY_AND_TANK_WIRE_ISOLATION.md) for the documented safety gates. Cutting beneath the original fuse panel and live electrical testing near the tank are not prerequisites.
 
+## Alternate OEM relay locations — independent circuit shortlist (2026-10-28)
+
+The user wants a **different physical relay** because the original fuel-injection relay has two sections **within one housing**, and original LH ECU pin 4 showed **0.87–1.25 V direct loss from battery positive while LH pin 21 main section was activated**. This does **not establish that the relay contacts caused the pin 4 drop**; LH pin 4 is a permanent feed, not the switched contact output. Other relays in the central box may share the same rail/fuses, so independence of upstream feed must be measured, not inferred from different physical housings.
+
+The **1995 Volvo wiring manual relay location list** identifies these cabin central-box letter positions. It is historical model-family documentation; the actual 1997 Swedish-market B230FK/M90/MCC car may not have fitted/fully wired positions.
+
+| Position / designation | Original circuit | Assessment for this user's 1997 sedan M90 |
+|---|---|---|
+| **I / 2/8** | Overdrive relay | **First location to inspect**. M90 has no electrically controlled M46 overdrive, hence original OD function unnecessary. Socket, contact 30 and 15 feeds may be absent, and old OD controller is a nonstandard logic module, not automatically a substitute for an ordinary 4/5-pin relay. If an original M46/AW harness exists, trace all outputs before using. Do not appropriate other loads from fuse 12. |
+| **D / 2/16** | Tailgate intermittent-wiper relay | **Second to inspect**. Sedan has no tailgate wiper, so relay usually absent; socket may have no terminals. An intermittent-wiper module is not a simple power relay. |
+| **F / 2/2** | Front fog-lamp relay | **Conditional** if front fog lamps absent and no planned restoration. Can have original relevant power/contact capacity, but old foglamp switch and lights wiring must be isolated. |
+| **H / 2/15** | Japanese exhaust-temperature relay | **Conditional/likely absent** on Scandinavian-market car; do not presume fitted socket. |
+| **2/12** (engine bay; not cabin letter universally established) | Original radio-interference suppression relay | Possible abandoned LH-era relay, if physically present. Might share original injection supply / no independent battery feed, must trace. |
+| **2/11** (engine bay) | Engine cooling-fan relay | **Conditional** if replaced by fully independent aftermarket EpicEFI fan-control power path. Do not remove/bypass if original cooling fan still depends on it; stock relay may have high-current capable contacts but these are needed for safety if fan still active. |
+| **E / 2/13** | MFI fuel injection relay in non-turbo/variant entries | Don't count it as a second extra existing physical fuel relay until the specific late-turbo installed configuration proves it. |
+| **O/P/R/S** | No assigned function in 1995 manual | Physical spaces only; no guarantee of contacts, wiring, or a powered socket. |
+| **J / 2/6** | 15I bypass/overload for power windows and heated seats | **Reserve**, because user plans stock donor power windows and possible heated seat operation; not a safe spare by default. |
+| **A/B/C/G/K/L/M/N** | Existing lighting, warning, locking, fuel control, etc. depending on variant | Keep functioning original safety/body consumers; notably A is bulb failure monitor (large round unit). M is **2/23 fuel injection** in the **1995 Volvo OEM list**, even though some generic third-party box charts label M differently. |
+
+Source: Volvo factory TP 3908202 940 1995 wiring diagram, page 9 (relay layout) as indexed via https://forum.vccn.no/dokumentasjon/Volvo%20koblingsskjemaer/900-x90/tp3908202_940_1995_wiring_diagrams_section_3_39.pdf ; cross-check https://charm.li/Volvo/1995/940%20L4-2.3L%20SOHC%20VIN%2088%20B230F/Repair%20and%20Diagnosis/Power%20and%20Ground%20Distribution/Diagrams/Diagram%20Information%20and%20Instructions/List%20of%20Components%20By%20Component%20Number/ ; layout image https://fuseandrelay.com/volvo/940-960-980.html ; https://www.volvoclub.org.uk/faq/ElectricalCircuitsRelays.html . 1995 factory diagram indexed content is available, but actual PDF image-level comparison with this user's original uploaded PDF has **not** been completed.
+
+**Verification before selecting one:** (1) locate physically installed relay/socket from the letter; (2) determine whether all needed **coil/contact terminals are present**; (3) check source fused supply with ignition OFF/RUN/START and the return path; (4) compare actual battery+ to relay contact-feed voltage under realistic independent load to see if shared factory rail has the same drop; (5) fit only a relay with **verified matching contact function, polarity, suppression and ratings**; (6) isolate abandoned original outputs and add proper branch fuse, separate H-bridge motor return and safe power-off behavior. Prefer a **new dedicated automotive relay with a known good battery-fed fused power line** over a superficially free but unpopulated OEM location. A suitable OEM position could be used as mounting/wiring convenience, but that is not proven to be a pre-wired free supply.
+
 ## Selection and test gates for DC idle H-bridge relocation
 
 1. **Identify candidate's actual relay/socket location, contacts and feed net**, from an applicable diagram and/or user text inspection. A documented relay symbol or an empty socket does not guarantee wired terminals. Avoid requesting inaccessible photographs when text identification is sufficient.
