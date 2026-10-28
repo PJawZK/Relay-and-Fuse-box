@@ -58,6 +58,18 @@ The current EpicEFI fuel-pump system uses its **own** relay, fuse and wiring; th
 
 **Selection checks:** switched ON in both RUN and START if the throttle actuator requires it; off when key off; current capacity/relay/contact condition; fuse and conductor coordination; no dependency on fuel pump run/prime command; no disturbance to actual pump voltage or shutdown; a dedicated H-bridge motor-current ground return; appropriate H-bridge electrical suppression; acceptable throttle-plate failsafe position on relay/fuse loss. Do not tap a motor directly into ECU sensor ground, `12 RAW`, or a fuel-pump motor output simply because it has a convenient terminal.
 
+## Updated H-bridge supply and grounding plan — user decision 2026-10-28 (NOT installed)
+
+The user has **rejected reusing old factory Volvo relay modules and old OEM supply wiring** after load-related voltage drop findings (including direct battery+→LH pin4 0.87–1.25 V while original white E relay energized, followed by further old M circuit voltage loss). Historical relay mapping remains diagnostic evidence only. **Recommended plan:** use a new independent automotive relay and appropriately rated upstream fuse and wire, with confirmed supply in RUN and START where needed, and positive shutoff key OFF; DO NOT rely on now-suspect original distribution rails, the aged aftermarket MS/EpicEFI ECU feed/CB2 polyfuse, or existing ECU screws for H-bridge motor power.
+
+**Ground comparison:** The user already has a deliberately arranged engine-block star-ground architecture, with higher-load and low-level grounds separated in nearby locations on the engine. Prefer a **new dedicated adequately sized H-bridge motor-power ground conductor from H-bridge's power GND to the high-current engine-block star stud or adjacent verified power-ground point**, using its own properly crimped lug, clean protected metal, tight mechanical connection and full-size shared engine↔battery negative bond. Do not daisy-chain via ECU ground, ECU sensor return, ECU supply screw, 5 V sensor ground or small-signal logic reference. A chassis return near the H-bridge is *electrically acceptable* if the chosen bare-metal, mechanically robust ground stud and chassis-to-engine/battery straps pass a loaded **actual ground-voltage-drop measurement** at the H-bridge's PWM/inrush current; an unverified factory body screw is not an equivalent substitute. Avoid unnecessary parallel chassis+engine motor-return cables.
+
+Keep motor's **both leads on the H-bridge output pair**, not chassis. H-bridge logic may require a separate, low-current **ECU signal return/reference**: preserve driver datasheet ground/common-mode requirements even though high-current motor return is separately routed. Keep local low-ESR decoupling, loop area, transient suppression and coil flyback control appropriate to exact H-bridge and relay. Size fuse to wire/driver/motor rated and peak current after those data are obtained; no specific ampacity or relay part yet approved.
+
+**Post-install measurements:** With motor PWM active, measure battery positive→H-bridge supply positive, H-bridge power GND→battery negative, and H-bridge power GND→ECU ground reference; log engine RPM, ECU VBatt, actuation and crank/run transition. Validate safe idle control and no power-loss induced unintended engine behavior. This plan is uninstalled, not a proven cure for ECU shutdowns.
+
+Sources: https://www.ti.com/lit/an/slva959b/slva959b.pdf ; https://support.haltech.com/portal/en/kb/articles/ecu-grounding-the-dos-and-donts ; https://diyautotune.com/blogs/technical-articles/grounds
+
 ## Proposed power and ground structure (P; NOT wired)
 ```text
 Battery/source + -- protected main feed -- rated bus (proper mechanical terminals)

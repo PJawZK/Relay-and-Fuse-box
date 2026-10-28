@@ -4,6 +4,10 @@ _Updated 2026-10-27_
 
 ## 🚀 Next quest
 
+- **2026-10-28 user decision superseding OEM relay reuse:** After finding voltage losses at the original relay M circuit as well as the previously measured original LH positive feed, the user **does not want to reuse the aged OEM Volvo relays or wiring** for the DC idle H-bridge. Planned replacement: a **new properly rated relay and freshly fused dedicated positive feed**. No new relay/ground wiring has yet been installed. The H-bridge currently shares supply and ground screws with EpicEFI and must move off both.
+- **Ground strategy recommendation, not installation confirmation:** retain user's existing engine-block star ground reference, with **a distinct appropriately sized H-bridge motor-power return wire** landing at the *high-current* star/engine stud, not the ECU terminal or sensor ground. A clean local chassis ground is electrically viable only if chassis-to-battery/engine bond and loaded return-path voltage drop are proven; avoid a second parallel chassis return creating an uncontrolled noise loop. Maintain dedicated ECU signal reference to H-bridge controls per actual driver design; neither motor-output conductor is chassis grounded. Validate run/start relay command, fuse protection, diode/transient suppression, current peaks and safe idle-air behavior on supply loss. See `docs/POWER_AND_GROUND_TREE.md`.
+
+
 - **Latest M socket measurement (2026-10-28):** With blue HELLA 4RD 003520-52 **removed** and meter in DC volts mode, **only terminal 87 shows battery-level voltage**; 30,85,86,87a reported at 0 V (key position for this check unconfirmed). **Do not assume 30 is the input**. SPDT contact can use 87 as live feed, 30 as switched output; 87a purpose still unknown. Earlier 87 diode/continuity `-225` cannot be interpreted as resistance if socket live. Next safely measure 86/87 in OFF/RUN without energizing, and de-energized trace 30/87a and old pump isolation. Diode polarizes coil 85 ground / 86 positive. See `docs/VOLVO_FACTORY_RELAY_REUSE_RESEARCH.md`.
 
 
