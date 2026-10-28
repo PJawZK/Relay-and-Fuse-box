@@ -4,6 +4,9 @@ _Updated 2026-10-27_
 
 ## 🚀 Next quest
 
+- **Actual 1997 B230FK factory relay panel visually checked by user (2026-10-28):** populated **A,C,E,F,G,J,K,L,M,N**; empty **B,D,H,I** and apparently O/P/R/S. Thus the earlier favorite empty OD I and wagon rear-wiper D positions are not installed ready-wired relays. **E and M both physically populated**, though factory 1995 diagram labels E=2/13 MFI and M=2/23 injection as variant-dependent; do not assume they are two separate usable EFI power relays. Next obtain actual relay case part numbers, pin layouts/colors and identify which responds to existing LH21 command (only when downstream old pump circuit safe); F foglights conditional, J reserve future windows. Full evidence in `docs/VOLVO_FACTORY_RELAY_REUSE_RESEARCH.md`.
+
+
 - **2026-10-28 independent OEM relay candidates:** original factory LH pin20 and pin21 actuate two sections in ONE fuel-injection relay housing; not independent comparison. 1995 factory relay layout priorities for actual 1997 Scandinavian M90 sedan inspection: **I / 2/8 overdrive** (M90 needs none), **D / 2/16 estate rear wiper** (sedan needs none), **F / 2/2 front foglight** only if absent, **H / 2/15 Japan EGT** probably unpopulated, **2/12 suppressor** conditional original LH underhood, **2/11 fan relay** only if factory fan power path proven unused. O/P/R/S unassigned but probably not prewired; preserve **J / 2/6** overload for planned power-window retrofit. Specialized overdrive/wiper delay modules are *not* ordinary automotive power relays. A different relay may share same factory fusebox supply loss as the original EFI; verify feed under load. See `docs/VOLVO_FACTORY_RELAY_REUSE_RESEARCH.md`.
 
 
