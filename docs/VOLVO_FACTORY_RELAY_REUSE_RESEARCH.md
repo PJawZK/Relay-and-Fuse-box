@@ -117,6 +117,20 @@ References:
 
 The photo evidence **does not establish any measured voltage, current, continuity, socket pinout or actual M output branch**, and there is no hardware modification.
 
+## Blue M relay contact schematic photographed — 2026-10-28
+
+The user provided a further **close-up photograph of the actual blue HELLA 4RD 003 520-52** in original fuse-panel position M. Its molded schematic conclusively depicts a **5-contact changeover relay with a diode in parallel with its coil**:
+
+- **30 = common contact supply.**
+- **87a = normally closed contact**; connected to 30 when coil is OFF.
+- **87 = normally open contact**; connected to 30 when coil is energized.
+- **85 = coil negative / switched ground.**
+- **86 = coil positive / +12 V** (the **diode cathode / marked bar** is toward terminal 86, anode toward 85). **Do not reverse coil polarity**; doing so would forward-bias the integral suppression diode, causing large current/possible fuse, wiring or relay damage.
+- The photo proves the **relay's internal contact and polarity diagram only**. It **does not** establish which of 30/87/87a/85/86 are populated in the **M socket**, their wire destinations, whether 30 is constant or keyed, fuse capacity or condition, or if the circuit is presently independent of the original pink fuel-pump harness.
+- **Safety especially for 87a:** If a permanent feed is on 30, 87a may be live when the relay is removed/coil OFF. A repurposed H-bridge feed should normally be on 87 after proper protection and wiring verification; 87a must not accidentally energize an abandoned load or exposed wire.
+- **Next verification:** Battery negative disconnected, original M relay removed, inspect molded/socket cavity labels and count terminal metal inserts; photograph relay bottom and the M socket if possible. Trace socket 30, 87 and 87a paths de-energized, confirm any original pump conductor isolated. Only after that measure voltage at verified 30 and 86 in OFF/RUN, using protected meter probes. Any test ground command belongs on 85, **only if 86 positive and entire circuit/output are verified**, never ground an unidentified cavity. Neither relay insertion nor output energization has been approved by the photo.
+- The independent factory-supply hypothesis remains unresolved: original LH pin 4 showed 0.87–1.25 V direct battery-positive drop while white E main relay actuated. M's separate physical relay and correct diode diagram do not prove a healthy separate battery rail.
+
 ## Selection and test gates for DC idle H-bridge relocation
 
 1. **Identify candidate's actual relay/socket location, contacts and feed net**, from an applicable diagram and/or user text inspection. A documented relay symbol or an empty socket does not guarantee wired terminals. Avoid requesting inaccessible photographs when text identification is sufficient.
