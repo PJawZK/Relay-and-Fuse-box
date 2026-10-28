@@ -4,6 +4,9 @@ _Updated 2026-10-27_
 
 ## 🚀 Next quest
 
+- **Latest measured battery baseline (2026-10-28):** OEM LH relay OFF battery 12.38 V; relay ON battery 12.34 V. In same activated test LH pin 4 ~11.25 V and LH pin 9 11.17–11.25 V relative to chassis, a ~1.09 V *apparent* pin4/battery difference while battery drops only 0.04 V. Next test direct DC differential battery+ to pin4 with relay on (and ground reference offset), not a relay-contact failure assumption. H-bridge relocation still uninstalled; avoid connecting it to old feed before source health is measured.
+
+
 - **2026-10-28 confirmed test (user):** LH pin 21 released ~12.38 V (consistent with coil pull-up), manual ground command activates the abandoned OEM main EFI relay (audible click), and pin 9 now reads 11.17–11.25 V while battery measured 12.38 V. **Apparent 1.13–1.21 V gap**, not yet a same-state isolated relay contact drop. Before reusing the original relay for H-bridge, compare battery/LH pin 4/LH pin 9 with same ground and relay activated; inspect factory feed versus relay contacts/output only after narrowing. Do not load H-bridge until checked. See `docs/LH24_CONNECTOR_RELAY_VERIFICATION.md`.
 
 
