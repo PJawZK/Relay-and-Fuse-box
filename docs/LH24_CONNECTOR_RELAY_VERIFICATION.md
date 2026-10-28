@@ -81,6 +81,20 @@ Sources:
 
 Distinguish this factory wiring measurement from the **independent aftermarket MS/EpicEFI relay-board and CB2 supply-drop investigation**; they are two different circuits.
 
+## Battery-post repeat under relay load — 2026-10-28
+
+**User-confirmed new measurement** while briefly grounding LH pin 21 to activate the original factory main relay, ignition key **OFF**:
+
+| Test point | Relay OFF | Relay ON | Notes |
+|---|---:|---:|---|
+| Battery positive relative to battery negative, at battery | **12.38 V** | **12.34 V** | Voltage falls only ~0.04 V |
+| LH connector pin 4 relative to chassis ground | **12.38 V** | **~11.25 V** | Previously reported with the same relay activation |
+| LH connector pin 9 relative to chassis ground | **0 V** | **11.17–11.25 V** | Previous user report |
+
+Under relay-on conditions, the battery-versus-LH-pin-4 comparison differs by **~1.09 V**, much more than the battery's own ~0.04 V drop. **Caveat:** battery values used battery-negative reference, and LH pin 4/pin 9 measurements used chassis ground. Until the voltage is measured directly across the positive feed and checked against the ground-reference offset under the same relay-on state, the difference must **not** be called a proven positive-side wiring drop. Pin 4 and 9 being nearly equal similarly does **not** prove the relay contact is free of voltage drop: they may have independent upstream branches.
+
+**Most discriminating next safe measurement:** With appropriate protected access to LH pin 4, key OFF and original main relay briefly activated by its already-confirmed pin 21 control, measure **DC volts directly across battery positive (red probe) and LH pin 4 (black probe)**. A ~1.09 V reading implies an appreciable positive-feed drop to pin 4; ~0 V implies a chassis/reference offset or measurement artifact instead. Do not place an ammeter across these points. If feasible also measure **chassis-ground reference point to battery negative** under the same conditions; do not probe inaccessible live cavities or leave an unattended ground jumper. Keep H-bridge disconnected from the original circuit pending investigation.
+
 ## Decision boundary
 
 - **If key 15 is still available at LH pin 35,** that is a useful **control signal candidate** for a *properly fused/engineered coil driver*, but does not establish the pin 35 harness is able to source the DC idle motor current.
