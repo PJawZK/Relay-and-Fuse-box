@@ -4,6 +4,9 @@ _Updated 2026-10-27_
 
 ## 🚀 Next quest
 
+- **2026-10-28 immediate safety gate:** User proposes testing original LH20 fuel-pump relay stage but flags possible abandoned pump conductors near tank. **DO NOT energize LH20/86/2 or bridge 30→87/2 until original tank feed(s) are identified, de-energized, isolated from the tank/pump connector and secured.** The original LH relay is combined, not pump-only: LH21 main section and LH20 pump section in same module. 1995 OEM reference identifies C93 4-pin left rear wheel housing luggage area; original pink pump conductor (verify 1997 actual). See `docs/OEM_FUEL_PUMP_RELAY_AND_TANK_WIRE_ISOLATION.md`. H-bridge remains unrelocated; factory relay feed still shows prior 0.87–1.25V battery+ to LH4 drop.
+
+
 - **2026-10-28 newest direct test:** battery+ (red) to original LH pin4 (black) measured **1.25 V**, gradually ~**0.87 V**, then rose slowly again while original LH21 main relay commanded ON; not stable. This verifies a positive feed path voltage difference, **not necessarily a bad relay contact**, because LH4 is a permanent feed rather than 87/1 switched output. Volvo 700/900 original fuel relays are known to suffer cracked solder, bad contacts and socket crimps, so first compare a confirmed **identical** known-good replacement relay with matched OFF/ON battery+→LH4 readings; pin20 pump-section test is NOT another independent relay. If testing a separate OEM relay circuit, first verify it has a truly independent feed and a safe free socket (old M90-unused overdrive is only a conditional candidate). No H-bridge hookup pending supply diagnosis; see `docs/LH24_CONNECTOR_RELAY_VERIFICATION.md`.
 
 
