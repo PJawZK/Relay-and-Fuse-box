@@ -131,6 +131,24 @@ The user provided a further **close-up photograph of the actual blue HELLA 4RD 0
 - **Next verification:** Battery negative disconnected, original M relay removed, inspect molded/socket cavity labels and count terminal metal inserts; photograph relay bottom and the M socket if possible. Trace socket 30, 87 and 87a paths de-energized, confirm any original pump conductor isolated. Only after that measure voltage at verified 30 and 86 in OFF/RUN, using protected meter probes. Any test ground command belongs on 85, **only if 86 positive and entire circuit/output are verified**, never ground an unidentified cavity. Neither relay insertion nor output energization has been approved by the photo.
 - The independent factory-supply hypothesis remains unresolved: original LH pin 4 showed 0.87–1.25 V direct battery-positive drop while white E main relay actuated. M's separate physical relay and correct diode diagram do not prove a healthy separate battery rail.
 
+## M socket meter/buzzer observations — 2026-10-28 (UNVERIFIED MODE / ISOLATION)
+
+User reports after removing the blue M HELLA 4RD 003 520-52:
+
+| M socket cavity | User's observation to ground, in Swedish `summer` / buzzer terms |
+|---|---|
+| 30 | `no summer` (no beep) |
+| 85 | `summer to ground` |
+| 86 | `almost summer to ground. 045` |
+| 87a | `summer to ground` |
+| 87 | `summer to ground. -225` |
+
+These are **literal user observations, not established ohms, millivolts, pin functions, measured resistance or absence of voltage.** User has NOT yet stated whether the battery negative was disconnected, the meter set to continuity/ohms or diode mode, whether the other probe was attached to chassis ground, whether `045` means 45Ω / 0.45 / 0.045 or whether `-225` is a negative diode/voltage display. A **negative display in a purported resistance/continuity check** requires confirming that there is **zero live/backfeed voltage** before interpreting anything. If battery was connected, **stop continuity/ohms/diode testing**; these modes are for de-energized circuits, can make misleading sounds and can damage meters.
+
+With circuit safely de-energized, coil terminal 85 having continuity to ground is consistent with a low-side ground, but does **not prove** the factory M socket is a ready-to-repurpose relay driver. Relay contact outputs 87 and 87a reading continuity to ground **may be paths through motors/lights/other connected loads or shorts**. Crucially, blue M is a **changeover** relay: at rest **30→87a** would become electrically connected upon inserting M, and when actuated **30→87**. Before reinserting or energizing, identify what the M socket contact outputs reach, especially original fuel pump feed. `30 no beep` does **not prove 30 is safe/de-energized** or unfused; it only reports absence of a low-resistance ground return in that meter state.
+
+**Next action**: First establish whether battery negative was disconnected during buzzer test and the exact multimeter mode/units; keep M removed. With power physically disconnected/verified absent, obtain stable numerical resistance readings (not merely beep) on 85,86,87,87a to **known bare chassis ground**, confirming no alternative powered circuit and tracing output destinations. Only after de-energized mapping should voltage be measured in **DC VOLTS mode** with battery reconnected and appropriate protected probe tips, checking 30 and 86 in key OFF/RUN without shorting adjacent socket cavities or bridging 30 to 87/87a. Do not infer that M will solve prior original battery+→LH4 voltage loss or connect H-bridge.
+
 ## Selection and test gates for DC idle H-bridge relocation
 
 1. **Identify candidate's actual relay/socket location, contacts and feed net**, from an applicable diagram and/or user text inspection. A documented relay symbol or an empty socket does not guarantee wired terminals. Avoid requesting inaccessible photographs when text identification is sufficient.
