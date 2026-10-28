@@ -91,6 +91,32 @@ The user visually reports original electrical-distribution-unit relay positions 
 
 **Non-invasive discriminators:** first record **E and M relay-case printed Volvo/Bosch/Hella part numbers, body colors, terminal count and terminal numbers**, without moving the relay modules between sockets. Determine which physical relay clicks upon the **already-established LH21 low-side command** only if its original outputs are known safe; do not deliberately energize LH20/old pump feed before isolating the old pink tank conductor from the newly wired MS fuel pump. With car OFF/battery isolated for socket inspection, verify actual relay socket terminal population and continuity rather than assuming the generic 1995 variant's pinout. A relabeled replacement or pre-existing wiring change may explain divergent locations. Both may still share original common fusebox feed and the measured LH4 0.87–1.25V loss.
 
+## Physical relay identification from user photographs — 2026-10-28
+
+**Direct photo evidence supplied by user, confirmed relay positions:**
+
+- **E / white:** Volvo **3523608**, additional embossed number **898151**, 12 V, Made in Hungary (housing photo). User explicitly identifies this as the **two-control LH2.4 system/fuel-pump relay**; grounding original LH ECU pin **21** actuated its main-system stage, and pin **20** is the separate original pump-control input on the **same relay module**. This replaces any speculation that original LH20 and LH21 are different physical relays.
+- **M / blue:** HELLA **4RD 003 520-52**, 12 V, Made in Spain (housing photo). Volvo OE cross-reference **9130270**, also known from 1994+ 940 variants as a blue **fuel-pump / alternative general-purpose relay**, but also used for **fog lamps, high beams, A/C** and other roles in different sockets. Therefore **its role in THIS populated M socket is not proved by the relay part number alone**.
+- The 1995 Volvo panel legend labels E as **2/13 MFI** and M as **2/23 fuel injection**. Source records and owner guides vary with engine/market/year and sometimes identify the blue Hella relay as a later pump relay *instead of* the white 3523608. Since **both** are physically installed in this 1997 B230FK, **do not assert either is electrically redundant or that M has any particular pump/ECU output until the actual M socket wiring is traced**.
+- The blue relay is an automotive **changeover/5-terminal family** (30, 87, 87a, 85, 86) and published 940 fog-lamp discussions describe **a diode across 85/86** on Volvo 9130270. Confirm the printed symbol and orientation on the user's *actual* relay before making any powered test; diode-protected coils are polarity-sensitive. DO NOT substitute a generic relay with a different protection circuit, or blindly ground either 85/86.
+- Physical confirmation of a second relay housing means M **is an independent physical component**, but it **may share the same OEM upstream feed/distribution/fuse** that has already shown a direct battery+ to unused LH4 **0.87–1.25 V fluctuating drop** with E/main activated. A separate physical relay does **not prove independent healthy power supply**.
+
+References:
+- Volvo Owners Club on blue Hella 4RD and non-interchangeability: https://www.volvoclub.org.uk/faq/ElectricalCircuitsRelays.html
+- Volvo relay application and part cross-reference: https://www.prancingmoose.com/volvorelays.html
+- 4RD 003 520-52 mapped to Volvo 9130270 in dismantler listings: https://www.varaosahaku.fi/en-se/OEM/4RD%20003%20520%2052/
+- Volvo 940 owner fog-relay report for suppression diode in 9130270: https://volvospeed.com/index.php?app=forums&controller=topic&id=95523&module=forums
+- 1995 Volvo OEM letters E=2/13, M=2/23 in TP3908202 index: https://forum.vccn.no/dokumentasjon/Volvo%20koblingsskjemaer/900-x90/tp3908202_940_1995_wiring_diagrams_section_3_39.pdf
+
+**Next safe M-socket test, before any relay actuation:**
+1. With car stopped and key OFF, carefully remove **only the blue M** relay and inspect terminal numbering/suppression symbol on its side/bottom and its socket for charring, loose terminals or corrosion. Do not interchange it with E/other blue relays.
+2. With **battery disconnected**, establish which M socket terminals are populated, trace its output conductor **de-energized** (especially confirm old pump pink positive at driver-side A-pillar is cut/removed and isolated from new MS pump supply), and that no other old electrical load remains connected. Meter continuity/ohms **only on powered-off circuits**.
+3. When old output is safely isolated and wiring is known, measure M socket voltage to battery-negative in OFF/RUN/START (engine not running), pin by pin as identified by **actual schematic**; no blind bridging or energizing relay/output. Determine whether coil positive is ignition-switched or battery constant, whether any existing command wire drives the *correct* coil negative, and whether M contact 30 has a separate healthy feed.
+4. To compare with white E independently, measure **battery positive to M socket contact feed** under controlled conditions, then the correctly confirmed switched output under verified load, rather than using LH pin 4 as a proxy. Do not connect H-bridge until fuse/contact/wiring/ground return and loss-of-power behavior are confirmed.
+5. **Key OFF manual ground at E/LH21** already energized original system, so a permanent ground would be unsafe. Any M control ultimately needs verified OFF/RUN/START behavior, protected low-side driver and fail-safe actuator shutdown.
+
+The photo evidence **does not establish any measured voltage, current, continuity, socket pinout or actual M output branch**, and there is no hardware modification.
+
 ## Selection and test gates for DC idle H-bridge relocation
 
 1. **Identify candidate's actual relay/socket location, contacts and feed net**, from an applicable diagram and/or user text inspection. A documented relay symbol or an empty socket does not guarantee wired terminals. Avoid requesting inaccessible photographs when text identification is sufficient.
