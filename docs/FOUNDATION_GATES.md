@@ -9,14 +9,14 @@ Status originally assessed **2026-10-27**, with planning updates **2026-11-02**,
 | F3 | Codex Cloud | Codex cloud F1 runs context/guard/tests and produces report; infrastructure install/PR path evaluated | **Partial**; F1 passed; broad Codex Cloud KiCad MCP tool invocation unverified |
 | F4 | KiCad validation | CLI/pcbnew verified in Codespaces and CI image; non-vehicle ERC/DRC fixture tests if/when supplied | **Partial**; version/toolchain passed, full sample ERC/DRC gate not evidenced |
 | F5 | KiCad MCP | Pinned server, isolated STDIO roundtrip, restricted fixture-only method, editing-method rejection, native agent invocation | **Passed for fixed-fixture read-only façade**; unrestricted read of arbitrary designs and editing unsupported |
-| F6 | As-built electrical inventory | Current harness pin/terminal trace, ground return, installed fuse/relay markings and evidence | **Open**; v0.2 records EV14 positives from MS box in two fused pairs and old PWM/Fast Idle unused; exact injector pair JP2/coil/pump/other physical terminal ownership still missing. Future-load inventory added |
-| F7 | Electrical requirements | Load currents, voltage-drop targets, start/inrush, fuse coordination, thermal and fault acceptance | **Open**; v0.2 requirements plus future expansion power domains/slot budget added; no measured steady/inrush loads, fuse/copper ratings or accepted numeric targets |
+| F6 | As-built electrical inventory | Current harness pin/terminal trace, ground return, fuse/relay markings and proof | **OPEN**: two injector B+ fuses confirmed; **Walbro 255 L/h already installed**; **one boost solenoid uses former PWM Idle circuit**, exact driver/K3/JP1/CB3 map unknown; no PWM idle valve. Await updated EpicEFI wiring diagram, source/ground/relay proof |
+| F7 | Electrical requirements | Load currents, voltage drop, inrush, fuse coordination, thermal/fault acceptance | **OPEN**: installed Walbro 255, two boost circuits, two digital gauges, ESP32-P4 companion. No Pi. No verified steady/inrush current, numeric limits, ratings or fuse-count acceptance. UT132C direct 10 A meter unsuitable for unknown high-motor-current branch; DC clamp recommended |
 | F8 | Readiness review | Reviewed hardware evidence and design constraints before schematic/PCB and independently before vehicle installation | **Open** |
 
 ## Current future-load planning references (2026-11-02)
 
-- [Installed and planned power-feed inventory](POWER_LOAD_INVENTORY_CURRENT_AND_FUTURE.md): owner-reported EV14 split and unused idle, 255 L/h pump, IOX/EGT/EMAP, pedal sensors, 940-DDS/CAN/CarPi power requirements.
-- [Expansion distribution capacity](POWER_DISTRIBUTION_EXPANSION_CAPACITY.md): provisional 12–14 fuse cavities, 4 relay cavities, an external cabin accessory feed and separate regulated sensor supplies. This **does not close F6/F7** or authorize a PCB.
+- [Corrected as-built scope](AS_BUILT_CORRECTIONS_AND_RELAY_OPTIONS_2026_11_02.md) and [installed/planned power inventory](POWER_LOAD_INVENTORY_CURRENT_AND_FUTURE.md): installed Walbro 255 and reused PWM-boost channel; only two gauges, ESP32-P4 secondary and optional IOX/EGT/EMAP/pedals, no Pi.
+- [Expansion distribution capacity](POWER_DISTRIBUTION_EXPANSION_CAPACITY.md): four standard R1–R4 Micro ISO cavities *under study*, previous 12–14 fuses **reopened for recount**, two possible **separate external** high-current/Maxi ISO relay cavities. No sizes or ratings approved.
 
 ## Source evidence
 
