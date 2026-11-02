@@ -2,6 +2,10 @@
 
 _Updated 2026-11-02_
 
+## NEWEST CONCEPT REVIEW — 2026-11-02 (provisional only)
+
+A physical PCB-versus-hybrid trade study is drafted in [`docs/PCB_VS_HYBRID_ARCHITECTURE_TRADE_STUDY.md`](../docs/PCB_VS_HYBRID_ARCHITECTURE_TRADE_STUDY.md). **Provisional preference B: serviceable hybrid carrier with rated external distribution for higher-current paths**, an optional low-current-only PCB, and heavy H-bridge/fan feeds remaining external. Full power PCB A remains viable if real load, thermal and packaging evidence justifies it. This adds **no measurements or hardware authorization**; **F6/F7/F8 OPEN**, 4 relays/12–14 fuses still only provisional cavities. **Next:** targeted positive-feed ownership for ECU, pump, VAG coil, two boost solenoids, LC-1 and fan, plus actual source/load and physical box-envelope measurements. Do not repeat confirmed EV14 two-fuse and no-idle answers.
+
 ## CURRENT CONTINUATION — 2026-11-02 (read before chronological notes)
 
 **Entry point:** [`docs/HANDOFF.md`](../docs/HANDOFF.md) reconciles the finished post-branch chat and merged PR #24 (`main` baseline `0ecdeb1d`). The owner has completed the functional load inventory and **wants the next step to compare a full high-current relay/fuse PCB against a hybrid external rated-distribution architecture**. This is a concept trade study, **not** a schematic/PCB request. Current nominal expansion allowance: **4 relay cavities (2 needed, 1 optional, 1 spare)** and **12–14 fuse cavities**, with engine-critical, regulated IOX/sensor, cabin/CAN computing, and heavy external feed zones. F6/F7/F8 **OPEN**; no load ratings, footprint, connector or board envelope accepted.
