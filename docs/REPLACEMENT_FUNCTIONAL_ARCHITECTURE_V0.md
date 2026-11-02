@@ -1,4 +1,4 @@
-# Replacement relay/fuse-box functional architecture — v0.1
+# Replacement relay/fuse-box functional architecture — v0.2
 
 _2026-11-02 · REVIEW CONCEPT ONLY: **not a KiCad schematic, production wiring drawing or approved netlist**_
 
@@ -6,7 +6,7 @@ _2026-11-02 · REVIEW CONCEPT ONLY: **not a KiCad schematic, production wiring d
 
 What is the smallest reliable, serviceable set of relay and fuse functions required to replace **only the currently used** portion of the aftermarket MegaSquirt power board? The 2002 B&G PCB had main ECU power, pump, injectors, fast idle, signal pass-through, and PTC protection; the 2026 Mega144H7/EpicEFI car has different electronics and an independently powered DC idle H-bridge.
 
-**Working proposal:** two primary relays (main ECU-related supply and ECU-controlled pump), physically separate protection of **ECU + pump + injector positive groups** as the four baseline fuse-function domains. This is a **functional starting point**, not confirmation of 2 relays/four fuse-holder positions in the final device. Include coil, PWM idle, boost, LC-1 or fan branches only after F6 confirms the power belongs to the old box or the owner deliberately consolidates it.
+**Working proposal:** two primary populated relays (main ECU-related supply and ECU-controlled pump), physically separate protection of **ECU + pump + ONE common injector-positive feed**, and an ignition-coil branch if brought into this box. The existing **two injector-pair fuses** are user-confirmed, but **only one injector B+ fuse** is proposed for their replacement. **Fast/PWM idle circuits are unused**. Reserve footprints for future IOX/cabin feeds, not a new fast-idle relay. This is a **functional starting point**, not confirmation of 2 relays/four fuse-holder positions in the final device. Include coil, PWM idle, boost, LC-1 or fan branches only after F6 confirms the power belongs to the old box or the owner deliberately consolidates it.
 
 ## Functional boundaries (no electrical pin numbers implied)
 
@@ -25,13 +25,11 @@ flowchart TD
     PD10[ECU PD10 command, verified driver interface] -.-> K2
     K2 --> PUMP[Current EFI fuel pump]
 
-    DIST --> IF1[Injector feed group A fuse]
-    DIST --> IF2[Injector feed group B fuse]
-    IF1 --> INJ[EV14 injector positive supply]
-    IF2 --> INJ
+    DIST --> IF1[One injector B+ fuse]
+    IF1 --> INJ[Four EV14 injector positive connectors]
     ECUB -.-> DRV[Current sequential injector & ignition drivers, stay in ECU]
 
-    DIST -. F6 ownership only .-> OPT[Optional fused powered loads: coil/IAC/boost/heater/fan]
+    DIST -. F6 ownership only .-> OPT[Optional: ignition coil / two boost solenoids / LC-1 heater / fan external]
     DIST -. existing source branch status unknown .-> HBE[Newly separately wired H-bridge relay: external]
     GRD[Rated battery/engine return network] --> RET[Power returns; sensor return stays ECU-side]
     ECUB --> RET
@@ -75,14 +73,14 @@ Reference names describe **functions only**, not approved schematics or physical
 | `ECU_PWR_RET` | ECU power return boundary, **not sensor ground** |
 | `PUMP_PWR_SW` | ECU-authorized pump-positive output |
 | `PUMP_RELAY_CMD` | ECU relay command interface from PD10 via validated driver/suppression |
-| `INJ_BAT_A`, `INJ_BAT_B` | Injector positive feed groups, grouping TBD |
+| `INJ_BAT_ALL` | **One** proposed protected positive feed to all four EV14 injectors, independent low-side drivers remain unchanged |
 | `ACTUATOR_BAT_OPT` | Optional protected power output(s), count TBD |
 | `CHASSIS_ENGINE_PWR_RET` | Defined high-current return network reference outside sensor returns |
 | `SENSOR_GND_EXCLUDED` | No high-current load allowed |
 
 ## Required reviews before schematic work
 
-1. Freeze included **load ownership** based on `docs/F6_REPLACEMENT_CIRCUIT_MATRIX.md` and confirm whether two essential relays plus injector/ECU/pump fuse functions covers all current box loads.
+1. Freeze included **load ownership** based on `docs/F6_REPLACEMENT_CIRCUIT_MATRIX.md`; EV14 positive already confirmed as two paired fuses and PWM/Fast idle as unused. Evaluate one common EV14 positive fuse, ECU/pump fuse functions, ignition coil and boost/wideband owners.
 2. Determine actual ECU/ignition/pump driver behavior in **OFF/RUN/CRANK/STALL/ECU_RESET**, including the exact allowable prime behavior and how the relay drops out if PD10 is lost.
 3. Evaluate whether main-relay source feeds injectors and pump and whether fused individual branches must be **before or after** contact, accounting for source fault, contact welding and source voltage drop. No unreviewed direct battery bypass of pump failsafe.
 4. Assign branch current, relay making/continuous/breaking ratings, fuse curves, connector and wire sizes, and maximum allowed voltage/thermal drops from `docs/F7_ELECTRICAL_REQUIREMENTS_V0.md`.
@@ -91,3 +89,8 @@ Reference names describe **functions only**, not approved schematics or physical
 7. Only after design review (F8) create KiCad schematic with explicit source/net traces and automated ERC/DRC, followed by independent review and bench fault testing. Current KiCad 9 capabilities are supported; KiCad 10 and design editing tool claims require later verification.
 
 **Decision status:** Functional architecture v0.1 established, **not frozen**. F6/F7/F8 remain OPEN, no board layout, component value or manufacturing release approved.
+
+
+## Expansion architecture v0.2
+
+See `docs/POWER_LOAD_INVENTORY_CURRENT_AND_FUTURE.md` (installed vs future systems, 12 V/5 V/3.3 V supply requirements) and `docs/POWER_DISTRIBUTION_EXPANSION_CAPACITY.md` (working **12–14 fuse cavities and 4 relay cavities**, with 2 relays initially populated, plus a **protected cabin distribution feeder** and a regulated IOX/EGT feeder). Those are **mechanical planning allowances**, not a freeze or approval to manufacture. High-current fan motor and completed H-bridge remain on separate, appropriately protected motor power paths. Do not duplicate a fuse for every pressure sensor, pedal switch or CAN chip.
