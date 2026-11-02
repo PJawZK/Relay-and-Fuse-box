@@ -6,7 +6,7 @@ _2026-11-02 · REVIEW CONCEPT ONLY: **not a KiCad schematic, production wiring d
 
 What is the smallest reliable, serviceable set of relay and fuse functions required to replace **only the currently used** portion of the aftermarket MegaSquirt power board? The 2002 B&G PCB had main ECU power, pump, injectors, fast idle, signal pass-through, and PTC protection; the 2026 Mega144H7/EpicEFI car has different electronics and an independently powered DC idle H-bridge.
 
-**Working proposal:** two primary populated relays (main ECU-related supply and ECU-controlled pump), physically separate protection of **ECU + pump + ONE common injector-positive feed**, and an ignition-coil branch if brought into this box. The existing **two injector-pair fuses** are user-confirmed, but **only one injector B+ fuse** is proposed for their replacement. **Fast/PWM idle circuits are unused**. Reserve footprints for future IOX/cabin feeds, not a new fast-idle relay. This is a **functional starting point**, not confirmation of 2 relays/four fuse-holder positions in the final device. Include **ignition coil, boost, LC-1 or fan** branches only after F6 confirms the power belongs to the old box or the owner deliberately consolidates it. **PWM/Fast Idle is confirmed unused and excluded**, not a conditional expansion branch.
+**Working proposal (corrected 2026-11-02):** R1 engine main and R2 **installed Walbro 255 L/h** pump control (PD10); separate ECU/pump and proposed single four-EV14 positive fuse, keeping four sequential low-side drivers. No PWM **idle valve** or Fast Idle actuator, but one of the **two Pierburg boost valves reuses the former PWM Idle circuit**, so preserve its used output/terminal/path until F6 maps whether K3/JP1/CB3 is physically involved. Coil, wideband, fan source still unverified. Study compact Micro ISO relay sockets; two possible high-current/Maxi ISO motor relay sites separately external. Exactly two gauges, no Pi, ESP32-P4 secondary planned. F6/F7/F8 OPEN.
 
 ## Functional boundaries (no electrical pin numbers implied)
 
@@ -23,13 +23,13 @@ flowchart TD
     DIST --> PF[Pump fuse domain]
     PF --> K2[Fuel-pump relay K2-equivalent]
     PD10[ECU PD10 command, verified driver interface] -.-> K2
-    K2 --> PUMP[Current EFI fuel pump]
+    K2 --> PUMP[Installed Walbro 255 L/h fuel pump]
 
     DIST --> IF1[One injector B+ fuse]
     IF1 --> INJ[Four EV14 injector positive connectors]
     ECUB -.-> DRV[Current sequential injector & ignition drivers, stay in ECU]
 
-    DIST -. F6 ownership only .-> OPT[Optional: ignition coil / two boost solenoids / LC-1 heater / fan external]
+    DIST -. F6 ownership only .-> OPT[Optional coil / TWO boost valves (one old PWM channel reuse) / LC-1 / fan external]
     DIST -. existing source branch status unknown .-> HBE[Newly separately wired H-bridge relay: external]
     GRD[Rated battery/engine return network] --> RET[Power returns; sensor return stays ECU-side]
     ECUB --> RET
@@ -56,7 +56,7 @@ This chart is **topological only**. The *actual* safe choice of whether ECU/fuel
 | Existing X2 | Ignition-switched +12 V | Behavior during CRANK and coil-driver fuse logic |
 | Existing X3 | Engine-ground reference | That all ECU/sensor/motor returns should use shared PCB copper |
 | ECU PD10 | Current ECU fuel-pump relay output | Polarity, maximum coil current, flyback components, safe boot state |
-| Existing B&G K1/CB2 | Historical source schematic K1 → CB2 → `12 RAW` | Fitted CB2 identity, actual current ECU path, need for new PTC |
+| Existing B&G K1/CB2 | Historic K1 → CB2 → `12 RAW`; actual fitted parts/path unknown | Never infer whether old K3/CB3 PWM terminal has been repurposed for boost without mapping |
 | EV14 injectors | Four sequential injector low-side outputs | Historical 2-channel JP1 can be copied or grounded together |
 | DC idle H-bridge | New wiring/relay installed and reported to improve operation | Exact source, relay contact/fuse and ground location; no reason to rewire or merge it |
 | Factory Volvo LH | Current EpicEFI does not use OEM LH fuel relay/fuse harness | That old Volvo relay sockets belong in new box |
@@ -93,4 +93,4 @@ Reference names describe **functions only**, not approved schematics or physical
 
 ## Expansion architecture v0.2
 
-See `docs/POWER_LOAD_INVENTORY_CURRENT_AND_FUTURE.md` (installed vs future systems, 12 V/5 V/3.3 V supply requirements) and `docs/POWER_DISTRIBUTION_EXPANSION_CAPACITY.md` (working **12–14 fuse cavities and 4 relay cavities**, with 2 relays initially populated, plus a **protected cabin distribution feeder** and a regulated IOX/EGT feeder). Those are **mechanical planning allowances**, not a freeze or approval to manufacture. High-current fan motor and completed H-bridge remain on separate, appropriately protected motor power paths. Do not duplicate a fuse for every pressure sensor, pedal switch or CAN chip.
+See [latest installed-system corrections](AS_BUILT_CORRECTIONS_AND_RELAY_OPTIONS_2026_11_02.md), `docs/POWER_LOAD_INVENTORY_CURRENT_AND_FUTURE.md` and `docs/POWER_DISTRIBUTION_EXPANSION_CAPACITY.md`. Former 12–14 fuse study was based on four gauges/Pi and must be **recounted** for two gauges/P4, installed Walbro 255 and two optional external high-current relay sites. Two Micro ISO core relays remain working functions; other sockets are unapproved mechanical options.
