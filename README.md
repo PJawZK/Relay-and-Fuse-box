@@ -4,7 +4,7 @@ A passive, serviceable relay-and-fuse power-distribution replacement concept for
 
 ## Continue this project
 
-**[Read the current continuation handoff](docs/HANDOFF.md)** before starting a new agent/chat session. It captures the authoritative state after merged PR #24 (`0ecdeb1d`), the user's November 2 wiring corrections, the future-load plan and exact next architecture comparison. Historical OEM relay diagnostics and older `.wolf/STATUS.md` entries may describe now-superseded wiring. The next design task is a **PCB-only versus hybrid high-current distribution trade study**, with F6/F7/F8 still open and no schematic authorized.
+**[Read the current continuation handoff](docs/HANDOFF.md)** before starting a new agent/chat session. It captures the authoritative state after merged PR #24 (`0ecdeb1d`), the user's November 2 wiring corrections, the future-load plan and exact next architecture comparison. Historical OEM relay diagnostics and older `.wolf/STATUS.md` entries may describe now-superseded wiring. An initial [PCB-versus-hybrid physical architecture study](docs/PCB_VS_HYBRID_ARCHITECTURE_TRADE_STUDY.md) now makes a **provisional hybrid preference** while retaining the full-PCB option; F6/F7/F8 remain open and no schematic is authorized. Next is focused installed feed ownership and measured source/load/space constraints.
 
 ## Goals
 - Low-resistance high-current supply paths; do not assume the old PCB alone caused measured voltage losses.
@@ -29,14 +29,15 @@ The PDF-derived external supply and complete 20-position JP1 terminal definition
 
 ## Current replacement design working specifications (2026-11-02)
 
-**Latest as-built decisions:** Four EV14 injectors have two MS-box positive feed fuses (two injectors per fuse). Replacement baseline proposes **one common injector B+ fuse**; individual ECU sequential outputs are unchanged. **No PWM Idle or Fast Idle is used**: omit K3 and associated idle function. DC H-bridge remains separately relayed and wired.
+**Latest user-confirmed state:** Four EV14 injectors have two MS-box positive feed fuses (two injectors per fuse); one common new B+ fuse is **proposed**, drivers stay sequential. **No idle valve uses PWM/Fast Idle, but one Pierburg boost valve REUSES the former PWM Idle circuit**; verify K3/JP1/CB3 involvement before removal. **Walbro 255 L/h already installed**; H-bridge separately relayed.
 
-**Future expansion inventory:** [current/planned electrical loads and required power rails](docs/POWER_LOAD_INVENTORY_CURRENT_AND_FUTURE.md) and [provisional fuse/relay reservations and separate cabin auxiliary power](docs/POWER_DISTRIBUTION_EXPANSION_CAPACITY.md). This includes EGT/IOX/EMAP, oil/fuel sensors, flex-fuel, pedal/wheel speed, 940-DDS four screens, CAN nodes, CarPi and future fuel pump. **12–14 fuse / 4 relay** is a proposed packaging study, not a rated production design.
+**Updated inventory:** [authoritative 2026-11-02 scope corrections](docs/AS_BUILT_CORRECTIONS_AND_RELAY_OPTIONS_2026_11_02.md), [power load inventory](docs/POWER_LOAD_INVENTORY_CURRENT_AND_FUTURE.md) and [provisional distribution study](docs/POWER_DISTRIBUTION_EXPANSION_CAPACITY.md). Two future gauges (clock then RPM), **ESP32-P4 companion**, sensor/IOX/EGT, CAN; **no Pi, no extra display conversions**. Examine Micro ISO relays and up to two **external optional** high-current relay provisions. The earlier 12–14 fuse count is only a historical unapproved study allowance; **recount**.
 
 - [Core replacement scope](docs/CORE_REPLACEMENT_DESIGN_SCOPE.md): replace the independent aging aftermarket ECU power box, **not** original Volvo LH relays.
 - [F6 circuit ownership matrix](docs/F6_REPLACEMENT_CIRCUIT_MATRIX.md): required ECU/pump/injector power, optional load inclusion, source-board migration and explicit evidence gaps.
 - [F7 electrical requirements](docs/F7_ELECTRICAL_REQUIREMENTS_V0.md): safety/ignition/fault-state contract and measurement requirements, no invented fuse/copper values.
 - [Functional architecture v0](docs/REPLACEMENT_FUNCTIONAL_ARCHITECTURE_V0.md): initial two-relay architecture, protected branches, serviceability, PCB/hybrid alternatives.
+- [PCB-versus-hybrid trade study](docs/PCB_VS_HYBRID_ARCHITECTURE_TRADE_STUDY.md): physical comparison, provisional layout, flip conditions and F6–F8 dependencies; **not approved hardware**.
 
 **2026-11-02 installed update:** User reports a separate H-bridge relay and wiring are installed and it operates better. Exact final branch wiring/ground not yet independently mapped. Main hardware design F6/F7/F8 gates remain OPEN pending evidence.
 
@@ -62,4 +63,4 @@ The PDF-derived external supply and complete 20-position JP1 terminal definition
 - Do not allow automatic Gerber release or direct commits to main solely based on AI review.
 
 ## Next step
-Complete F6-A from the [circuit ownership matrix](docs/F6_REPLACEMENT_CIRCUIT_MATRIX.md): identify actual ECU B+ and pump relay/terminal paths; EV14 positive pairing and obsolete PWM/Fast Idle are already confirmed. Then determine whether coil, boost, wideband heater and fan are powered by old box. F7 must establish real currents before fuse/relay sizing. X1 permanent, X2 switched and X3 ground are already user-confirmed. Collect only missing installed connector functions, then F7 measured currents, wiring/fuse/thermal and critical fault-state requirements. Keep the archived 2002 PDFs as *reference* rather than presumed vehicle schematics.
+Complete F6-A from the [circuit ownership matrix](docs/F6_REPLACEMENT_CIRCUIT_MATRIX.md): use the owner's forthcoming corrected wiring diagram to identify ECU B+, installed Walbro pump relay/terminal paths, reused boost PWM channel and other non-core feeds. EV14 positive pairing is already confirmed; no PWM *idle valve*, but legacy PWM wiring is in active boost use. Then determine whether coil, boost, wideband heater and fan are powered by old box. F7 must establish real currents before fuse/relay sizing. X1 permanent, X2 switched and X3 ground are already user-confirmed. Collect only missing installed connector functions, then F7 measured currents, wiring/fuse/thermal and critical fault-state requirements. Keep the archived 2002 PDFs as *reference* rather than presumed vehicle schematics.
