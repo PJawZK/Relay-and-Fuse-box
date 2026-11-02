@@ -52,7 +52,7 @@ Modes: **OFF** key removed; **RUN** ignition position II and engine may or may n
 | Fuel pump current model in use | TBD | TBD start or stall | TBD | Determine contact/fuse thermal at hot tank/vehicle conditions | Pump actual part, current test |
 | **Combined injector B+ for all four EV14s** | TBD | TBD max duty/simultaneous; nominal 12 Ω per injector per model supplier | **One common fuse** proposed, value TBD | Verify shared harness conductor and four individual branch-wire protection plus thermal | User confirmed old two-pair fuses; final group fault analysis pending |
 | VAG ignition coil B+ if included | TBD | TBD dwell/inrush | TBD | Determine from coil driver and cycle behavior | Installed coil specification |
-| **Legacy PWM Idle ACTUATOR / Fast Idle ACTUATOR — NOT USED** | 0 separate idle-actuator current | None | **No idle-valve fuse**; physical K3/CB3 elimination conditional on old channel's reuse by boost | Trace reused boost PWM circuit before removing old conductor or relay path |
+| **Legacy PWM idle ACTUATOR / Fast Idle ACTUATOR — NOT USED** | 0 separate idle-actuator current | N/A | No idle-valve fuse; K3/CB3 removal conditional | N/A for idle valve; boost circuit ratings TBD | Trace reused boost PWM circuit before removing old conductor or relay path |
 | Boost solenoid 1 if included | TBD | TBD | TBD | Driver safe transient | Installed valve |
 | Boost solenoid 2 if included | TBD | TBD | TBD | Driver safe transient | Installed valve |
 | LC-1 heater/controller if included | TBD | TBD cold heater | TBD | Analog interference/return | Installed LC-1 wiring |
