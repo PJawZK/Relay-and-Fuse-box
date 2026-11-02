@@ -59,7 +59,7 @@ Measure directly across the two ends of the segment when feasible, and note pola
 
 ## Before / after H-bridge supply relocation
 
-**Status:** planned only (2026-10-27), not yet fitted.
+**Status:** user reports new H-bridge relay and wiring **installed**, with better operation (2026-11-02). Final wiring/fuse/ground details and quantitative measurements not yet recorded. Older "Before" values are historical; the "After" column below is still an unverified as-built capture, **not** evidence that the previously proposed exact routing was fitted.
 
 | Check | Before (existing shared ECU terminals) | After independent switched/fused feed | Important caveat |
 |---|---|---|---|
