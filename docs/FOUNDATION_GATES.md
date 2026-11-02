@@ -9,9 +9,14 @@ Status originally assessed **2026-10-27**, with planning updates **2026-11-02**,
 | F3 | Codex Cloud | Codex cloud F1 runs context/guard/tests and produces report; infrastructure install/PR path evaluated | **Partial**; F1 passed; broad Codex Cloud KiCad MCP tool invocation unverified |
 | F4 | KiCad validation | CLI/pcbnew verified in Codespaces and CI image; non-vehicle ERC/DRC fixture tests if/when supplied | **Partial**; version/toolchain passed, full sample ERC/DRC gate not evidenced |
 | F5 | KiCad MCP | Pinned server, isolated STDIO roundtrip, restricted fixture-only method, editing-method rejection, native agent invocation | **Passed for fixed-fixture read-only façade**; unrestricted read of arbitrary designs and editing unsupported |
-| F6 | As-built electrical inventory | Current harness pin/terminal trace, ground return, installed fuse/relay markings and evidence | **Open**; v0.1 circuit ownership/scoping matrix recorded 2026-11-02, physical wire ownership and terminal evidence still missing |
-| F7 | Electrical requirements | Load currents, voltage-drop targets, start/inrush, fuse coordination, thermal and fault acceptance | **Open**; v0.1 requirements and fault-state test matrix recorded 2026-11-02, no measured loads or finalized numeric targets |
+| F6 | As-built electrical inventory | Current harness pin/terminal trace, ground return, installed fuse/relay markings and evidence | **Open**; v0.2 records EV14 positives from MS box in two fused pairs and old PWM/Fast Idle unused; exact injector pair JP2/coil/pump/other physical terminal ownership still missing. Future-load inventory added |
+| F7 | Electrical requirements | Load currents, voltage-drop targets, start/inrush, fuse coordination, thermal and fault acceptance | **Open**; v0.2 requirements plus future expansion power domains/slot budget added; no measured steady/inrush loads, fuse/copper ratings or accepted numeric targets |
 | F8 | Readiness review | Reviewed hardware evidence and design constraints before schematic/PCB and independently before vehicle installation | **Open** |
+
+## Current future-load planning references (2026-11-02)
+
+- [Installed and planned power-feed inventory](POWER_LOAD_INVENTORY_CURRENT_AND_FUTURE.md): owner-reported EV14 split and unused idle, 255 L/h pump, IOX/EGT/EMAP, pedal sensors, 940-DDS/CAN/CarPi power requirements.
+- [Expansion distribution capacity](POWER_DISTRIBUTION_EXPANSION_CAPACITY.md): provisional 12–14 fuse cavities, 4 relay cavities, an external cabin accessory feed and separate regulated sensor supplies. This **does not close F6/F7** or authorize a PCB.
 
 ## Source evidence
 
