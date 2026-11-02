@@ -1,6 +1,6 @@
 # Foundation phase gates — no vehicle board design yet
 
-Status as of **2026-10-27**, grounded in repository evidence and the user-observed Codespaces/Codex runs. A gate with a *limited pass* is **not** a broader feature sign-off.
+Status originally assessed **2026-10-27**, with planning updates **2026-11-02**, grounded in repository evidence and the user-observed Codespaces/Codex runs. A gate with a *limited pass* is **not** a broader feature sign-off.
 
 | Gate | Objective | Evidence/definition of done | Current status |
 |---|---|---|---|
@@ -9,8 +9,8 @@ Status as of **2026-10-27**, grounded in repository evidence and the user-observ
 | F3 | Codex Cloud | Codex cloud F1 runs context/guard/tests and produces report; infrastructure install/PR path evaluated | **Partial**; F1 passed; broad Codex Cloud KiCad MCP tool invocation unverified |
 | F4 | KiCad validation | CLI/pcbnew verified in Codespaces and CI image; non-vehicle ERC/DRC fixture tests if/when supplied | **Partial**; version/toolchain passed, full sample ERC/DRC gate not evidenced |
 | F5 | KiCad MCP | Pinned server, isolated STDIO roundtrip, restricted fixture-only method, editing-method rejection, native agent invocation | **Passed for fixed-fixture read-only façade**; unrestricted read of arbitrary designs and editing unsupported |
-| F6 | As-built electrical inventory | Current harness pin/terminal trace, ground return, installed fuse/relay markings and evidence | **Open**; reported/historical inventory only |
-| F7 | Electrical requirements | Load currents, voltage-drop targets, start/inrush, fuse coordination, thermal and fault acceptance | **Open**; unmeasured loads and no agreed quantitative targets |
+| F6 | As-built electrical inventory | Current harness pin/terminal trace, ground return, installed fuse/relay markings and evidence | **Open**; v0.1 circuit ownership/scoping matrix recorded 2026-11-02, physical wire ownership and terminal evidence still missing |
+| F7 | Electrical requirements | Load currents, voltage-drop targets, start/inrush, fuse coordination, thermal and fault acceptance | **Open**; v0.1 requirements and fault-state test matrix recorded 2026-11-02, no measured loads or finalized numeric targets |
 | F8 | Readiness review | Reviewed hardware evidence and design constraints before schematic/PCB and independently before vehicle installation | **Open** |
 
 ## Source evidence
@@ -18,7 +18,7 @@ Status as of **2026-10-27**, grounded in repository evidence and the user-observ
 - F1: `docs/validation/CODEX_CLOUD_EPICWOLF_RUN.md`, `docs/EPICWOLF_PR_REVIEW.md`; integration merged via PR #2.
 - F2/F3: `docs/CLOUD_WORKSPACE_SETUP.md`, `docs/CODEX_CLOUD_VALIDATION.md`, `docs/ENVIRONMENT_TEST_RESULTS.md`, user-observed Codespaces F1 test.
 - F5: `docs/KICAD_MCP_EVALUATION.md`, `docs/CODEX_KICAD_MCP_ACCEPTANCE.md`; PR #4 merged as `6d1de6e5`. Read-only tool returns R1/R2 through native Codex CLI.
-- F6/F7: `docs/ELECTRICAL_INVENTORY.md`, `docs/POWER_AND_GROUND_TREE.md`, `docs/ELECTRICAL_EVIDENCE_LEDGER.md`, `docs/ELECTRICAL_MEASUREMENT_WORKSHEET.md`.
+- F6/F7: `docs/ELECTRICAL_INVENTORY.md`, `docs/POWER_AND_GROUND_TREE.md`, `docs/ELECTRICAL_EVIDENCE_LEDGER.md`, `docs/ELECTRICAL_MEASUREMENT_WORKSHEET.md` plus new `docs/F6_REPLACEMENT_CIRCUIT_MATRIX.md` and `docs/F7_ELECTRICAL_REQUIREMENTS_V0.md`. Functional concept: `docs/REPLACEMENT_FUNCTIONAL_ARCHITECTURE_V0.md`. New files are working specifications, **not gate closure or physical acceptance**.
 
 ## Non-negotiable progression rules
 

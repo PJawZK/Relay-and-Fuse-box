@@ -45,7 +45,7 @@ Evidence labels: **reported installed** = user reported installation, not indepe
 
 ## Next physical inspection
 
-**Already established in user text (2026-10-27):** X1 permanent via separate 30 A upstream fuse; X2 switched power; X3 engine ground; ECU and H-bridge share ECU positive/ground screw terminals, with wires from MS box. These do not need to be asked or photographed again. The 30 A part is **not** the schematic's F1.
+**Current 2026-11-02 scope:** Begin with [the F6 replacement circuit ownership matrix](F6_REPLACEMENT_CIRCUIT_MATRIX.md) and its priority batches, rather than pursuing old original Volvo relay troubleshooting. X1 permanent via separate 30 A upstream fuse, X2 switched power, and X3 engine ground are **already user-reported**; do not ask again. **Historical-only 2026-10-27:** H-bridge positive/ground shared ECU screw terminals. User has since installed new H-bridge relay and wiring with improved operation (final routes unverified). The 30 A upstream fuse is **not** source-board F1.
 
 1. Use the source-derived X1–X3, JP1 (20 pins), JP2 (4 pins), F1–F4 and K1–K3 mapping in `ORIGINAL_RELAY_BOARD_PDF_MAP.md`; collect **text descriptions** of present wire destinations, used/unused terminals and readily known fuse/relay details. Photographs optional, not prerequisite.
 2. Voltage measured relative to the **same ground reference** at alternator B+, board input, each fuse inlet/outlet, K1 contacts, CB2 (if fitted), board output and ECU B+ while operating.
