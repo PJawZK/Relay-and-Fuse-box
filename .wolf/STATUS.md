@@ -4,6 +4,10 @@ _Updated 2026-11-02_
 
 ## 🚀 Next quest
 
+- **2026-11-02 newest user corrections (authoritative):** Four EV14 injector positives **ARE powered from MS box through two fuses, one pair per fuse**; replacement baseline favors **one common injector-positive fuse** subject to cable and fault rating. User explicitly uses **NO PWM Idle and NO Fast Idle**; old B&G K3/CB3 idle circuit must be omitted. DC idle H-bridge retains its recently installed independent relay/wiring. All previous notes asserting a current Bosch PWM IAC, or missing injector power source, are superseded.
+- **Expansion planning added:** `docs/POWER_LOAD_INVENTORY_CURRENT_AND_FUTURE.md` (current power consumers + 255 L/h pump, 4×EGT/IOX, EMAP, oil/fuel sensors, flex-fuel, clutch/accelerator/brake/wheel signals, four 940-DDS displays, CAN nodes, Pi4/Zero, etc.) and `docs/POWER_DISTRIBUTION_EXPANSION_CAPACITY.md` (engine core / local sensor-IOX / cabin distribution / external high-current, **provisional 12–14 fuse/4 relay footprint**). Still F6/F7 OPEN, no validated fuse current or layout. Next: remaining actual installed box-owned positive feeds (coil, pump, boost, LC-1, fan) and sizing after owner-based decisions.
+
+
 - **2026-11-02 F6/F7 planning pass prepared:** `docs/F6_REPLACEMENT_CIRCUIT_MATRIX.md` (20 circuit/boundary entries and as-built evidence batches), `docs/F7_ELECTRICAL_REQUIREMENTS_V0.md` (16 requirements, load table and OFF/RUN/CRANK/STALL/RESET states), `docs/REPLACEMENT_FUNCTIONAL_ARCHITECTURE_V0.md` (two-relay minimum baseline, optional branches, migration/PCB-vs-hybrid tradeoff). **Neither F6 nor F7 is closed**; numeric fuse/copper ratings and exact installed JP1/JP2 connections remain unknown. Next focused task: identify actual box-owned positive outputs and connector landings for ECU, pump and injector supplies, then conditional coil/IAC/boost/heater/fan sources. H-bridge is now on its new independent relay and not part of old Volvo relay troubleshooting.
 
 
