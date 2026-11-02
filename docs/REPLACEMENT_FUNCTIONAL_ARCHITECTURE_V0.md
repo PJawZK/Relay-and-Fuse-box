@@ -80,7 +80,7 @@ Reference names describe **functions only**, not approved schematics or physical
 
 ## Required reviews before schematic work
 
-1. Freeze included **load ownership** based on `docs/F6_REPLACEMENT_CIRCUIT_MATRIX.md`; EV14 positive already confirmed as two paired fuses and PWM/Fast idle as unused. Evaluate one common EV14 positive fuse, ECU/pump fuse functions, ignition coil and boost/wideband owners.
+1. Freeze included **load ownership** based on `docs/F6_REPLACEMENT_CIRCUIT_MATRIX.md`; EV14 positive already confirmed as two paired fuses and **no PWM idle actuator**, while one boost valve actively reuses the former PWM Idle circuit; verify K3/JP1/CB3 before circuit removal. Evaluate one common EV14 positive fuse, ECU/pump fuse functions, ignition coil and boost/wideband owners.
 2. Determine actual ECU/ignition/pump driver behavior in **OFF/RUN/CRANK/STALL/ECU_RESET**, including the exact allowable prime behavior and how the relay drops out if PD10 is lost.
 3. Evaluate whether main-relay source feeds injectors and pump and whether fused individual branches must be **before or after** contact, accounting for source fault, contact welding and source voltage drop. No unreviewed direct battery bypass of pump failsafe.
 4. Assign branch current, relay making/continuous/breaking ratings, fuse curves, connector and wire sizes, and maximum allowed voltage/thermal drops from `docs/F7_ELECTRICAL_REQUIREMENTS_V0.md`.
@@ -88,9 +88,9 @@ Reference names describe **functions only**, not approved schematics or physical
 6. Map **every old physically connected wire** to a replacement connector, preserve appropriate ECU signal references, and plan a reversible migration/bench harness where possible.
 7. Only after design review (F8) create KiCad schematic with explicit source/net traces and automated ERC/DRC, followed by independent review and bench fault testing. Current KiCad 9 capabilities are supported; KiCad 10 and design editing tool claims require later verification.
 
-**Decision status:** Functional architecture v0.2 established, **not frozen**. F6/F7/F8 remain OPEN, no board layout, component value or manufacturing release approved.
+**Decision status:** Functional architecture v0.3 corrected scope established, **not frozen**. F6/F7/F8 remain OPEN, no board layout, component value or manufacturing release approved.
 
 
-## Expansion architecture v0.2
+## Expansion architecture v0.3
 
 See [latest installed-system corrections](AS_BUILT_CORRECTIONS_AND_RELAY_OPTIONS_2026_11_02.md), `docs/POWER_LOAD_INVENTORY_CURRENT_AND_FUTURE.md` and `docs/POWER_DISTRIBUTION_EXPANSION_CAPACITY.md`. Former 12–14 fuse study was based on four gauges/Pi and must be **recounted** for two gauges/P4, installed Walbro 255 and two optional external high-current relay sites. Two Micro ISO core relays remain working functions; other sockets are unapproved mechanical options.
