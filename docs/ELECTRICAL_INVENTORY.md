@@ -1,4 +1,4 @@
-# Electrical inventory — installed vs planned (2026-10-27)
+# Electrical inventory — installed vs planned (reconciled 2026-11-02)
 
 **Purpose:** A starting inventory compiled from older Volvo 940 Turbo ECU project discussions. This is **not** a verified as-built harness map. Each entry must be compared with the car and latest ECU/tune before drawing a replacement PCB.
 
@@ -12,9 +12,9 @@ Evidence labels: **reported installed** = user reported installation, not indepe
 | Relay/fuse box | Reported installed | DIYAutoTune/MegaSquirt-type relay box aged about 15–16 years, three warm relay housings recently reported; MINI fuses; **separate 30 A upstream fuse near battery** confirmed by user report 2026-10-27 | X1 permanent +12 V through external 30 A; X2 switched +12 V; X3 engine ground, per current user text. Original B&G schematic V1.2/layout V1.1 silkscreen mapped in `ORIGINAL_RELAY_BOARD_PDF_MAP.md`; physical revision and onboard F1 remain unknown | Capture JP1/JP2 actual uses by **text**; distinguish upstream 30 A from onboard F1; record fuse/relay markings when known |
 | Alternator / charging | Reported installed | Regulator replaced, typically 13.9–14.0 V measured | Alternator/battery relay-box input routing, fusible link and ground return need tracing | Diagram charging and engine-ground links |
 | Fuel pump | Reported installed / planned upgrade | Fuel pump output at Mega144H7 PD10; existing in-tank ~110 L/h, 255 L/h replacement planned | **Independent aftermarket EFI relay/fuse/wiring**, no original Volvo fuel-pump EFI relay/fuse in use; exact *new* relay wiring and return still to document | Characterize new pump circuit current, cold/hot inrush and ignition-off fail-safe |
-| Injectors | Reported installed | Bosch EV14 0280158117, sequential; four channels via NCV8403A drivers. Connector swap noted pending | +12V fuse assignments and distribution point unresolved | Trace each 12V feed and driver return; verify which upgrades finished |
+| Injectors | **Reported installed and positively supplied by MS box, split into two fused injector pairs (2026-11-02)** | Bosch EV14 0280158117, sequential, four independent NCV8403A ECU low-side drivers | **Two positive-supply fuses, one per injector pair — user-confirmed**. Exact JP2 cavity/cylinder pair assignment, fuse values and gauge unknown | Draft replacement uses **ONE fused B+** to all four injectors; verify fuse time/current and four branch wires; keep individual sequential control outputs |
 | Ignition | Reported installed | VAG wasted-spark coil 032 905 106B, IGN1/IGN3 | Coil +12V branch, noise suppression and high-current ground unknown | Trace 12V and engine-ground pathway |
-| PWM IAC valve | Reported installed | Bosch 2-wire PWM; Mega144H7 and driver changes restored IAC | Steady +12V supply vs ECU low-side path to verify; older advice was to avoid switching PWM through mechanical relay | Verify source fuse and driver topology |
+| PWM / Fast Idle circuit | **NOT USED — user confirmed 2026-11-02** | Old B&G K3/J1/CB3 fast-idle and historical Bosch PWM idle wiring are **not** a current power consumer | DC idle now through independently relayed H-bridge instead | **OMIT K3, its fast-idle output and any PWM idle branch** from replacement; historical notes retained only for old-board migration identification |
 | DC idle H-bridge | **Reported rewired and operating better (2026-11-02)** | New separate relay and wiring installed for DC idle H-bridge, replacing previous supply/ground arrangement near ECU (exact final routing not yet documented) | **Do not assume** whether new positive branches from MS X1 upstream, battery, or independent source, whether relay coil uses X2, or where power ground lands. Existing fuse was earlier described as downstream of H-bridge output; new input-fuse installation is unverified. | Capture new source, fuse and relay terminal map, power-ground destination and motor-output protection as **as-built**; H-bridge no longer an OEM-reuse design candidate. Quantitative idle/ECU stability validation remains unmeasured. |
 | Boost control | Reported installed | Two Pierburg-type solenoids, upper/lower open-loop tables, one bracket/wiring temporary | +12V and driver/ground wiring need tracing | Include each solenoid and flyback arrangement |
 | Fuel pressure | Reported installed / planned change | Existing 200 PSI rail sensor; custom fuel rail, regulator and replacement FP sensor pending | Sensor power/reference/ground and +12V actuator loads as applicable | Mark replacement dependency before EMAP reuse |
@@ -29,7 +29,7 @@ Evidence labels: **reported installed** = user reported installation, not indepe
 ## Previous wiring assertions that must not be treated as current pinouts
 - 2025 Speeduino DB37 mapping included fuel-pump pin 37, main +12V pin 28 and shared DB37 sensor wiring. Current Mega144H7 and adapter mapping may differ.
 - Prior reports describe different injector and IGN pin maps across ECU revisions. **Do not copy these values into the new PCB netlist without checking the actual assembled harness.**
-- Original B&G board documentation includes a fast-idle relay; the current PWM IAC and separate DC idle H-bridge are not equivalent functions.
+- **Authoritative 2026-11-02 correction:** the user runs **neither PWM idle nor Fast Idle**; their current idle actuator uses the **separately rewired DC H-bridge**. Earlier inventory entries asserting Bosch PWM IAC in use are historical only.
 - A separate EpicECU-Beta wiring master exists for another future ECU: `EpicECU-Beta_Wiring_Assignments.md` and diagram `EpicECU-Beta_Wiring_Diagram_v0.8.drawio`. **Do not treat Beta Lxx/Sxx cavity allocations as the current Mega144H7 installation.**
 
 ## Source and measurement status
@@ -48,11 +48,13 @@ Evidence labels: **reported installed** = user reported installation, not indepe
 **Current 2026-11-02 scope:** Begin with [the F6 replacement circuit ownership matrix](F6_REPLACEMENT_CIRCUIT_MATRIX.md) and its priority batches, rather than pursuing old original Volvo relay troubleshooting. X1 permanent via separate 30 A upstream fuse, X2 switched power, and X3 engine ground are **already user-reported**; do not ask again. **Historical-only 2026-10-27:** H-bridge positive/ground shared ECU screw terminals. User has since installed new H-bridge relay and wiring with improved operation (final routes unverified). The 30 A upstream fuse is **not** source-board F1.
 
 1. Use the source-derived X1–X3, JP1 (20 pins), JP2 (4 pins), F1–F4 and K1–K3 mapping in `ORIGINAL_RELAY_BOARD_PDF_MAP.md`; collect **text descriptions** of present wire destinations, used/unused terminals and readily known fuse/relay details. Photographs optional, not prerequisite.
-2. Voltage measured relative to the **same ground reference** at alternator B+, board input, each fuse inlet/outlet, K1 contacts, CB2 (if fitted), board output and ECU B+ while operating.
+2. Establish **remaining** source ownership for ECU B+, pump, coil, boost, LC-1, fan; injector positive supply now confirmed through two paired fuses, and PWM/Fast Idle established absent. If needed for electrical budgets, measure voltage using the **same ground reference** at source, board and ECU under normal load.
 3. Current of each separately isolated load branch using an appropriately rated instrument and test method.
 4. Separate chassis, battery, engine, ECU, sensor, coil and H-bridge return points on a ground-tree drawing.
 5. Update every 'reported installed' claim to 'verified installed' only with measurements, physical tracing or current schematic evidence.
 
-## Traceability and capture (2026-10-27)
+## Traceability and capture (2026-11-02)
+
+See [current and future load inventory](POWER_LOAD_INVENTORY_CURRENT_AND_FUTURE.md) for planned 4× EGT, EMAP, IOX, pedal position, flex fuel, wheel signals, CAN display nodes and Pi, and [expansion capacity](POWER_DISTRIBUTION_EXPANSION_CAPACITY.md) for provisional fuse/relay reservations and local regulator roles.
 
 Use [the evidence/coverage ledger](ELECTRICAL_EVIDENCE_LEDGER.md) for circuit IDs E01–E20 and current proof gaps. Record new vehicle observations in [the physical inspection and measurement worksheet](ELECTRICAL_MEASUREMENT_WORKSHEET.md) before upgrading any entry from **reported installed** to **verified installed**. Keep each measurement session separate; do not blend September 2025 and May 2026 observations into a single simultaneous drop budget.

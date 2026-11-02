@@ -54,6 +54,10 @@ Numbers and names below follow the PDF's **`Terminal Block Definition`**, preser
 
 **Important:** The JP1 table describes a 2002 MegaSquirt-era interface. The installed ECU is now Mega144H7/EpicEFI, so the actual purpose of any wire currently landed at a numbered JP1 position must be supplied by the user or verified by a contemporary connection record. Do not interpret `S1`–`S5`, `Tach/Ignition`, etc. as current ECU pin assignments.
 
+## Current 2026-11-02 installation correction (not original PDF source)
+
+The owner confirms **all four current Bosch EV14 injector positive wires are powered through the aftermarket MS box and divided into two fused pairs**. That is consistent with the original source's F3/F4 two-positive-group arrangement, but is not independent proof of which physical JP2 cavities serve which injectors, their installed fuse ratings, or wire size. **Replacement design proposes one common injector B+ fuse**, feeding four injector positive wires; independent sequential ECU control signals remain separate. Also, **the owner's active idle system uses neither PWM Idle nor Fast Idle; the new DC idle H-bridge relay/wiring is separate**. The PDF's K3/J1/CB3 fast-idle circuit is therefore **obsolete for this car**, though it is retained here as an accurate reference of the source board.
+
 ## JP2 — injector +12V distribution (schematic page 1)
 
 - Four-position terminal block labelled `+12 Supply For Injectors`.

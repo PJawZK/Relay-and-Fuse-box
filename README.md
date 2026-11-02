@@ -25,6 +25,10 @@ The PDF-derived external supply and complete 20-position JP1 terminal definition
 
 ## Current replacement design working specifications (2026-11-02)
 
+**Latest as-built decisions:** Four EV14 injectors have two MS-box positive feed fuses (two injectors per fuse). Replacement baseline proposes **one common injector B+ fuse**; individual ECU sequential outputs are unchanged. **No PWM Idle or Fast Idle is used**: omit K3 and associated idle function. DC H-bridge remains separately relayed and wired.
+
+**Future expansion inventory:** [current/planned electrical loads and required power rails](docs/POWER_LOAD_INVENTORY_CURRENT_AND_FUTURE.md) and [provisional fuse/relay reservations and separate cabin auxiliary power](docs/POWER_DISTRIBUTION_EXPANSION_CAPACITY.md). This includes EGT/IOX/EMAP, oil/fuel sensors, flex-fuel, pedal/wheel speed, 940-DDS four screens, CAN nodes, CarPi and future fuel pump. **12–14 fuse / 4 relay** is a proposed packaging study, not a rated production design.
+
 - [Core replacement scope](docs/CORE_REPLACEMENT_DESIGN_SCOPE.md): replace the independent aging aftermarket ECU power box, **not** original Volvo LH relays.
 - [F6 circuit ownership matrix](docs/F6_REPLACEMENT_CIRCUIT_MATRIX.md): required ECU/pump/injector power, optional load inclusion, source-board migration and explicit evidence gaps.
 - [F7 electrical requirements](docs/F7_ELECTRICAL_REQUIREMENTS_V0.md): safety/ignition/fault-state contract and measurement requirements, no invented fuse/copper values.
@@ -54,4 +58,4 @@ The PDF-derived external supply and complete 20-position JP1 terminal definition
 - Do not allow automatic Gerber release or direct commits to main solely based on AI review.
 
 ## Next step
-Complete F6-A from the [circuit ownership matrix](docs/F6_REPLACEMENT_CIRCUIT_MATRIX.md): assign actual MS-box output terminals and fuse/relay ownership for ECU B+, fuel pump and injector-positive groups; then check conditional coil/PWM/boost/heater/fan branches. X1 permanent, X2 switched and X3 ground are already user-confirmed. Collect only missing installed connector functions, then F7 measured currents, wiring/fuse/thermal and critical fault-state requirements. Keep the archived 2002 PDFs as *reference* rather than presumed vehicle schematics.
+Complete F6-A from the [circuit ownership matrix](docs/F6_REPLACEMENT_CIRCUIT_MATRIX.md): identify actual ECU B+ and pump relay/terminal paths; EV14 positive pairing and obsolete PWM/Fast Idle are already confirmed. Then determine whether coil, boost, wideband heater and fan are powered by old box. F7 must establish real currents before fuse/relay sizing. X1 permanent, X2 switched and X3 ground are already user-confirmed. Collect only missing installed connector functions, then F7 measured currents, wiring/fuse/thermal and critical fault-state requirements. Keep the archived 2002 PDFs as *reference* rather than presumed vehicle schematics.
