@@ -1,8 +1,11 @@
 # STATUS — Relay-and-Fuse-box
 
-_Updated 2026-10-27_
+_Updated 2026-11-02_
 
 ## 🚀 Next quest
+
+- **2026-11-02 current hardware state (supersedes earlier "planned" H-bridge entries):** User has **installed new relay and wiring for the DC idle H-bridge**, reports it **works better**, and wishes to **close the exploratory OEM relay troubleshooting branch**. Actual positive source, relay coil control, fuse placement/values, motor ground terminal, wire size and quantitative before/after results are **not yet confirmed**. Do not claim ECU shutdown root cause fixed or assign assumed wiring as installed.
+- **Return to core objective:** engineer a passive, serviceable, low-drop **replacement of the old separate aftermarket MegaSquirt/DIYAutoTune relay/fuse box**. Next work is F6 as-built ECU/pump/injector/ignition/idle feed inventory and F7 engineering requirements; use the documented B&G source map as a historical reference, NOT permission to recreate obsolete features. Keep F8 hardware design gate open. Do not resurrect stock Volvo relay reuse troubleshooting unless user requests it.
 
 - **2026-10-28 user decision superseding OEM relay reuse:** After finding voltage losses at the original relay M circuit as well as the previously measured original LH positive feed, the user **does not want to reuse the aged OEM Volvo relays or wiring** for the DC idle H-bridge. Planned replacement: a **new properly rated relay and freshly fused dedicated positive feed**. No new relay/ground wiring has yet been installed. The H-bridge currently shares supply and ground screws with EpicEFI and must move off both.
 - **Ground strategy recommendation, not installation confirmation:** retain user's existing engine-block star ground reference, with **a distinct appropriately sized H-bridge motor-power return wire** landing at the *high-current* star/engine stud, not the ECU terminal or sensor ground. A clean local chassis ground is electrically viable only if chassis-to-battery/engine bond and loaded return-path voltage drop are proven; avoid a second parallel chassis return creating an uncontrolled noise loop. Maintain dedicated ECU signal reference to H-bridge controls per actual driver design; neither motor-output conductor is chassis grounded. Validate run/start relay command, fuse protection, diode/transient suppression, current peaks and safe idle-air behavior on supply loss. See `docs/POWER_AND_GROUND_TREE.md`.
