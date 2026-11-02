@@ -2,6 +2,12 @@
 
 This is a **partial logical map**, not a verified pin-to-pin harness drawing. Do not use as a production wiring diagram. Source categories: (R) user-reported installed, (H) historical previous-generation wiring, (P) planned, (?) not confirmed.
 
+## Latest hardware report — 2026-11-02 (supersedes 2026-10-27 diagrams)
+
+**User-reported:** A **new relay and new wiring for the DC idle H-bridge are installed** and it **works better**. Exact installed +12 V source, battery branch junction, incoming fuse protection, relay 30/87 and 85/86 routing, engine-star versus chassis H-bridge motor-ground termination, and fuse on H-bridge output **remain unverified**. Do not treat any of the earlier "currently shares ECU screw" drawings below as current; those are **historical before-change topology**. Likewise the plans below that say "NOT installed" are superseded as status, though their proposed topology must not be treated as verified as-built. ECU/Fuel Pump still use the separate aftermarket MS relay/fuse box pending its replacement. The user has closed the original Volvo OEM relay reuse investigation and directed work back to the main replacement-distribution design.
+
+**Core design scope:** a low-drop, fused, relay-switched, serviceable successor to the **aged aftermarket MS relay box**. Before schematic/PCB design, close F6 with physical as-built load/terminal mapping, and F7 with power distribution requirements (current, inrush, wire/fuse/contact coordination, grounding, low-voltage/fault behavior).
+
 ## Important separation: aftermarket EFI vs original Volvo harness
 
 **Authoritative user clarification (2026-10-27):** No wiring, fuse or relay from the original Volvo/LH-Jetronic EFI system is used for the current EpicEFI engine management. The MS relay/fuse box shown below is a separately installed **aftermarket** component, despite its age and unmodified internal design. The Volvo's old LH fuel/EFI relays are therefore **potential spare/reuse hardware**, but their present electrical state, available feed and remaining non-ECU branches must still be proven. See `VOLVO_FACTORY_RELAY_REUSE_RESEARCH.md`.
