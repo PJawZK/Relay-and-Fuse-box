@@ -6,6 +6,14 @@ Design a passive, serviceable, low-voltage-drop relay/fuse distribution replacem
 
 **Latest change:** The user **installed a new relay and new wiring for the DC idle H-bridge** and reports improved behavior. This is user-reported installation and operation, not measured cure of ECU brownouts. The installed final H-bridge feed/branch fuse/control/ground specifics are not yet documented; it is not an outstanding request to continue the OEM relay search. The new distribution design should **not route H-bridge motor power through the ECU's protected supply or reference ground**.
 
+## Current planning deliverables — 2026-11-02
+
+The first specification pass is now in place:
+
+- [F6 replacement circuit ownership matrix](F6_REPLACEMENT_CIRCUIT_MATRIX.md) — 20 physical power/control boundaries, inclusion/omission policies, source-board migration constraints and evidence batches. **F6 remains open** until wiring is physically reconciled.
+- [F7 electrical requirements baseline](F7_ELECTRICAL_REQUIREMENTS_V0.md) — 16 functional requirements, ignition/fail-safe state matrix, required load and thermal measurements, branch-protection and relay-suppression considerations. **F7 remains open** until quantitative ratings and tests are supported.
+- [Functional architecture v0](REPLACEMENT_FUNCTIONAL_ARCHITECTURE_V0.md) — two-relay baseline plus appropriate protected outputs; PCB-vs-hybrid tradeoff and explicit pre-schematic decisions. **Review concept only**.
+
 ## Minimum replacement architecture (proposed FUNCTIONAL inventory, not a schematic)
 
 The old Bowling & Grippo board is a **reference**, not a literal functional specification. The existing source layout uses X1 constant +12 V, X2 ignition +12 V, X3 engine ground, ECU relay K1, pump relay K2, fast-idle relay K3, main F1, pump F2, injector branches F3/F4, and polyfuses CB1/CB2/CB3. Source files: `docs/ORIGINAL_RELAY_BOARD_PDF_MAP.md`. Only as-built evidence may establish what is currently connected.
