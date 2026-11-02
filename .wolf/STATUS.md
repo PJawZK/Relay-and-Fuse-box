@@ -4,6 +4,9 @@ _Updated 2026-11-02_
 
 ## 🚀 Next quest
 
+- **2026-11-02 F6/F7 planning pass prepared:** `docs/F6_REPLACEMENT_CIRCUIT_MATRIX.md` (20 circuit/boundary entries and as-built evidence batches), `docs/F7_ELECTRICAL_REQUIREMENTS_V0.md` (16 requirements, load table and OFF/RUN/CRANK/STALL/RESET states), `docs/REPLACEMENT_FUNCTIONAL_ARCHITECTURE_V0.md` (two-relay minimum baseline, optional branches, migration/PCB-vs-hybrid tradeoff). **Neither F6 nor F7 is closed**; numeric fuse/copper ratings and exact installed JP1/JP2 connections remain unknown. Next focused task: identify actual box-owned positive outputs and connector landings for ECU, pump and injector supplies, then conditional coil/IAC/boost/heater/fan sources. H-bridge is now on its new independent relay and not part of old Volvo relay troubleshooting.
+
+
 - **2026-11-02 current hardware state (supersedes earlier "planned" H-bridge entries):** User has **installed new relay and wiring for the DC idle H-bridge**, reports it **works better**, and wishes to **close the exploratory OEM relay troubleshooting branch**. Actual positive source, relay coil control, fuse placement/values, motor ground terminal, wire size and quantitative before/after results are **not yet confirmed**. Do not claim ECU shutdown root cause fixed or assign assumed wiring as installed.
 - **Return to core objective:** engineer a passive, serviceable, low-drop **replacement of the old separate aftermarket MegaSquirt/DIYAutoTune relay/fuse box**. Next work is F6 as-built ECU/pump/injector/ignition/idle feed inventory and F7 engineering requirements; use the documented B&G source map as a historical reference, NOT permission to recreate obsolete features. Keep F8 hardware design gate open. Use `docs/CORE_REPLACEMENT_DESIGN_SCOPE.md` as the concise scope and F6/F7 work order. Do not resurrect stock Volvo relay reuse troubleshooting unless user requests it.
 
