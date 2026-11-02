@@ -23,6 +23,15 @@ User-supplied Bowling & Grippo 'MegaSquirt Power Distribution Board' v1.2 (2002)
 
 The PDF-derived external supply and complete 20-position JP1 terminal definition are transcribed in [`docs/ORIGINAL_RELAY_BOARD_PDF_MAP.md`](docs/ORIGINAL_RELAY_BOARD_PDF_MAP.md), including the **V1.1 layout silkscreen versus V1.2 schematic/filename discrepancy**. The schematic's main ECU feed is F1 (20A indicated, application-dependent) → K1 relay → CB2 RXE105 resettable polyfuse → 12 RAW / ECU. CB1 RXE110 and CB3 RXE110 also appear on the board; F2 is fuel-pump fuse; F3/F4 injector fuses. This schematic is a design reference, not proof that the user's manufactured board has identical copper/components after 15–16 years.
 
+## Current replacement design working specifications (2026-11-02)
+
+- [Core replacement scope](docs/CORE_REPLACEMENT_DESIGN_SCOPE.md): replace the independent aging aftermarket ECU power box, **not** original Volvo LH relays.
+- [F6 circuit ownership matrix](docs/F6_REPLACEMENT_CIRCUIT_MATRIX.md): required ECU/pump/injector power, optional load inclusion, source-board migration and explicit evidence gaps.
+- [F7 electrical requirements](docs/F7_ELECTRICAL_REQUIREMENTS_V0.md): safety/ignition/fault-state contract and measurement requirements, no invented fuse/copper values.
+- [Functional architecture v0](docs/REPLACEMENT_FUNCTIONAL_ARCHITECTURE_V0.md): initial two-relay architecture, protected branches, serviceability, PCB/hybrid alternatives.
+
+**2026-11-02 installed update:** User reports a separate H-bridge relay and wiring are installed and it operates better. Exact final branch wiring/ground not yet independently mapped. Main hardware design F6/F7/F8 gates remain OPEN pending evidence.
+
 ## Design gates
 1. Confirm present wiring, actual circuit load currents, wire sizes, fuses, relays, and which power/ground connections share ECU terminals.
 2. Re-measure loaded segment-by-segment voltage losses at input, F1, K1, CB2, output, downstream harness. Record temperature.
@@ -45,4 +54,4 @@ The PDF-derived external supply and complete 20-position JP1 terminal definition
 - Do not allow automatic Gerber release or direct commits to main solely based on AI review.
 
 ## Next step
-Confirm the current physical X1–X3, JP1 and JP2 connections **through the user's text responses**, using the documented source mapping instead of requiring cramped-space photographs. Then obtain targeted circuit currents and voltage-drop measurements. Keep reference PDFs under `references/original-ms-power/` when uploaded.
+Complete F6-A from the [circuit ownership matrix](docs/F6_REPLACEMENT_CIRCUIT_MATRIX.md): assign actual MS-box output terminals and fuse/relay ownership for ECU B+, fuel pump and injector-positive groups; then check conditional coil/PWM/boost/heater/fan branches. X1 permanent, X2 switched and X3 ground are already user-confirmed. Collect only missing installed connector functions, then F7 measured currents, wiring/fuse/thermal and critical fault-state requirements. Keep the archived 2002 PDFs as *reference* rather than presumed vehicle schematics.
