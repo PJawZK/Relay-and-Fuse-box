@@ -51,7 +51,7 @@ The project is browser-first across home PCs and browser-restricted work PCs: Gi
 - **Secondary processing:** **ESP32-P4 companion controller** for EpicEFI connectivity, workload offloading and additional functions. Properly protected/regulator-fed, isolated as a noncritical companion; **NO Raspberry Pi, CarPi or extra screen** in vehicle scope. Critical ECU/pump power must work without P4.
 - **No load-current extrapolation:** Component reference values (EV14, EGT and ESP32 devices) are not complete-branch measurements or approved fuse values. Legacy Pi 5 V/3 A budgeting is **no longer relevant**.
 
-Primary evidence: `docs/POWER_LOAD_INVENTORY_CURRENT_AND_FUTURE.md` and `docs/POWER_DISTRIBUTION_EXPANSION_CAPACITY.md` (v0.2).
+Primary evidence: `docs/AS_BUILT_CORRECTIONS_AND_RELAY_OPTIONS_2026_11_02.md` and v0.3 `docs/POWER_LOAD_INVENTORY_CURRENT_AND_FUTURE.md` / `docs/POWER_DISTRIBUTION_EXPANSION_CAPACITY.md`.
 
 ## Repo work already completed — do not repeat
 
@@ -87,7 +87,7 @@ The remaining next work is to establish positive-feed ownership for ECU and afte
 
 **Next step for the continuation session:** Resolve targeted **F6 supply ownership** and **F7 source/load/space measurements** identified by the trade study; use real part ratings, measured currents, wiring and enclosure constraints to confirm or reject the provisional hybrid preference. **Do not** produce schematic/PCB files or treat the provisional fuse allocation as approved hardware until F6/F7 and F8 evidence is satisfied.
 
-The next parallel evidence task after the concept comparison is targeted confirmation of **coil B+, pump output/relay, boost solenoid B+, LC-1 heater and fan positive feed ownership** from the actual aftermarket MS box. The already confirmed two injector-fuse pairs and unused idle functions must **not** be asked again.
+The next parallel evidence task after the concept comparison is targeted confirmation of **coil B+, pump output/relay, boost solenoid B+, LC-1 heater and fan positive feed ownership** from the actual aftermarket MS box. The already confirmed two injector-fuse pairs, absence of PWM **idle valve** and **presence of reused boost-PWM wiring** must **not** be asked again; only its actual routing remains open.
 
 ## Authoritative reading order for new agent/chat
 
