@@ -2,7 +2,7 @@
 
 **Updated:** 2026-11-02  
 **Repository:** `PJawZK/Relay-and-Fuse-box`  
-**Authoritative baseline:** `main` at `0ecdeb1d53427caf14821544c135507135097dc7` (PR #24 merged; verified before preparing this handoff).  
+**Verified starting baseline:** `main` at `f7729f0218f13821da67620a9bf4adcc5b6b2171` (post-PR #24 handoff commit). PR #24 design baseline: `0ecdeb1d53427caf14821544c135507135097dc7`. This trade study is proposed on a separate branch, not yet merged.  
 **Phase:** F6/F7 planning; initial PCB-versus-hybrid concept trade study drafted for review; **no vehicle-ready schematic or PCB**.
 
 > This document is the short entry point for the next ChatGPT/Codex/Codespaces session. Read it with `AGENTS.md`, `.wolf/STATUS.md`, and the linked source specifications. When old chat advice or archived investigations conflict with the **2026-11-02 user confirmations**, the confirmations below take precedence.
