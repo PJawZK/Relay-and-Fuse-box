@@ -6,7 +6,7 @@ _2026-11-02 · REVIEW CONCEPT ONLY: **not a KiCad schematic, production wiring d
 
 What is the smallest reliable, serviceable set of relay and fuse functions required to replace **only the currently used** portion of the aftermarket MegaSquirt power board? The 2002 B&G PCB had main ECU power, pump, injectors, fast idle, signal pass-through, and PTC protection; the 2026 Mega144H7/EpicEFI car has different electronics and an independently powered DC idle H-bridge.
 
-**Working proposal:** two primary populated relays (main ECU-related supply and ECU-controlled pump), physically separate protection of **ECU + pump + ONE common injector-positive feed**, and an ignition-coil branch if brought into this box. The existing **two injector-pair fuses** are user-confirmed, but **only one injector B+ fuse** is proposed for their replacement. **Fast/PWM idle circuits are unused**. Reserve footprints for future IOX/cabin feeds, not a new fast-idle relay. This is a **functional starting point**, not confirmation of 2 relays/four fuse-holder positions in the final device. Include coil, PWM idle, boost, LC-1 or fan branches only after F6 confirms the power belongs to the old box or the owner deliberately consolidates it.
+**Working proposal:** two primary populated relays (main ECU-related supply and ECU-controlled pump), physically separate protection of **ECU + pump + ONE common injector-positive feed**, and an ignition-coil branch if brought into this box. The existing **two injector-pair fuses** are user-confirmed, but **only one injector B+ fuse** is proposed for their replacement. **Fast/PWM idle circuits are unused**. Reserve footprints for future IOX/cabin feeds, not a new fast-idle relay. This is a **functional starting point**, not confirmation of 2 relays/four fuse-holder positions in the final device. Include **ignition coil, boost, LC-1 or fan** branches only after F6 confirms the power belongs to the old box or the owner deliberately consolidates it. **PWM/Fast Idle is confirmed unused and excluded**, not a conditional expansion branch.
 
 ## Functional boundaries (no electrical pin numbers implied)
 
@@ -88,7 +88,7 @@ Reference names describe **functions only**, not approved schematics or physical
 6. Map **every old physically connected wire** to a replacement connector, preserve appropriate ECU signal references, and plan a reversible migration/bench harness where possible.
 7. Only after design review (F8) create KiCad schematic with explicit source/net traces and automated ERC/DRC, followed by independent review and bench fault testing. Current KiCad 9 capabilities are supported; KiCad 10 and design editing tool claims require later verification.
 
-**Decision status:** Functional architecture v0.1 established, **not frozen**. F6/F7/F8 remain OPEN, no board layout, component value or manufacturing release approved.
+**Decision status:** Functional architecture v0.2 established, **not frozen**. F6/F7/F8 remain OPEN, no board layout, component value or manufacturing release approved.
 
 
 ## Expansion architecture v0.2

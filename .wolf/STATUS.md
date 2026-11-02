@@ -2,6 +2,14 @@
 
 _Updated 2026-11-02_
 
+## CURRENT CONTINUATION — 2026-11-02 (read before chronological notes)
+
+**Entry point:** [`docs/HANDOFF.md`](../docs/HANDOFF.md) reconciles the finished post-branch chat and merged PR #24 (`main` baseline `0ecdeb1d`). The owner has completed the functional load inventory and **wants the next step to compare a full high-current relay/fuse PCB against a hybrid external rated-distribution architecture**. This is a concept trade study, **not** a schematic/PCB request. Current nominal expansion allowance: **4 relay cavities (2 needed, 1 optional, 1 spare)** and **12–14 fuse cavities**, with engine-critical, regulated IOX/sensor, cabin/CAN computing, and heavy external feed zones. F6/F7/F8 **OPEN**; no load ratings, footprint, connector or board envelope accepted.
+
+**Authoritative current corrections:** four EV14 positives **currently** from old MS box via **two fuses, one pair each**; **one injector-positive fuse is only proposed** for replacement; **no PWM idle and no Fast Idle** (omit K3); H-bridge has independent **newly installed relay/wiring** and is working better, final feed/ground details still unverified. Refrain from asking these again, from treating older PWM/IAC references as current, and from restarting original Volvo OEM relay tracing.
+
+**Exact next task:** Use `docs/POWER_LOAD_INVENTORY_CURRENT_AND_FUTURE.md` and `docs/POWER_DISTRIBUTION_EXPANSION_CAPACITY.md` to produce a structured PCB-vs-hybrid architecture comparison with thermal, resistance, connector, packaging, service, EMI and cost implications. Keep unknown measured currents and enclosure dimensions explicitly TBD. Then target unconfirmed old-box feed ownership for ignition coil, pump, two boost solenoids, LC-1 and fan.
+
 ## 🚀 Next quest
 
 - **2026-11-02 newest user corrections (authoritative):** Four EV14 injector positives **ARE powered from MS box through two fuses, one pair per fuse**; replacement baseline favors **one common injector-positive fuse** subject to cable and fault rating. User explicitly uses **NO PWM Idle and NO Fast Idle**; old B&G K3/CB3 idle circuit must be omitted. DC idle H-bridge retains its recently installed independent relay/wiring. All previous notes asserting a current Bosch PWM IAC, or missing injector power source, are superseded.

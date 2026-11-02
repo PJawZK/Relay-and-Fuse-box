@@ -2,6 +2,10 @@
 
 A passive, serviceable relay-and-fuse power-distribution replacement concept for the Volvo 940 Turbo using Mega144H7 / EpicEFI. **Design phase: research only. No PCB has been validated for vehicle use.**
 
+## Continue this project
+
+**[Read the current continuation handoff](docs/HANDOFF.md)** before starting a new agent/chat session. It captures the authoritative state after merged PR #24 (`0ecdeb1d`), the user's November 2 wiring corrections, the future-load plan and exact next architecture comparison. Historical OEM relay diagnostics and older `.wolf/STATUS.md` entries may describe now-superseded wiring. The next design task is a **PCB-only versus hybrid high-current distribution trade study**, with F6/F7/F8 still open and no schematic authorized.
+
 ## Goals
 - Low-resistance high-current supply paths; do not assume the old PCB alone caused measured voltage losses.
 - Standard replaceable Micro ISO automotive relays, individually replaceable fuses, accessible wiring terminals.
