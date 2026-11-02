@@ -39,7 +39,7 @@
 
 | Ref | Component or upgrade, stage | Required electrical supply | Proposed place/power-feed requirement |
 |---|---|---|---|
-| F01 | **Walbro 255 L/h already fitted** — historical upgrade entry, no new pump demand to add | Actual installed motor requirements are C04 | **E/H:** F7 now measures and sizes EXISTING pump power/fail-safe | Model and electrical performance still TBD; do not double-count an upgrade |
+| F01 | **Walbro 255 L/h already fitted** — historical upgrade entry, NO incremental load | Existing 12 V pump requirements are C04; real current TBD | **E/H:** measure and rate CURRENT pump circuit; no second future pump budget |
 | F02 | **Custom rail + adjustable FPR + replacement fuel-pressure transducer**, PLANNED | Mechanical rail/FPR require **no electrical feed**; new pressure transducer needs its specified ECU-regulated sensor supply | **S** ECU analog input/reference; no fuse for mechanical pressure regulator |
 | F03 | **EMAP via existing 200-PSI transducer after rail swap**, PLANNED | Likely 5 V analog sensor excitation if sensor remains as previously configured; input signal to free Mega144H7 ADC | **S** no new 12 V motor feed; share correct ECU 5 V reference and signal return; hot exhaust tubing mechanically independent |
 | F04 | **4× exhaust gas temperature K-type probes + 4 converter channels**, PLANNED/bench experiments | K-type probes are **passive thermocouples**. MAX31856 IC supply **3.0–3.6 V**, active conversion typ ~1.2 mA *per IC* (not whole module) | **A:** one protected ignition-fed 12 V auxiliary electronics supply → **local regulated 5/3.3 V** for IOX + conversion boards. Include regulator, interface, CAN and wiring margin |
