@@ -110,12 +110,12 @@ The following values must be populated as numbers with evidence **before** trace
 | ECU | TBD | TBD | TBD | TBD | TBD | TBD | Physical measured |
 | Combined EV14 B+ | TBD | TBD | TBD | TBD | TBD | TBD | Coil 12 Ω supplier + as-built |
 | Ignition VAG coil | TBD | TBD | TBD | TBD | TBD | TBD | As-built + part specification |
-| **Installed Walbro 255** | TBD | TBD | TBD | TBD | TBD | Model, fuel pressure and load measurement |
+| **Installed Walbro 255** | TBD | TBD | TBD | TBD | TBD | TBD | Model, fuel pressure and load measurement |
 | Two boost solenoids | TBD | TBD | TBD | TBD | TBD | TBD | Valve part and wiring |
 | LC-1 heater/controller | TBD | TBD | TBD | TBD | TBD | TBD | Innovate spec and installed test |
 | IOX/EGT + sensors | TBD | TBD | TBD | TBD | TBD | TBD | Regulator/IOX/EGT PCB design |
-| Two-gauge cabin/CAN | TBD | TBD | TBD | TBD | TBD | TWO actual gauges/brightness |
-| ESP32-P4 companion | TBD | TBD | TBD | TBD | TBD | Secondary board and regulator measurements, no Pi |
+| Two-gauge cabin/CAN | TBD | TBD | TBD | TBD | TBD | TBD | TWO actual gauges/brightness |
+| ESP32-P4 companion | TBD | TBD | TBD | TBD | TBD | TBD | Secondary board and regulator measurements, no Pi |
 | Existing H-bridge (excluded branch) | TBD | TBD | TBD | TBD | Independently protected | Source shares trunk? TBD | User's installed relay |
 | Fan (external heavy path) | TBD | TBD | TBD | TBD | External power stage | TBD | Motor model and wiring |
 | Main source and engine ground | TBD | Sum coincident, TBD | Sum coincident, TBD | Worst simultaneous start/relay state | Source fuse/wire/terminal rated for overall system | TBD | X1 source and expansion trunk |
