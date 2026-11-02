@@ -3,11 +3,11 @@
 This repository is the **single source of truth** for this Volvo 940 Turbo EFI electrical project, independent of the computer/chat agent used.
 
 ## Start here
-1. Read `README.md`, `docs/ELECTRICAL_INVENTORY.md`, `docs/TOOLING_AND_WORKFLOW.md`, and (once vendored) `.wolf/SHARDS.md` and `.wolf/STATUS.md`.
+1. Read **`docs/HANDOFF.md` first**, then `README.md`, `docs/POWER_LOAD_INVENTORY_CURRENT_AND_FUTURE.md`, `docs/POWER_DISTRIBUTION_EXPANSION_CAPACITY.md`, `docs/ELECTRICAL_INVENTORY.md`, `docs/TOOLING_AND_WORKFLOW.md`, `.wolf/SHARDS.md` and `.wolf/STATUS.md`. The handoff is the current entry point; lower status/history entries may be superseded.
 2. Read actual KiCad source files from `hardware/` when present; never infer their contents from previous chat or old PDF reference alone.
 3. Start read-only context inspection with `bash scripts/agent-context.sh` when EpicWolf is present. Record important project decisions and failed approaches in its cerebrum/buglog using the shard protocol and reviewed commits. Do not assume automatic memory capture in Codex or ChatGPT.
 4. Changes to the schematic/PCB must be checked against the **current committed design**, not historic assumptions.
-5. Separate evidence categories: **verified installed**, **user reported installed**, **planned**, **historic**, **unknown**, **design proposal**.
+5. Separate evidence categories: **verified installed**, **user reported installed**, **planned**, **historic**, **unknown**, **design proposal**. In particular, four EV14 positive feeds currently use two old-box fuses (one pair each), while one replacement injector fuse is a proposal; no PWM/Fast Idle is used; the DC idle H-bridge was newly relayed independently. Do not resurrect obsolete PWM idle or factory Volvo LH relay investigations.
 
 ## Agent / cloud tools
 - Chat interfaces with GitHub access can inspect/edit committed files and documentation. GitHub access **does not inherently give a chat process access to KiCad MCP tools**.
