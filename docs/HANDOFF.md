@@ -3,7 +3,7 @@
 **Updated:** 2026-11-02  
 **Repository:** `PJawZK/Relay-and-Fuse-box`  
 **Authoritative baseline:** `main` at `0ecdeb1d53427caf14821544c135507135097dc7` (PR #24 merged; verified before preparing this handoff).  
-**Phase:** F6/F7 planning and concept comparison; **no vehicle-ready schematic or PCB**.
+**Phase:** F6/F7 planning; initial PCB-versus-hybrid concept trade study drafted for review; **no vehicle-ready schematic or PCB**.
 
 > This document is the short entry point for the next ChatGPT/Codex/Codespaces session. Read it with `AGENTS.md`, `.wolf/STATUS.md`, and the linked source specifications. When old chat advice or archived investigations conflict with the **2026-11-02 user confirmations**, the confirmations below take precedence.
 
@@ -73,11 +73,17 @@ Primary evidence: `docs/POWER_LOAD_INVENTORY_CURRENT_AND_FUTURE.md` and `docs/PO
 
 **Known uncertainty:** X1 shared source is behind 30 A fuse and estimated ~4 mm² wire; it must **not** be assumed adequate for 12–14 future branches. The new H-bridge may share an upstream trunk; its as-built source remains unknown.
 
+## 2026-11-02 continuation — physical concept study (provisional)
+
+[PCB versus hybrid architecture trade study](PCB_VS_HYBRID_ARCHITECTURE_TRADE_STUDY.md) compares resistance/thermal paths, replaceable sockets, harness strain, packaging, ingress/EMI, build tooling, fault behavior and expansion. **Provisional preference: modular hybrid** with a mechanically rated power-distribution path and separate low-current control PCB if needed, plus the existing independently powered H-bridge and external fan. **This is a concept ranking only; full PCB remains a viable alternative, and F6/F7/F8 are still OPEN.**
+
+The remaining next work is to establish positive-feed ownership for ECU and aftermarket pump paths, VAG coil, dual boost solenoids, LC-1 heater and radiator fan; map injector two-pair terminals (without questioning the already confirmed two-fuse arrangement), and measure the mounting envelope/source/loads. Use the [trade-study flip conditions](PCB_VS_HYBRID_ARCHITECTURE_TRADE_STUDY.md#flip-conditions-no-invented-current-thresholds) to decide A versus B only when that evidence exists. No schematic or production ratings are authorized.
+
 ## Unresolved design choice and exact next step
 
-**Current decision point:** Compare **A) a complete relay/fuse PCB carrying all intended engine power currents** against **B) a hybrid serviceable relay/fuse carrier with a dedicated rated busbar/terminal distribution for high-current paths**. Both remain viable. No final selection has been made.
+**Decision point after first concept pass:** Evaluate **A) complete power PCB** against **B) hybrid rated distribution** using the new trade study; B is provisionally preferred, A remains viable and no F8 architecture choice is signed off.
 
-**Next step for the continuation session:** Prepare a **side-by-side physical architecture trade study** using the current v0.2 load inventory and proposed R1–R4/F01–F14 footprint budget. Compare current path resistance and heat, connector and fuse/socket serviceability, wiring volume/strain relief, enclosure size, environmental protection, cost/replaceability, and practical Codespaces/KiCad manufacturability. Mark every rating requiring F6/F7 evidence as TBD. Recommend a **provisional** physical layout concept and identify what measurement or vehicle-space constraint would flip the recommendation. Do **not** produce schematic/PCB files or treat the provisional allocation as approved hardware until F6/F7 and F8 evidence is satisfied.
+**Next step for the continuation session:** Resolve targeted **F6 supply ownership** and **F7 source/load/space measurements** identified by the trade study; use real part ratings, measured currents, wiring and enclosure constraints to confirm or reject the provisional hybrid preference. **Do not** produce schematic/PCB files or treat the provisional fuse allocation as approved hardware until F6/F7 and F8 evidence is satisfied.
 
 The next parallel evidence task after the concept comparison is targeted confirmation of **coil B+, pump output/relay, boost solenoid B+, LC-1 heater and fan positive feed ownership** from the actual aftermarket MS box. The already confirmed two injector-fuse pairs and unused idle functions must **not** be asked again.
 
@@ -85,7 +91,7 @@ The next parallel evidence task after the concept comparison is targeted confirm
 
 1. This `docs/HANDOFF.md` and `AGENTS.md`.
 2. `.wolf/STATUS.md` **current top section**; lower entries are chronological/historical and may describe superseded hardware.
-3. `docs/POWER_LOAD_INVENTORY_CURRENT_AND_FUTURE.md` and `docs/POWER_DISTRIBUTION_EXPANSION_CAPACITY.md` (latest planning state).
+3. `docs/POWER_LOAD_INVENTORY_CURRENT_AND_FUTURE.md`, `docs/POWER_DISTRIBUTION_EXPANSION_CAPACITY.md` and `docs/PCB_VS_HYBRID_ARCHITECTURE_TRADE_STUDY.md` (planning state; concept comparison is provisional).
 4. `docs/F6_REPLACEMENT_CIRCUIT_MATRIX.md`, `docs/F7_ELECTRICAL_REQUIREMENTS_V0.md`, and `docs/REPLACEMENT_FUNCTIONAL_ARCHITECTURE_V0.md`.
 5. `docs/FOUNDATION_GATES.md`, `docs/ORIGINAL_RELAY_BOARD_PDF_MAP.md` and any actual committed KiCad source files when they exist.
 
