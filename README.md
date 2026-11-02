@@ -4,7 +4,7 @@ A passive, serviceable relay-and-fuse power-distribution replacement concept for
 
 ## Continue this project
 
-**[Read the current continuation handoff](docs/HANDOFF.md)** before starting a new agent/chat session. It captures the authoritative state after merged PR #24 (`0ecdeb1d`), the user's November 2 wiring corrections, the future-load plan and exact next architecture comparison. Historical OEM relay diagnostics and older `.wolf/STATUS.md` entries may describe now-superseded wiring. The next design task is a **PCB-only versus hybrid high-current distribution trade study**, with F6/F7/F8 still open and no schematic authorized.
+**[Read the current continuation handoff](docs/HANDOFF.md)** before starting a new agent/chat session. It captures the authoritative state after merged PR #24 (`0ecdeb1d`), the user's November 2 wiring corrections, the future-load plan and exact next architecture comparison. Historical OEM relay diagnostics and older `.wolf/STATUS.md` entries may describe now-superseded wiring. An initial [PCB-versus-hybrid physical architecture study](docs/PCB_VS_HYBRID_ARCHITECTURE_TRADE_STUDY.md) now makes a **provisional hybrid preference** while retaining the full-PCB option; F6/F7/F8 remain open and no schematic is authorized. Next is focused installed feed ownership and measured source/load/space constraints.
 
 ## Goals
 - Low-resistance high-current supply paths; do not assume the old PCB alone caused measured voltage losses.
@@ -37,6 +37,7 @@ The PDF-derived external supply and complete 20-position JP1 terminal definition
 - [F6 circuit ownership matrix](docs/F6_REPLACEMENT_CIRCUIT_MATRIX.md): required ECU/pump/injector power, optional load inclusion, source-board migration and explicit evidence gaps.
 - [F7 electrical requirements](docs/F7_ELECTRICAL_REQUIREMENTS_V0.md): safety/ignition/fault-state contract and measurement requirements, no invented fuse/copper values.
 - [Functional architecture v0](docs/REPLACEMENT_FUNCTIONAL_ARCHITECTURE_V0.md): initial two-relay architecture, protected branches, serviceability, PCB/hybrid alternatives.
+- [PCB-versus-hybrid trade study](docs/PCB_VS_HYBRID_ARCHITECTURE_TRADE_STUDY.md): physical comparison, provisional layout, flip conditions and F6–F8 dependencies; **not approved hardware**.
 
 **2026-11-02 installed update:** User reports a separate H-bridge relay and wiring are installed and it operates better. Exact final branch wiring/ground not yet independently mapped. Main hardware design F6/F7/F8 gates remain OPEN pending evidence.
 
